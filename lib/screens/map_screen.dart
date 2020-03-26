@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:ucampus/data/espacio.dart';
 import '../widgets/space_card.dart';
 
@@ -13,7 +12,7 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> {
   int _selectedFloor = 0;
 
-  //TODO Por defecto se muestran las tarjetas 
+  //TODO Por defecto se muestran las tarjetas
   bool _showCards = true;
 
   final espacios = List<Espacio>.generate(
@@ -29,48 +28,47 @@ class _MapScreenState extends State<MapScreen> {
 
   void _toShowCards() {
     setState(() {
-      //TODO Por defecto se muestran las tarjetas 
+      //TODO Por defecto se muestran las tarjetas
       _showCards = !_showCards;
     });
   }
 
-  Widget _buildSpeedDial(BuildContext context) {
-    List<int> floors = [-1, 0, 1, 2, 3, 4];
+  Widget _buildFloorButtons(BuildContext context) {
+    List<int> floors = [4, 3, 2, 1, 0, -1];
     return Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 10.0,
-        ),
-        child: SizedBox(
-            height: 600.0,
-            child: SpeedDial(
-              animatedIcon: AnimatedIcons.view_list,
-              animatedIconTheme: IconThemeData(size: 22.0),
-              visible: true,
-              closeManually: false,
-              curve: Curves.bounceIn,
-              overlayOpacity: 0.0,
-              backgroundColor: Theme.of(context).accentColor,
-              foregroundColor: Theme.of(context).primaryColor,
-              elevation: 8.0,
-              shape: CircleBorder(),
-              children: [
-                for (var floor in floors)
-                  SpeedDialChild(
-                    child: Center(
-                      child: Text(
-                        floor.toString(),
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Theme.of(context).accentColor),
-                      ),
-                    ),
-                    backgroundColor: Theme.of(context).primaryColor,
-                    labelStyle: TextStyle(fontSize: 18.0),
-                    onTap: () {
+      padding: EdgeInsets.only(
+        right: 10.0,
+      ),
+      child: Material(
+        color: Theme.of(context).accentColor,
+        elevation: 4.0,
+        borderRadius: BorderRadius.all(Radius.circular(5)),
+        child: Wrap(
+          spacing: 0.0,
+          direction: Axis.vertical,
+          children: <Widget>[
+            for (var floor in floors)
+              Container(
+                  width: 45,
+                  child: FlatButton(
+                    color: _selectedFloor == floor
+                        ? Theme.of(context).primaryColor
+                        : null,
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    child: Text(floor.toString(),
+                        style: TextStyle(
+                          color: _selectedFloor == floor
+                              ? Theme.of(context).accentColor
+                              : Theme.of(context).primaryColor,
+                        )),
+                    onPressed: () {
                       _selectFloor(floor);
                     },
-                  ),
-              ],
-            )));
+                  )),
+          ],
+        ),
+      ),
+    );
   }
 
   Widget _buildCarousel(BuildContext context) {
@@ -119,7 +117,10 @@ class _MapScreenState extends State<MapScreen> {
                         baseUrl:
                             'http://geo.ucampus.xyz/geoserver/ucampus/wms?service=WMS',
                         layers: [
-                          'ucampus:eina_' + (_selectedFloor == -1? 'sotano' :'planta_'+_selectedFloor.toString())
+                          'ucampus:eina_' +
+                              (_selectedFloor == -1
+                                  ? 'sotano'
+                                  : 'planta_' + _selectedFloor.toString())
                         ],
                         format: 'image/png',
                         transparent: true)),
@@ -181,9 +182,10 @@ class _MapScreenState extends State<MapScreen> {
                 left: 0,
                 child: Column(children: <Widget>[
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Container(
-                          child: new Flexible(child: _buildSpeedDial(context))),
+                      Container(child: _buildFloorButtons(context)),
                     ],
                   ),
                   _showCards
