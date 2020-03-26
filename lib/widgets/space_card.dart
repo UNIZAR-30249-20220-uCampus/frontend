@@ -38,7 +38,10 @@ Widget buildSpaceCarouselItem(BuildContext context, Espacio espacio) {
                       padding: EdgeInsets.only(right: 10),
                       child: FlatButton(
                         child: const Text('RESERVAR'),
-                        onPressed: () {/* ... */},
+                        onPressed: () {
+                          Navigator.pushNamed(context, "/reservation",
+                              arguments: {"espacio": espacio});
+                        },
                       ),
                     )
                   ],
