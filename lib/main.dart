@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ucampus/screens/rental_screen.dart';
-import 'package:ucampus/screens/reservation_screen.dart';
-import 'screens/map_screen.dart';
-import 'screens/space_info_screen.dart';
+import 'package:ucampus/ui/screens/map_screen.dart';
+import 'package:ucampus/ui/screens/rental_screen.dart';
+import 'package:ucampus/ui/screens/reservation_screen.dart';
+import 'package:ucampus/ui/screens/space_info_screen.dart';
 
 Map<int, Color> color = {
   50: Color.fromRGBO(33, 60, 112, .1),

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
-import 'package:ucampus/data/espacio.dart';
-import '../widgets/space_card.dart';
+import 'package:ucampus/core/models/space.dart';
+import 'package:ucampus/ui/widgets/space_card.dart';
+
 
 class MapScreen extends StatefulWidget {
   @override
@@ -15,9 +16,9 @@ class _MapScreenState extends State<MapScreen> {
   //TODO Por defecto se muestran las tarjetas
   bool _showCards = true;
 
-  final espacios = List<Espacio>.generate(
+  final espacios = List<Space>.generate(
     10,
-    (i) => Espacio('Aula $i', 'Ada Byron', 20, '...'),
+    (i) => Space('Aula $i', 'Ada Byron', 20, '...'),
   );
 
   void _selectFloor(int floor) {

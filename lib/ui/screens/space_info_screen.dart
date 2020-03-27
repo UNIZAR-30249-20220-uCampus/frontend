@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:ucampus/data/espacio.dart';
+import 'package:ucampus/core/models/space.dart';
 
 class SpaceInfoScreen extends StatelessWidget {
-  Widget _buildSpeedDial(BuildContext context, Espacio espacio) {
+  Widget _buildSpeedDial(BuildContext context, Space espacio) {
     return Padding(
         padding: EdgeInsets.symmetric(
           horizontal: 10.0,
@@ -60,7 +60,7 @@ class SpaceInfoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final Map<String, Object> rcvdData =
         ModalRoute.of(context).settings.arguments;
-    Espacio espacio = rcvdData['espacio'];
+    Space espacio = rcvdData['espacio'];
     return Scaffold(
         appBar: AppBar(
           title: Text('Datos del espacio'),

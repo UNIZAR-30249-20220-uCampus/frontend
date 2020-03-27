@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:ucampus/data/espacio.dart';
+import 'package:ucampus/core/models/space.dart';
 
-class RentalScreen extends StatelessWidget {
-
+class ReservationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Map<String, Object> rcvdData =
         ModalRoute.of(context).settings.arguments;
-    Espacio espacio = rcvdData['espacio'];
+    Space espacio = rcvdData['espacio'];
     return Scaffold(
         appBar: AppBar(
-          title: Text('Alquilar'),
+          title: Text('Reservar'),
         ),
         body: Padding(
             padding: EdgeInsets.all(0.0),
