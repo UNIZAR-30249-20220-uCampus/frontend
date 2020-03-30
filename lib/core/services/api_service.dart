@@ -1,23 +1,33 @@
 import 'package:latlong/latlong.dart';
+import 'package:ucampus/core/models/filter_criteria.dart';
+import 'package:ucampus/core/models/payment.dart';
+import 'package:ucampus/core/models/reservation.dart';
+import 'package:ucampus/core/models/space.dart';
+import 'package:ucampus/core/models/timetable.dart';
 
 enum ReservationResult { success, error }
 enum CancelReservationResult { success, error }
 enum PaymentReservationResult { success, error }
 
 abstract class ApiService {
-  Space getSapceInformation(int floor, LatLng coordinates);
+  Future<Space> getSapceInformation(int floor, LatLng coordinates);
 
-  List<Space> filterSpaces(FilterCriteria criteria);
+  Future<List<Space>> filterSpaces(FilterCriteria criteria);
 
-  ReservationResult makeReservation(
-      TimeTable time, String spaceID, bool isForRent);
+  Future<ReservationResult> makeReservation(
+    Timetable time,
+    String spaceID,
+    bool isForRent,
+  );
+ 
+  Future<List<Reservation>> getSpaceReservation(String spaceID);
 
-  List<Reservation> getSpaceReservation(String spaceID);
+  Future<List<Reservation>> getReservation();
 
-  List<Reservation> getReservation();
+  Future<CancelReservationResult> cancelReservation(String reservationID);
 
-  CancelReservationResult cancelReservation(String reservationID);
-
-  PaymentReservationResult paymentReservation(
-      String reservationID, Payment paymentConfirmation);
+  Future<PaymentReservationResult> paymentReservation(
+    String reservationID,
+    Payment paymentConfirmation,
+  );
 }
