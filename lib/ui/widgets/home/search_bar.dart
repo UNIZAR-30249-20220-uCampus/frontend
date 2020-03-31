@@ -51,7 +51,7 @@ class _SearchBarState extends State<SearchBar> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(right: 8.0),
+              padding: const EdgeInsets.all(12.0),
               child: CircleAvatar(
                 backgroundColor: Theme.of(context).primaryColor,
                 child: Text(
