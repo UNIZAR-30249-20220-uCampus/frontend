@@ -1,7 +1,9 @@
 import 'package:meta/meta.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:latlong/latlong.dart';
+import 'package:ucampus/core/models/filter_criteria.dart';
 import 'package:ucampus/core/models/space.dart';
+import 'package:ucampus/core/redux/actions/filter_actions.dart';
 import 'package:ucampus/core/redux/actions/loading_actions.dart';
 import 'package:ucampus/core/redux/app_state.dart';
 import 'package:ucampus/core/services/api_service.dart';
@@ -34,6 +36,7 @@ class SearchSpacesAction extends ReduxAction<AppState> {
   @override
   Future<AppState> reduce() async {
     dispatch(SetLoadingAction(isLoading: true));
+    dispatch(AddFilterCriteriaAction(criteriaKind: CriteriaKind.NAME, value: searchText));
     ApiService apiService = locator<ApiService>();
     List<Space> results = await apiService.filterSpaces(state.filterCriteria);
     if(results.length == 0){
