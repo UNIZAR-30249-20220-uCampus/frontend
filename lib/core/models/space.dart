@@ -44,6 +44,22 @@ class Space {
         surface: surface ?? this.surface);
   }
 
+  static Space randomSpace({int labNumber}) {
+    String labUUID = '1.02';
+    if (labNumber != null) {
+      labUUID = '1.0' + labNumber.toString();
+    }
+    return Space(
+      uuid: 'lab-' + labUUID,
+      name: 'Laboratorio ' + labUUID,
+      kind: 'Laboratorio',
+      capacity: 42,
+      building: 'Edif. Ada Byron',
+      isBookable: true,
+      surface: 67.2,
+    );
+  }
+
   @override
   String toString() {
     var encoder = new JsonEncoder.withIndent("     ");
@@ -58,7 +74,7 @@ class Space {
     return identical(this, other) ||
         (other is Space &&
             this.uuid == other.uuid &&
-            this.name == other.uuid &&
+            this.name == other.name &&
             this.kind == other.kind &&
             this.capacity == other.capacity &&
             this.building == other.building &&
