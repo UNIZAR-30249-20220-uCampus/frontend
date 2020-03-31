@@ -23,7 +23,7 @@ class Equipment {
   }
 
   static Equipment randomEquipment() {
-    final _random = new Random();
+    final _random = Random();
     return Equipment(
         equipmentKind:
             EqipmentKind.values[_random.nextInt(EqipmentKind.values.length)],

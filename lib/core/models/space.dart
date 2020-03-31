@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
+import 'package:ucampus/core/models/equipment.dart';
 
 part 'space.g.dart';
 
@@ -14,6 +16,7 @@ class Space {
   final String building;
   final bool isBookable;
   final double surface;
+  final List<Equipment> equipments;
 
   Space({
     @required this.uuid,
@@ -23,6 +26,7 @@ class Space {
     @required this.building,
     @required this.isBookable,
     @required this.surface,
+    @required this.equipments,
   });
 
   Space copy({
@@ -33,18 +37,21 @@ class Space {
     String building,
     bool isBookable,
     double surface,
-  }) {
-    return Space(
+    List<Equipment> equipments,
+  }) =>
+      Space(
         uuid: uuid ?? this.uuid,
         name: name ?? this.name,
         kind: kind ?? this.kind,
         capacity: capacity ?? this.capacity,
         building: building ?? this.building,
         isBookable: isBookable ?? this.isBookable,
-        surface: surface ?? this.surface);
-  }
+        surface: surface ?? this.surface,
+        equipments: equipments ?? this.equipments,
+      );
 
   static Space randomSpace({int labNumber}) {
+    final _random = Random();
     String labUUID = '1.02';
     if (labNumber != null) {
       labUUID = '1.0' + labNumber.toString();
@@ -53,10 +60,14 @@ class Space {
       uuid: 'lab-' + labUUID,
       name: 'Laboratorio ' + labUUID,
       kind: 'Laboratorio',
-      capacity: 42,
+      capacity: _random.nextInt(100) + 5,
       building: 'Edif. Ada Byron',
       isBookable: true,
-      surface: 67.2,
+      surface: _random.nextDouble() * 100.0,
+      equipments: List.generate(
+        _random.nextInt(4),
+        (index) => Equipment.randomEquipment(),
+      ),
     );
   }
 
@@ -79,7 +90,8 @@ class Space {
             this.capacity == other.capacity &&
             this.building == other.building &&
             this.isBookable == other.isBookable &&
-            this.surface == other.surface);
+            this.surface == other.surface &&
+            this.equipments == other.equipments);
   }
 
   factory Space.fromJson(Map<String, dynamic> json) => _$SpaceFromJson(json);

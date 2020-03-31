@@ -1,7 +1,6 @@
 import 'package:meta/meta.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:latlong/latlong.dart';
-import 'package:ucampus/core/models/filter_criteria.dart';
 import 'package:ucampus/core/models/space.dart';
 import 'package:ucampus/core/redux/actions/loading_actions.dart';
 import 'package:ucampus/core/redux/app_state.dart';
@@ -36,7 +35,7 @@ class SearchSpacesAction extends ReduxAction<AppState> {
   Future<AppState> reduce() async {
     dispatch(SetLoadingAction(isLoading: true));
     ApiService apiService = locator<ApiService>();
-    List<Space> results = await apiService.filterSpaces(FilterCriteria());
+    List<Space> results = await apiService.filterSpaces(state.filterCriteria);
     if(results.length == 0){
       //TODO: mostrar algún tipo de pop up informando
       return null;
