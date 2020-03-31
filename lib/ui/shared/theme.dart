@@ -6,4 +6,5 @@ ThemeData uCampusTheme = ThemeData(
   primaryColor: CustomColors.uCampusBlue,
   accentColor: Colors.white,
   bottomAppBarColor: CustomColors.uCampusBlue,
+  fontFamily: 'Krub'
 );
