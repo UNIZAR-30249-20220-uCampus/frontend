@@ -16,7 +16,7 @@ class SpaceTapAction extends ReduxAction<AppState> {
   @override
   Future<AppState> reduce() async {
     ApiService apiService = locator<ApiService>();
-    Space tappedSpace = await apiService.getSapceInformation(
+    Space tappedSpace = await apiService.getSpaceInformation(
       state.currentFloor,
       this.tappedPosition,
     );

@@ -8,7 +8,7 @@ import 'package:latlong/latlong.dart';
 
 class FakeApi implements ApiService {
   @override
-  Future<Space> getSapceInformation(int floor, LatLng coordinates) async {
+  Future<Space> getSpaceInformation(int floor, LatLng coordinates) async {
     await Future.delayed(Duration(milliseconds: 700));
     return Space(
       uuid: 'lab-1.02',

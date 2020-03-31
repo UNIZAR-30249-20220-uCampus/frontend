@@ -8,12 +8,14 @@ import 'package:latlong/latlong.dart';
 
 class HttpApi implements ApiService {
   @override
-  Future<Space> getSapceInformation(int floor, LatLng coordinates) async {
+  Future<Space> getSpaceInformation(int floor, LatLng coordinates) async {
     throw UnimplementedError();
   }
 
   @override
-  Future<List<Space>> filterSpaces(FilterCriteria criteria) async {}
+  Future<List<Space>> filterSpaces(FilterCriteria criteria) async {
+    throw UnimplementedError();
+  }
 
   @override
   Future<ReservationResult> makeReservation(

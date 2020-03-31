@@ -10,7 +10,7 @@ enum CancelReservationResult { success, error }
 enum PaymentReservationResult { success, error }
 
 abstract class ApiService {
-  Future<Space> getSapceInformation(int floor, LatLng coordinates);
+  Future<Space> getSpaceInformation(int floor, LatLng coordinates);
 
   Future<List<Space>> filterSpaces(FilterCriteria criteria);
 
