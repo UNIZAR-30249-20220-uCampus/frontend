@@ -18,50 +18,39 @@ class _SearchBarState extends State<SearchBar> {
         borderRadius: BorderRadius.circular(10),
         boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 10)],
       ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(10),
-        child: Row(
-          children: <Widget>[
-            widget.isLoading
-                ? Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    width: 20,
-                    height: 20,
+      child: Row(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.all(12.0),
+            child: widget.isLoading
+                ? Container(
+                    width: 27,
+                    height: 27,
                     child: CircularProgressIndicator(
-                        backgroundColor: Theme.of(context).primaryColor, strokeWidth: 2,
-                      ),
-                  ),
-                )
-                : IconButton(
-                    splashColor: Colors.grey,
-                    icon: Icon(Icons.menu),
-                    onPressed: () {},
-                  ),
-            Expanded(
-              child: TextField(
-                cursorColor: Colors.black,
-                keyboardType: TextInputType.text,
-                textInputAction: TextInputAction.go,
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 15),
-                    hintText: "Buscar..."),
-                onSubmitted: (text) => widget.onSearch(text),
-              ),
+                      backgroundColor: Theme.of(context).primaryColor,
+                      strokeWidth: 3,
+                    ),
+                  )
+                : Icon(Icons.search, size: 27),
+          ),
+          Expanded(
+            child: TextField(
+              cursorColor: Colors.black,
+              keyboardType: TextInputType.text,
+              textInputAction: TextInputAction.go,
+              decoration: InputDecoration(
+                  border: InputBorder.none, hintText: "Buscar..."),
+              onSubmitted: (text) => widget.onSearch(text),
             ),
-            Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: CircleAvatar(
-                backgroundColor: Theme.of(context).primaryColor,
-                child: Text(
-                  'RD',
-                  style: TextStyle(color: Theme.of(context).accentColor),
-                ),
-              ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: GestureDetector(
+              child: Icon(Icons.format_list_numbered_rtl, size: 27),
+              onTap: () => Navigator.of(context).pushNamed('filter'),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

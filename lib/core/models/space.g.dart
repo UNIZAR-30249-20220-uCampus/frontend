@@ -15,6 +15,10 @@ Space _$SpaceFromJson(Map<String, dynamic> json) {
     building: json['building'] as String,
     isBookable: json['isBookable'] as bool,
     surface: (json['surface'] as num)?.toDouble(),
+    equipments: (json['equipments'] as List)
+        ?.map((e) =>
+            e == null ? null : Equipment.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
   );
 }
 
@@ -26,4 +30,5 @@ Map<String, dynamic> _$SpaceToJson(Space instance) => <String, dynamic>{
       'building': instance.building,
       'isBookable': instance.isBookable,
       'surface': instance.surface,
+      'equipments': instance.equipments,
     };

@@ -8,17 +8,9 @@ import 'package:latlong/latlong.dart';
 
 class FakeApi implements ApiService {
   @override
-  Future<Space> getSapceInformation(int floor, LatLng coordinates) async {
+  Future<Space> getSpaceInformation(int floor, LatLng coordinates) async {
     await Future.delayed(Duration(milliseconds: 700));
-    return Space(
-      uuid: 'lab-1.02',
-      name: 'Laboratorio 1.02',
-      kind: 'Laboratorio',
-      capacity: 42,
-      building: 'Edif. Ada Byron',
-      isBookable: true,
-      surface: 67.2,
-    );
+    return Space.randomSpace();
   }
 
   @override
@@ -26,15 +18,7 @@ class FakeApi implements ApiService {
     await Future.delayed(Duration(milliseconds: 700));
     return List.generate(
       6,
-      (index) => Space(
-        uuid: 'lab-1.0' + (2 + index).toString(),
-        name: 'Laboratorio 1.0' + (2 + index).toString(),
-        kind: 'Laboratorio',
-        capacity: 42,
-        building: 'Edif. Ada Byron',
-        isBookable: true,
-        surface: 67.2,
-      ),
+      (index) => Space.randomSpace(labNumber: index),
     );
   }
 

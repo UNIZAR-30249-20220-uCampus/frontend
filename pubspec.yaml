@@ -12,6 +12,7 @@ dependencies:
   json_annotation: ^3.0.1
   get_it: ^4.0.1
   async_redux: ^2.5.8
+  rounded_loading_button: ^1.0.4
 
   cupertino_icons: ^0.1.2
   flutter_map:
@@ -31,8 +32,26 @@ flutter_icons:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  test: ^1.14.2
   build_runner: ^1.8.0
   json_serializable: ^3.3.0
+  flutter_launcher_icons: ^0.7.4
+  mockito: ^4.1.0
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: Krub
+      fonts:
+        - asset: fonts/Krub-BoldItalic.ttf
+        - asset: fonts/Krub-Bold.ttf
+        - asset: fonts/Krub-ExtraLightItalic.ttf
+        - asset: fonts/Krub-ExtraLight.ttf
+        - asset: fonts/Krub-Italic.ttf
+        - asset: fonts/Krub-LightItalic.ttf
+        - asset: fonts/Krub-Light.ttf
+        - asset: fonts/Krub-MediumItalic.ttf
+        - asset: fonts/Krub-Medium.ttf
+        - asset: fonts/Krub-Regular.ttf
+        - asset: fonts/Krub-SemiBoldItalic.ttf
+        - asset: fonts/Krub-SemiBold.ttf

@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ucampus/core/models/space.dart';
-import 'package:ucampus/ui/screens/map_screen.dart';
 import 'package:ucampus/ui/screens/rental_screen.dart';
 import 'package:ucampus/ui/screens/reservation_screen.dart';
 import 'package:ucampus/ui/screens/space_info_screen.dart';
+import 'package:ucampus/ui/screens/filter_screen.dart';
+import 'package:ucampus/ui/screens/home_screen.dart';
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -20,6 +21,8 @@ class Router {
       case '/rental':
         var space = settings.arguments as Space;
         return MaterialPageRoute(builder: (_) => RentalScreen(space: space));
+      case 'filter':
+        return MaterialPageRoute(builder: (_) => FilterScreen());        
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(
