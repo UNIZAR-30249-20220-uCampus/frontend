@@ -19,7 +19,7 @@ class SpaceInfoCard extends StatelessWidget {
                   padding: EdgeInsets.only(top: 20, bottom: 10, left: 10),
                   child: Text(space.uuid,
                       style: TextStyle(
-                        fontSize: 28,
+                        fontSize: 30,
                       ))),
               subtitle: Padding(
                 padding: EdgeInsets.only(bottom: 20, left: 10),
@@ -58,10 +58,40 @@ class SpaceInfoCard extends StatelessWidget {
                             ))),
                     Padding(
                         padding: EdgeInsets.only(top: 5, left: 10),
-                        child: Text('Equipamiento: ' /* + space.equipamiento */,
+                        child: Text('Equipamiento: ',
                             style: TextStyle(
                               fontSize: 15,
                             ))),
+                    for (var equipment in space.equipments)
+                      Column(
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              Padding(
+                                  padding: EdgeInsets.only(top: 10, left: 30),
+                                  child: Text(
+                                      'Tipo: ' +
+                                          equipment.equipmentKind.toString(),
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                      ))),
+                            ],
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Padding(
+                                  padding: EdgeInsets.only(
+                                      top: 5, left: 30, bottom: 5),
+                                  child: Text(
+                                      'Cantidad: ' +
+                                          equipment.amount.toString(),
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                      ))),
+                            ],
+                          )
+                        ],
+                      )
                   ],
                 ),
               )),
