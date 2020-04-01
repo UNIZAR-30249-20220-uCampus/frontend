@@ -13,6 +13,9 @@ dependencies:
   get_it: ^4.0.1
   async_redux: ^2.5.8
   rounded_loading_button: ^1.0.4
+  flutter_datetime_picker:
+    git:
+      url: https://github.com/derohimat/flutter_datetime_picker.git
 
   cupertino_icons: ^0.1.2
   flutter_map:
@@ -22,13 +25,12 @@ dependencies:
   flutter_speed_dial: ^1.2.5
   floating_search_bar: ^0.3.0
   flutter_launcher_icons: ^0.7.4
-  flutter_datetime_picker: ^1.3.5
 
 flutter_icons:
   ios: true
-  image_path_ios: 'assets/images/icon_ios.png'
+  image_path_ios: "assets/images/icon_ios.png"
   android: true
-  image_path_android: 'assets/images/icon_android.png'
+  image_path_android: "assets/images/icon_android.png"
 
 dev_dependencies:
   test: ^1.14.2
