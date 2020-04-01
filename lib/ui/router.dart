@@ -12,13 +12,13 @@ class Router {
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(builder: (_) => HomeScreen());
-      case '/space_info':
+      case 'space_info':
         var space = settings.arguments as Space;
         return MaterialPageRoute(builder: (_) => SpaceInfoScreen(space: space));
-      case '/reservation':
+      case 'reservation':
         var space = settings.arguments as Space;
         return MaterialPageRoute(builder: (_) => ReservationScreen(space: space));
-      case '/rental':
+      case 'rental':
         var space = settings.arguments as Space;
         return MaterialPageRoute(builder: (_) => RentalScreen(space: space));
       case 'filter':

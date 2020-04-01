@@ -18,7 +18,7 @@ class FloorSelector extends StatelessWidget {
         child:  Align(
         alignment: Alignment.centerRight,
         child: Container(
-          width: 45.0,
+          width: 46.0,
           height: 216.0,
           child: Material(
             color: Theme.of(context).accentColor,
@@ -30,7 +30,7 @@ class FloorSelector extends StatelessWidget {
               children: <Widget>[
                 for (var floor in floors)
                   Container(
-                    width: 45,
+                    width: 46,
                     child: FlatButton(
                         color: selectedFloor == floor
                             ? Theme.of(context).primaryColor

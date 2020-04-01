@@ -26,7 +26,7 @@ class AppState {
   AppState copy({
     List<Space> featuredSpaces,
     FilterCriteria filterCriteria,
-    int currenFloor,
+    int currentFloor,
     bool isLoading,
   }) =>
       AppState(

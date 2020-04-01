@@ -36,7 +36,7 @@ class ReservationRentalDial extends StatelessWidget {
               backgroundColor: Theme.of(context).accentColor,
               labelStyle: TextStyle(fontSize: 18.0),
               onTap: () {
-                Navigator.pushNamed(context, "/rental", arguments: space);
+                Navigator.pushNamed(context, "rental", arguments: space);
               },
             ),
             SpeedDialChild(
@@ -50,7 +50,7 @@ class ReservationRentalDial extends StatelessWidget {
               backgroundColor: Theme.of(context).accentColor,
               labelStyle: TextStyle(fontSize: 18.0),
               onTap: () {
-                Navigator.pushNamed(context, "/reservation", arguments: space);
+                Navigator.pushNamed(context, "reservation", arguments: space);
               },
             ),
           ],

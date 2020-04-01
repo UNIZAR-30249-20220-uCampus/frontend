@@ -30,13 +30,12 @@ class SpacesCarousel extends StatelessWidget {
 
   Widget _buildSpaceCarouselItem(BuildContext context, Space space) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 20, top: 10),
+      padding: EdgeInsets.only(bottom: 17, top: 10),
       child: Card(
         child: InkWell(
             splashColor: Colors.blue.withAlpha(30),
             onTap: () {
-              Navigator.pushNamed(context, "/space_info",
-                  arguments: space);
+              Navigator.pushNamed(context, "space_info", arguments: space);
             },
             child: Container(
               child: Column(
@@ -66,7 +65,10 @@ class SpacesCarousel extends StatelessWidget {
                         padding: EdgeInsets.only(right: 10),
                         child: FlatButton(
                           child: const Text('RESERVAR'),
-                          onPressed: () {/* ... */},
+                          onPressed: () {
+                            Navigator.pushNamed(context, "reservation",
+                                arguments: space);
+                          },
                         ),
                       )
                     ],

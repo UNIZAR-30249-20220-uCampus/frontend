@@ -1,17 +1,23 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:ucampus/core/models/space.dart';
 import 'package:ucampus/core/models/timetable.dart';
 import 'package:ucampus/core/redux/actions/reservation_actions.dart';
 import 'package:ucampus/core/redux/app_state.dart';
-import 'package:ucampus/ui/widgets/space_info/reservation_button.dart';
+import 'package:ucampus/ui/widgets/space_info/reservation_form.dart';
 
-class ReservationButtonConnector extends StatelessWidget {
+class ReservationFormConnector extends StatelessWidget {
+  final Space space;
+  
+  ReservationFormConnector({
+    @required this.space,
+  });
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, ViewModel>(
       model: ViewModel(),
       builder: (context, model) =>
-          ReservationButton(onReservation: model.onReservation),
+          ReservationForm(space: space, onReservation: model.onReservation),
     );
   }
 }

@@ -23,11 +23,14 @@ class ReservationAction extends ReduxAction<AppState> {
       this.spaceID,
       this.isForRent,
     );
-    print('Reservation');
-    if (reservationResult == null) {
+    dispatch(SetLoadingAction(isLoading: false));
+
+    if (reservationResult == ReservationResult.error) {
+      return state; //TODO: mostrar algún tipo de pop up informando
+    } else if (reservationResult == ReservationResult.success) {
+      return state; //TODO: mostrar algún tipo de pop up informando
+    } else {
       return null;
     }
-    dispatch(SetLoadingAction(isLoading: false));
-    return state/* .copy(reservationResult: reservationResult) */;
   }
 }

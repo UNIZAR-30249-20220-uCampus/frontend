@@ -29,13 +29,16 @@ class FakeApi implements ApiService {
     bool isForRent,
   ) async {
     await Future.delayed(Duration(milliseconds: 700));
-    throw UnimplementedError();
+    return ReservationResult.success; // TODO
   }
 
   @override
   Future<List<Reservation>> getSpaceReservation(String spaceID) async {
     await Future.delayed(Duration(milliseconds: 700));
-    throw UnimplementedError();
+    return List.generate(
+      2,
+      (index) => Reservation.randomReservation(labNumber: index),
+    );
   }
 
   @override
