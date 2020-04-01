@@ -8,22 +8,24 @@ class SpacesCarousel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        SizedBox(
-          height: 205.0,
-          child: PageView.builder(
-            controller: PageController(viewportFraction: 0.85),
-            itemCount: spaces.length,
-            itemBuilder: (BuildContext context, int itemIndex) {
-              var espacio = spaces[itemIndex];
-              return _buildSpaceCarouselItem(context, espacio);
-            },
-          ),
-        )
-      ],
-    );
+    return spaces.length == 0
+        ? Container()
+        : Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              SizedBox(
+                height: 205.0,
+                child: PageView.builder(
+                  controller: PageController(viewportFraction: 0.85),
+                  itemCount: spaces.length,
+                  itemBuilder: (BuildContext context, int itemIndex) {
+                    var espacio = spaces[itemIndex];
+                    return _buildSpaceCarouselItem(context, espacio);
+                  },
+                ),
+              )
+            ],
+          );
   }
 
   Widget _buildSpaceCarouselItem(BuildContext context, Space space) {
@@ -34,7 +36,7 @@ class SpacesCarousel extends StatelessWidget {
             splashColor: Colors.blue.withAlpha(30),
             onTap: () {
               Navigator.pushNamed(context, "/space_info",
-                  arguments: {"space": space});
+                  arguments: space);
             },
             child: Container(
               child: Column(
