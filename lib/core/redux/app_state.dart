@@ -21,6 +21,7 @@ class AppState {
 
   AppState copy({
     List<Space> featuredSpaces,
+    int currentFloor,
     bool isLoading,
   }) =>
       AppState(

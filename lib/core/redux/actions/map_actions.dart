@@ -15,6 +15,7 @@ class SpaceTapAction extends ReduxAction<AppState> {
 
   @override
   Future<AppState> reduce() async {
+    dispatch(SetLoadingAction(isLoading: true));
     ApiService apiService = locator<ApiService>();
     Space tappedSpace = await apiService.getSapceInformation(
       state.currentFloor,
@@ -23,6 +24,7 @@ class SpaceTapAction extends ReduxAction<AppState> {
     if (tappedSpace == null) {
       return null;
     }
+    dispatch(SetLoadingAction(isLoading: false));
     return state.copy(featuredSpaces: [tappedSpace]);
   }
 }
@@ -46,4 +48,15 @@ class SearchSpacesAction extends ReduxAction<AppState> {
       featuredSpaces: results
     );
   }  
+}
+
+class SelectFloorAction extends ReduxAction<AppState> {
+  final int selectedFloor;
+
+  SelectFloorAction({@required this.selectedFloor});
+
+  @override
+  AppState reduce() {
+    return state.copy(currentFloor: this.selectedFloor);
+  }
 }
