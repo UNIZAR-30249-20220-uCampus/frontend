@@ -1,20 +1,26 @@
-// import 'package:flutter/material.dart';
-// import 'package:ucampus/core/models/space.dart';
+import 'package:flutter/material.dart';
+import 'package:ucampus/core/models/space.dart';
+import 'package:ucampus/ui/widgets/space_info/space_info_card.dart';
 
-// class RentalScreen extends StatelessWidget {
+class RentalScreen extends StatelessWidget {
+  final Space space;
 
-//   @override
-//   Widget build(BuildContext context) {
-//     final Map<String, Object> rcvdData =
-//         ModalRoute.of(context).settings.arguments;
-//     Space espacio = rcvdData['espacio'];
-//     return Scaffold(
-//         appBar: AppBar(
-//           title: Text('Alquilar'),
-//         ),
-//         body: Padding(
-//             padding: EdgeInsets.all(0.0),
-//             child: Stack(children: <Widget>[
-//             ])));
-//   }
-// }
+  RentalScreen({
+    @required this.space,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Alquilar espacio'),
+      ),
+      body: Stack(
+        children: <Widget>[
+          Positioned(
+              top: 10, right: 10, left: 10, child: SpaceInfoCard(space: space)),
+        ],
+      ),
+    );
+  }
+}
