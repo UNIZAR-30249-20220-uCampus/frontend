@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ucampus/core/models/space.dart';
-import 'package:ucampus/ui/widgets/space_info/space_info_card.dart';
+import 'package:ucampus/core/redux/connectors/space_info/rental_form.dart';
 
 class RentalScreen extends StatelessWidget {
   final Space space;
@@ -12,15 +12,9 @@ class RentalScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Alquilar espacio'),
-      ),
-      body: Stack(
-        children: <Widget>[
-          Positioned(
-              top: 10, right: 10, left: 10, child: SpaceInfoCard(space: space)),
-        ],
-      ),
-    );
+        appBar: AppBar(
+          title: Text('Alquilar espacio'),
+        ),
+        body: RentalFormConnector(space: space));
   }
 }
