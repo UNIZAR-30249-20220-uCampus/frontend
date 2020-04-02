@@ -38,7 +38,7 @@ class SearchSpacesAction extends ReduxAction<AppState> {
   @override
   Future<AppState> reduce() async {
     dispatch(SetLoadingAction(isLoading: true));
-    dispatch(AddFilterCriteriaAction(criteriaKind: CriteriaKind.NAME, value: searchText));
+    dispatch(SetFilterValueAction(criteriaKind: CriteriaKind.NAME, value: searchText));
     ApiService apiService = locator<ApiService>();
     List<Space> results = await apiService.filterSpaces(state.filterCriteria);
     if(results.length == 0){

@@ -6,16 +6,16 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'equipment.g.dart';
 
-enum EqipmentKind { TABLE, CHAIR, COMPUTER, PROJECTOR, BOARD }
+enum EquipmentKind { TABLE, CHAIR, COMPUTER, PROJECTOR, BOARD }
 
 @JsonSerializable()
 class Equipment {
-  final EqipmentKind equipmentKind;
+  final EquipmentKind equipmentKind;
   final int amount;
 
   Equipment({@required this.equipmentKind, @required this.amount});
 
-  Equipment copy({EqipmentKind eqipmentKind, int amount}) {
+  Equipment copy({EquipmentKind eqipmentKind, int amount}) {
     return Equipment(
       equipmentKind: equipmentKind ?? this.equipmentKind,
       amount: amount ?? this.amount,
@@ -26,7 +26,7 @@ class Equipment {
     final _random = Random();
     return Equipment(
         equipmentKind:
-            EqipmentKind.values[_random.nextInt(EqipmentKind.values.length)],
+            EquipmentKind.values[_random.nextInt(EquipmentKind.values.length)],
         amount: _random.nextInt(9) + 1);
   }
 

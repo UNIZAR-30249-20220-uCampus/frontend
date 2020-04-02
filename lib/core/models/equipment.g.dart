@@ -9,13 +9,13 @@ part of 'equipment.dart';
 Equipment _$EquipmentFromJson(Map<String, dynamic> json) {
   return Equipment(
     equipmentKind:
-        _$enumDecodeNullable(_$EqipmentKindEnumMap, json['equipmentKind']),
+        _$enumDecodeNullable(_$EquipmentKindEnumMap, json['equipmentKind']),
     amount: json['amount'] as int,
   );
 }
 
 Map<String, dynamic> _$EquipmentToJson(Equipment instance) => <String, dynamic>{
-      'equipmentKind': _$EqipmentKindEnumMap[instance.equipmentKind],
+      'equipmentKind': _$EquipmentKindEnumMap[instance.equipmentKind],
       'amount': instance.amount,
     };
 
@@ -51,10 +51,10 @@ T _$enumDecodeNullable<T>(
   return _$enumDecode<T>(enumValues, source, unknownValue: unknownValue);
 }
 
-const _$EqipmentKindEnumMap = {
-  EqipmentKind.TABLE: 'TABLE',
-  EqipmentKind.CHAIR: 'CHAIR',
-  EqipmentKind.COMPUTER: 'COMPUTER',
-  EqipmentKind.PROJECTOR: 'PROJECTOR',
-  EqipmentKind.BOARD: 'BOARD',
+const _$EquipmentKindEnumMap = {
+  EquipmentKind.TABLE: 'TABLE',
+  EquipmentKind.CHAIR: 'CHAIR',
+  EquipmentKind.COMPUTER: 'COMPUTER',
+  EquipmentKind.PROJECTOR: 'PROJECTOR',
+  EquipmentKind.BOARD: 'BOARD',
 };

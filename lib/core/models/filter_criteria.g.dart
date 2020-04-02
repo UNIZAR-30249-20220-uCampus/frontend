@@ -12,13 +12,14 @@ FilterCriteria _$FilterCriteriaFromJson(Map<String, dynamic> json) {
         ?.map((e) => _$enumDecodeNullable(_$CriteriaKindEnumMap, e))
         ?.toList(),
     name: json['name'] as String,
-    kind: json['kind'] as String,
+    kinds: (json['kinds'] as List)
+        ?.map((e) => _$enumDecodeNullable(_$SpaceKindEnumMap, e))
+        ?.toList(),
     equipments: (json['equipments'] as List)
         ?.map((e) =>
             e == null ? null : Equipment.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     capacity: json['capacity'] as int,
-    surface: (json['surface'] as num)?.toDouble(),
   );
 }
 
@@ -28,10 +29,9 @@ Map<String, dynamic> _$FilterCriteriaToJson(FilterCriteria instance) =>
           ?.map((e) => _$CriteriaKindEnumMap[e])
           ?.toList(),
       'name': instance.name,
-      'kind': instance.kind,
+      'kinds': instance.kinds?.map((e) => _$SpaceKindEnumMap[e])?.toList(),
       'equipments': instance.equipments,
       'capacity': instance.capacity,
-      'surface': instance.surface,
     };
 
 T _$enumDecode<T>(
@@ -71,6 +71,16 @@ const _$CriteriaKindEnumMap = {
   CriteriaKind.KIND: 'KIND',
   CriteriaKind.EQUIPMENT: 'EQUIPMENT',
   CriteriaKind.CAPACITY: 'CAPACITY',
-  CriteriaKind.SURFACE: 'SURFACE',
   CriteriaKind.TIMETABLE: 'TIMETABLE',
+};
+
+const _$SpaceKindEnumMap = {
+  SpaceKind.WAREHOUSE: 'WAREHOUSE',
+  SpaceKind.CLASSROOM: 'CLASSROOM',
+  SpaceKind.TOILET: 'TOILET',
+  SpaceKind.LIBRARY: 'LIBRARY',
+  SpaceKind.CAFETERIA: 'CAFETERIA',
+  SpaceKind.OFFICE: 'OFFICE',
+  SpaceKind.LABORATORY: 'LABORATORY',
+  SpaceKind.CORRIDOR: 'CORRIDOR',
 };

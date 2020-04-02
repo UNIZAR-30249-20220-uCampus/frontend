@@ -11,10 +11,9 @@ void main() {
   FilterCriteria originalCritera = FilterCriteria(
     activeCriteria: [CriteriaKind.NAME, CriteriaKind.SURFACE],
     name: '1.02',
-    kind: null,
+    kinds: [],
     equipments: <Equipment>[],
     capacity: null,
-    surface: 25.0,
   );
 
   setUp(() {
@@ -34,9 +33,9 @@ void main() {
     group('AddFilterCriteriaAction', () {
       test('should add new criteria if not present', () async {
         expect(storeTester.state.filterCriteria, originalCritera);
-        storeTester.dispatch(AddFilterCriteriaAction(
+        storeTester.dispatch(SetFilterValueAction(
             criteriaKind: CriteriaKind.CAPACITY, value: 100));
-        await storeTester.wait(AddFilterCriteriaAction);
+        await storeTester.wait(SetFilterValueAction);
         expect(
             storeTester.state.filterCriteria,
             originalCritera.copy(activeCriteria: [
@@ -47,9 +46,9 @@ void main() {
       });
       test('should not add new criteria if present', () async {
         expect(storeTester.state.filterCriteria, originalCritera);
-        storeTester.dispatch(AddFilterCriteriaAction(
+        storeTester.dispatch(SetFilterValueAction(
             criteriaKind: CriteriaKind.NAME, value: 'blabla...'));
-        await storeTester.wait(AddFilterCriteriaAction);
+        await storeTester.wait(SetFilterValueAction);
         expect(storeTester.state.filterCriteria, originalCritera);
       });
     });
@@ -58,8 +57,8 @@ void main() {
       test('should remove criteria only if present', () async {
         expect(storeTester.state.filterCriteria, originalCritera);
         storeTester.dispatch(
-            RemoveFilterCriteriaAction(criteriaKind: CriteriaKind.NAME));
-        await storeTester.wait(RemoveFilterCriteriaAction);
+            AddFilterCriteriaAction(criteriaKind: CriteriaKind.NAME));
+        await storeTester.wait(AddFilterCriteriaAction);
         expect(
           storeTester.state.filterCriteria,
           originalCritera
@@ -69,8 +68,8 @@ void main() {
       test('should not remove criteria if not present', () async {
         expect(storeTester.state.filterCriteria, originalCritera);
         storeTester.dispatch(
-            RemoveFilterCriteriaAction(criteriaKind: CriteriaKind.CAPACITY));
-        await storeTester.wait(RemoveFilterCriteriaAction);
+            AddFilterCriteriaAction(criteriaKind: CriteriaKind.CAPACITY));
+        await storeTester.wait(AddFilterCriteriaAction);
         expect(storeTester.state.filterCriteria, originalCritera);
       });
     });

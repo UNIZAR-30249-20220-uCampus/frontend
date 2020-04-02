@@ -16,6 +16,7 @@ void main() {
   final Store store = Store<AppState>(
     initialState: AppState.initialState(),
     actionObservers: [Log.printer(formatter: Log.verySimpleFormatter)],
+    stateObservers: [StateLogger()],
   );
 
   runApp(StoreProvider<AppState>(
@@ -38,5 +39,13 @@ class UCampus extends StatelessWidget {
       initialRoute: '/',
       onGenerateRoute: Router.generateRoute,
     );
+  }
+}
+
+class StateLogger implements StateObserver<AppState> {
+  @override
+  void observe(ReduxAction<AppState> action, AppState stateIni,
+      AppState stateEnd, int dispatchCount) {
+    print(stateEnd.toString());
   }
 }

@@ -2,29 +2,28 @@ import 'package:meta/meta.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:ucampus/core/models/equipment.dart';
 import 'package:ucampus/core/models/filter_criteria.dart';
+import 'package:ucampus/core/models/space.dart';
 import 'package:ucampus/core/redux/app_state.dart';
 
-class AddFilterCriteriaAction extends ReduxAction<AppState> {
+class SetFilterValueAction extends ReduxAction<AppState> {
   final CriteriaKind criteriaKind;
   final value;
 
-  AddFilterCriteriaAction({@required this.criteriaKind, @required this.value});
+  SetFilterValueAction({@required this.criteriaKind, @required this.value});
 
   @override
   AppState reduce() {
-    if (state.filterCriteria.activeCriteria.contains(criteriaKind)) {
+    if (!state.filterCriteria.activeCriteria.contains(criteriaKind)) {
       return null;
     }
-    FilterCriteria newCriteria = state.filterCriteria.copy(
-        activeCriteria: state.filterCriteria.activeCriteria.toList()
-          ..add(criteriaKind));
-
+    print(value);
+    FilterCriteria newCriteria = state.filterCriteria;
     switch (criteriaKind) {
       case CriteriaKind.NAME:
         newCriteria = newCriteria.copy(name: value as String);
         break;
       case CriteriaKind.KIND:
-        newCriteria = newCriteria.copy(kind: value as String);
+        newCriteria = newCriteria.copy(kinds: value as List<SpaceKind>);
         break;
       case CriteriaKind.CAPACITY:
         newCriteria = newCriteria.copy(capacity: value as int);
@@ -32,15 +31,28 @@ class AddFilterCriteriaAction extends ReduxAction<AppState> {
       case CriteriaKind.EQUIPMENT:
         newCriteria = newCriteria.copy(equipments: value as List<Equipment>);
         break;
-      case CriteriaKind.SURFACE:
-        newCriteria = newCriteria.copy(surface: value as double);
-        break;
       case CriteriaKind.TIMETABLE:
         //TODO:implementar TimeTable
         break;
     }
-
     return state.copy(filterCriteria: newCriteria);
+  }
+}
+
+class AddFilterCriteriaAction extends ReduxAction<AppState> {
+  final CriteriaKind criteriaKind;
+
+  AddFilterCriteriaAction({@required this.criteriaKind});
+
+  @override
+  AppState reduce() {
+    if (state.filterCriteria.activeCriteria.contains(criteriaKind)) {
+      return null;
+    }
+    return state.copy(
+        filterCriteria: state.filterCriteria.copy(
+            activeCriteria: state.filterCriteria.activeCriteria.toList()
+              ..add(criteriaKind)));
   }
 }
 
@@ -54,32 +66,10 @@ class RemoveFilterCriteriaAction extends ReduxAction<AppState> {
     if (!state.filterCriteria.activeCriteria.contains(criteriaKind)) {
       return null;
     }
-    FilterCriteria newCriteria = state.filterCriteria.copy(
-        activeCriteria: state.filterCriteria.activeCriteria.toList()
-          ..remove(criteriaKind));
-
-    switch (criteriaKind) {
-      case CriteriaKind.NAME:
-        newCriteria = newCriteria.copy(name: null);
-        break;
-      case CriteriaKind.KIND:
-        newCriteria = newCriteria.copy(kind: null);
-        break;
-      case CriteriaKind.CAPACITY:
-        newCriteria = newCriteria.copy(capacity: null);
-        break;
-      case CriteriaKind.EQUIPMENT:
-        newCriteria = newCriteria.copy(equipments: null);
-        break;
-      case CriteriaKind.SURFACE:
-        newCriteria = newCriteria.copy(surface: null);
-        break;
-      case CriteriaKind.TIMETABLE:
-        //TODO:implementar TimeTable
-        break;
-    }
-
-    return state.copy(filterCriteria: newCriteria);
+    return state.copy(
+        filterCriteria: state.filterCriteria.copy(
+            activeCriteria: state.filterCriteria.activeCriteria.toList()
+              ..remove(criteriaKind)));
   }
 }
 

@@ -7,11 +7,22 @@ import 'package:ucampus/core/models/equipment.dart';
 
 part 'space.g.dart';
 
+enum SpaceKind {
+  WAREHOUSE,
+  CLASSROOM,
+  TOILET,
+  LIBRARY,
+  CAFETERIA,
+  OFFICE,
+  LABORATORY,
+  CORRIDOR,
+}
+
 @JsonSerializable()
 class Space {
   final String uuid;
   final String name;
-  final String kind;
+  final SpaceKind kind;
   final int capacity;
   final String building;
   final bool isBookable;
@@ -59,7 +70,7 @@ class Space {
     return Space(
       uuid: 'lab-' + labUUID,
       name: 'Laboratorio ' + labUUID,
-      kind: 'Laboratorio',
+      kind: SpaceKind.LABORATORY,
       capacity: _random.nextInt(100) + 5,
       building: 'Edif. Ada Byron',
       isBookable: true,
