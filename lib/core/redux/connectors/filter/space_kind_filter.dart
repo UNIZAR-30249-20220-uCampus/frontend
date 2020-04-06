@@ -53,16 +53,4 @@ class ViewModel extends BaseModel<AppState> {
             criteriaKind: CriteriaKind.KIND, value: selection)),
         selectedSpaceKinds: state.filterCriteria.kinds,
       );
-
-  @override
-  int get hashCode =>
-      this.selectedSpaceKinds.hashCode ^ this.isEnabled.hashCode;
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other is ViewModel &&
-            listEquals(this.selectedSpaceKinds, other.selectedSpaceKinds) &&
-            this.isEnabled == other.isEnabled);
-  }
 }

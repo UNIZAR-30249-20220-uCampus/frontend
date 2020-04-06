@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_picker/flutter_picker.dart';
+
 import 'package:ucampus/core/models/equipment.dart';
+import 'package:ucampus/ui/shared/enums_strings.dart';
 
 class EquipmentFilter extends StatefulWidget {
   final Function onFilterAdded;
@@ -21,8 +24,15 @@ class EquipmentFilter extends StatefulWidget {
 }
 
 class _EquipmentFilterState extends State<EquipmentFilter> {
+  bool _adderIsActive = false;
+  EquipmentKind _newEquipmentKind = EquipmentKind.CHAIR;
+  int _newEquipmentAmount = 2;
+
   @override
   Widget build(BuildContext context) {
+    Color highlightColor =
+        widget.isEnabled ? Theme.of(context).primaryColor : Colors.grey;
+
     return Row(
       children: <Widget>[
         Expanded(
@@ -42,11 +52,12 @@ class _EquipmentFilterState extends State<EquipmentFilter> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Checkbox(
-                    value: true,//this.widget.isEnabled,
+                    value: this.widget.isEnabled,
                     onChanged: (value) {
                       if (value) {
                         this.widget.onFilterAdded();
                       } else {
+                        setState(() => _adderIsActive = false);
                         this.widget.onFilterRemoved();
                       }
                     },
@@ -56,20 +67,41 @@ class _EquipmentFilterState extends State<EquipmentFilter> {
                       child: Padding(
                           padding: const EdgeInsets.only(left: 20.0),
                           child: DataTable(
+                            columnSpacing: 20,
                             columns: <DataColumn>[
-                              DataColumn(label: Text('Tipo')),
-                              DataColumn(label: Text('Cantidad'))
+                              DataColumn(
+                                  label: Text(
+                                    'Cantidad',
+                                    style: TextStyle(
+                                        color: highlightColor,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14),
+                                  ),
+                                  numeric: true),
+                              DataColumn(
+                                label: Text(
+                                  'Tipo',
+                                  style: TextStyle(
+                                      color: highlightColor,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14),
+                                ),
+                              ),
+                              DataColumn(label: Container()),
                             ],
-                            rows: <DataRow>[
-                              DataRow(cells: [
-                                DataCell(Text('Mesa')),
-                                DataCell(Text('3'))
-                              ]),
-                              DataRow(cells: [
-                                DataCell(Text('Silla')),
-                                DataCell(Text('7'))
-                              ])                              
-                            ],
+                            rows: List.generate(
+                                widget.selectedEquipments.length + 1, (index) {
+                              if (index == widget.selectedEquipments.length) {
+                                return _buildEquipmentAdditionRow(
+                                    context, highlightColor);
+                              } else {
+                                return _buildEquipmentRow(
+                                  context,
+                                  widget.selectedEquipments[index],
+                                  highlightColor,
+                                );
+                              }
+                            }),
                           ))),
                 ],
               ),
@@ -80,5 +112,110 @@ class _EquipmentFilterState extends State<EquipmentFilter> {
         ),
       ],
     );
+  }
+
+  DataRow _buildEquipmentRow(
+      BuildContext context, Equipment equipment, Color highlightColor) {
+    return DataRow(
+      cells: [
+        DataCell(Text('x ' + equipment.amount.toString())),
+        DataCell(Text(EnumsStrings.equipmentKind[equipment.equipmentKind])),
+        DataCell(
+          IconButton(
+              icon: Icon(Icons.delete_forever, color: highlightColor),
+              onPressed: () {
+                if (widget.isEnabled) {
+                  widget.onFilterSelectionSet(
+                      widget.selectedEquipments..remove(equipment));
+                  setState(() {}); //Chapucilla para que refresque
+                }
+              }),
+        ),
+      ],
+    );
+  }
+
+  DataRow _buildEquipmentAdditionRow(
+      BuildContext context, Color highlightColor) {
+    if (_adderIsActive) {
+      return DataRow(
+        selected: true,
+        cells: [
+          DataCell(
+            GestureDetector(
+              onTap: () => _showPickerModal(context),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Icon(
+                    Icons.edit,
+                    color: highlightColor,
+                    size: 17,
+                  ),
+                  Text(
+                    ' x ' + _newEquipmentAmount.toString(),
+                    style: TextStyle(fontSize: 15),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          DataCell(
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: DropdownButton<EquipmentKind>(
+                items: EquipmentKind.values.map((EquipmentKind value) {
+                  return DropdownMenuItem<EquipmentKind>(
+                    value: value,
+                    child: Text(EnumsStrings.equipmentKind[value]),
+                  );
+                }).toList(),
+                onChanged: (kind) => setState(() => _newEquipmentKind = kind),
+                value: _newEquipmentKind,
+              ),
+            ),
+          ),
+          DataCell(IconButton(
+              icon: Icon(Icons.check, color: highlightColor),
+              onPressed: () {
+                widget.onFilterSelectionSet(widget.selectedEquipments
+                  ..add(Equipment(
+                    amount: _newEquipmentAmount,
+                    equipmentKind: _newEquipmentKind,
+                  )));
+                setState(() => _adderIsActive = false);
+              })),
+        ],
+      );
+    } else {
+      return DataRow(
+        cells: [
+          DataCell(Text('')),
+          DataCell(Text('')),
+          DataCell(IconButton(
+              icon: Icon(Icons.add, color: highlightColor),
+              onPressed: () {
+                if (widget.isEnabled) {
+                  setState(() => _adderIsActive = true);
+                }
+              })),
+        ],
+      );
+    }
+  }
+
+  void _showPickerModal(BuildContext context) {
+    Picker(
+      selecteds: [_newEquipmentAmount],
+      cancelText: '',
+      textScaleFactor: 1.1,
+      confirmText: 'Confirmar',
+      adapter: PickerDataAdapter<int>(
+        pickerdata: List.generate(39, (index) => index + 1),
+      ),
+      changeToFirst: true,
+      onConfirm: (_, List value) =>
+          setState(() => _newEquipmentAmount = value.first + 1),
+    ).showModal(context);
   }
 }

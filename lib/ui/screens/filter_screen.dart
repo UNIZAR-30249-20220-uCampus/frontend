@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:ucampus/core/redux/connectors/filter/capacity_filter.dart';
+import 'package:ucampus/core/redux/connectors/filter/equipment_filter.dart';
 import 'package:ucampus/core/redux/connectors/filter/space_kind_filter.dart';
-import 'package:ucampus/ui/widgets/filter/equipment_filter.dart';
 
 class FilterScreen extends StatelessWidget {
   @override
@@ -21,7 +21,7 @@ class FilterScreen extends StatelessWidget {
                 children: <Widget>[
                   CapacityFilterConnector(),
                   SpaceKindFilterConnector(),
-                  EquipmentFilter(onFilterAdded: null, onFilterRemoved: null, onFilterSelectionSet: null, isEnabled: null, selectedEquipments: null)
+                  EquipmentFilterConnector(),
                 ],
               ),
             ),
@@ -43,5 +43,3 @@ class FilterScreen extends StatelessWidget {
     );
   }
 }
-
-

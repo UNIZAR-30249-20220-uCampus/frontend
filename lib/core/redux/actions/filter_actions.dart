@@ -29,7 +29,22 @@ class SetFilterValueAction extends ReduxAction<AppState> {
         newCriteria = newCriteria.copy(capacity: value as int);
         break;
       case CriteriaKind.EQUIPMENT:
-        newCriteria = newCriteria.copy(equipments: value as List<Equipment>);
+        List<Equipment> newEquipment = [];
+        (value as List<Equipment>).forEach((equipment) {
+          int index = newEquipment.indexWhere(
+              (element) => element.equipmentKind == equipment.equipmentKind);
+          if (index == -1) {
+            newEquipment.add(equipment);
+          } else {
+            int previuosAmount =
+                (value as List<Equipment>).elementAt(index).amount;
+            newEquipment.removeAt(index);
+            newEquipment.add(Equipment(
+                equipmentKind: equipment.equipmentKind,
+                amount: previuosAmount + equipment.amount));
+          }
+        });
+        newCriteria = newCriteria.copy(equipments: newEquipment);
         break;
       case CriteriaKind.TIMETABLE:
         //TODO:implementar TimeTable
