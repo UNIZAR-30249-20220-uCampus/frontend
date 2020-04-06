@@ -69,7 +69,7 @@ class FilterCriteria {
             listEquals(this.activeCriteria, other.activeCriteria) &&
             this.name == other.name &&
             listEquals(this.kinds, other.kinds) &&
-            this.equipments == other.equipments &&
+            listEquals(this.equipments, other.equipments) &&
             this.capacity == other.capacity);
   }
 
