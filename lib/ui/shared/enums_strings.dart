@@ -1,4 +1,5 @@
 import 'package:ucampus/core/models/equipment.dart';
+import 'package:ucampus/core/models/filter_criteria.dart';
 import 'package:ucampus/core/models/space.dart';
 
 class EnumsStrings {
@@ -19,5 +20,13 @@ class EnumsStrings {
     EquipmentKind.COMPUTER: 'Ordenador',
     EquipmentKind.PROJECTOR: 'Proyector',
     EquipmentKind.TABLE: 'Mesa'
+  };
+
+  static const Map<CriteriaKind, String> criteriaKind = {
+    CriteriaKind.NAME : 'Nombre',
+    CriteriaKind.CAPACITY : 'Aforo',
+    CriteriaKind.KIND : 'Tipo de espacio',
+    CriteriaKind.EQUIPMENT : 'Equipamiento',
+    CriteriaKind.TIMETABLE : 'Disponibilidad',
   };
 }

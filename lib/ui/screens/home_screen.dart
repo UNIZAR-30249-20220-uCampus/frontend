@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:ucampus/core/models/filter_criteria.dart';
+import 'package:ucampus/core/redux/connectors/filter/mini_filter_display.dart';
 import 'package:ucampus/core/redux/connectors/home/background_map.dart';
 import 'package:ucampus/core/redux/connectors/home/search_bar.dart';
 import 'package:ucampus/core/redux/connectors/home/spaces_carousel.dart';
@@ -15,13 +17,18 @@ class HomeScreen extends StatelessWidget {
             top: 50,
             right: 15,
             left: 15,
-            child: SearchBarConnector(),
+            child: Column(
+              children: <Widget>[
+                SearchBarConnector(),
+                MiniFilterDisplayConnector()
+              ],
+            ),
           ),
           Positioned(
             bottom: 30,
             right: 0,
             left: 0,
-            child:  FloorSelectorConnector(),
+            child: FloorSelectorConnector(),
           ),
           Positioned(
             bottom: 0,
