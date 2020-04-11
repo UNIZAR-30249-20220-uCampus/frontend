@@ -20,6 +20,9 @@ FilterCriteria _$FilterCriteriaFromJson(Map<String, dynamic> json) {
             e == null ? null : Equipment.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     capacity: json['capacity'] as int,
+    timetable: json['timetable'] == null
+        ? null
+        : Timetable.fromJson(json['timetable'] as Map<String, dynamic>),
   );
 }
 
@@ -32,6 +35,7 @@ Map<String, dynamic> _$FilterCriteriaToJson(FilterCriteria instance) =>
       'kinds': instance.kinds?.map((e) => _$SpaceKindEnumMap[e])?.toList(),
       'equipments': instance.equipments,
       'capacity': instance.capacity,
+      'timetable': instance.timetable,
     };
 
 T _$enumDecode<T>(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ucampus/core/models/filter_criteria.dart';
 import 'package:ucampus/core/redux/connectors/filter/mini_filter_display.dart';
 import 'package:ucampus/core/redux/connectors/home/background_map.dart';
 import 'package:ucampus/core/redux/connectors/home/search_bar.dart';

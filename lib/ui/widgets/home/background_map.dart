@@ -18,9 +18,11 @@ class BackgroundMap extends StatelessWidget {
       ),
       layers: [
         TileLayerOptions(
-          urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-          subdomains: ['a', 'b', 'c'],
-          tileProvider: NonCachingNetworkTileProvider(),
+          urlTemplate: 'https://api.mapbox.com/styles/v1/pitazzo/ck8qcai9u03mq1io20upsn6ty/tiles/256/{z}/{x}/{y}@2x?access_token={access_token}',
+          additionalOptions: {
+            'access_token' : 'pk.eyJ1IjoicGl0YXp6byIsImEiOiJjanQ0YW82dGcxNHo5NDVxdTNhMGRmdW5qIn0.3PUsd4pngYnc3SfUiHe8-Q',
+            'id' : ''
+          }
         ),
         TileLayerOptions(
           backgroundColor: new Color.fromRGBO(0, 0, 0, 0),

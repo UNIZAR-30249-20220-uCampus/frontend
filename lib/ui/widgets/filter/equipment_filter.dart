@@ -33,83 +33,91 @@ class _EquipmentFilterState extends State<EquipmentFilter> {
     Color highlightColor =
         widget.isEnabled ? Theme.of(context).primaryColor : Colors.grey;
 
-    return Row(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                'Equipamiento',
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    color: Theme.of(context).primaryColor),
-              ),
-              Text(
-                  'Selecciona los equipamientos que quieras añadir a la búsqueda'),
-              Row(
+        Row(
+          children: <Widget>[
+            Expanded(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Checkbox(
-                    value: this.widget.isEnabled,
-                    onChanged: (value) {
-                      if (value) {
-                        this.widget.onFilterAdded();
-                      } else {
-                        setState(() => _adderIsActive = false);
-                        this.widget.onFilterRemoved();
-                      }
-                    },
-                    activeColor: Theme.of(context).primaryColor,
+                  Text(
+                    'Equipamiento',
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: this.widget.isEnabled
+                        ? Theme.of(context).primaryColor
+                        : Colors.grey),
                   ),
-                  Expanded(
-                      child: Padding(
-                          padding: const EdgeInsets.only(left: 20.0),
-                          child: DataTable(
-                            columnSpacing: 20,
-                            columns: <DataColumn>[
-                              DataColumn(
-                                  label: Text(
-                                    'Cantidad',
-                                    style: TextStyle(
-                                        color: highlightColor,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 14),
-                                  ),
-                                  numeric: true),
-                              DataColumn(
-                                label: Text(
-                                  'Tipo',
-                                  style: TextStyle(
-                                      color: highlightColor,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14),
-                                ),
-                              ),
-                              DataColumn(label: Container()),
-                            ],
-                            rows: List.generate(
-                                widget.selectedEquipments.length + 1, (index) {
-                              if (index == widget.selectedEquipments.length) {
-                                return _buildEquipmentAdditionRow(
-                                    context, highlightColor);
-                              } else {
-                                return _buildEquipmentRow(
-                                  context,
-                                  widget.selectedEquipments[index],
-                                  highlightColor,
-                                );
-                              }
-                            }),
-                          ))),
+                  Text(
+                      'Selecciona los equipamientos que quieras añadir a la búsqueda'),
                 ],
               ),
-              Divider(),
-              Container(height: 10)
-            ],
+            ),
+            Switch(
+              value: this.widget.isEnabled,
+              onChanged: (value) {
+                if (value) {
+                  this.widget.onFilterAdded();
+                } else {
+                  setState(() => _adderIsActive = false);
+                  this.widget.onFilterRemoved();
+                }
+              },
+              activeColor: Theme.of(context).primaryColor,
+            ),
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+          child: LayoutBuilder(
+            builder: (context, constraints) => ConstrainedBox(
+              constraints: BoxConstraints(minWidth: constraints.maxWidth),
+              child: DataTable(
+                columnSpacing: 30,
+                columns: <DataColumn>[
+                  DataColumn(
+                      label: Text(
+                        'Cantidad',
+                        style: TextStyle(
+                            color: highlightColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14),
+                      ),
+                      numeric: true),
+                  DataColumn(
+                    label: Text(
+                      'Tipo',
+                      style: TextStyle(
+                          color: highlightColor,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14),
+                    ),
+                  ),
+                  DataColumn(label: Container()),
+                ],
+                rows:
+                    List.generate(widget.selectedEquipments.length + 1, (index) {
+                  if (index == widget.selectedEquipments.length) {
+                    return _buildEquipmentAdditionRow(context, highlightColor);
+                  } else {
+                    return _buildEquipmentRow(
+                      context,
+                      widget.selectedEquipments[index],
+                      highlightColor,
+                    );
+                  }
+                }),
+              ),
+            ),
           ),
         ),
+        Container(height: 10),
+        Divider(),
+        Container(height: 10)
       ],
     );
   }

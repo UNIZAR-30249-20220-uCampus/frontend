@@ -5,6 +5,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:ucampus/core/models/equipment.dart';
 import 'package:ucampus/core/models/space.dart';
+import 'package:ucampus/core/models/timetable.dart';
 
 part 'filter_criteria.g.dart';
 
@@ -23,7 +24,7 @@ class FilterCriteria {
   final List<SpaceKind> kinds;
   final List<Equipment> equipments;
   final int capacity;
-  //TODO: considerar Timetable
+  final Timetable timetable;
 
   FilterCriteria({
     @required this.activeCriteria,
@@ -31,6 +32,7 @@ class FilterCriteria {
     @required this.kinds,
     @required this.equipments,
     @required this.capacity,
+    @required this.timetable,
   });
 
   FilterCriteria copy({
@@ -39,6 +41,7 @@ class FilterCriteria {
     List<SpaceKind> kinds,
     List<Equipment> equipments,
     int capacity,
+    Timetable timetable,
   }) =>
       FilterCriteria(
         activeCriteria: activeCriteria ?? this.activeCriteria,
@@ -46,6 +49,7 @@ class FilterCriteria {
         kinds: kinds ?? this.kinds,
         equipments: equipments ?? this.equipments,
         capacity: capacity ?? this.capacity,
+        timetable: timetable ?? this.timetable,
       );
 
   static FilterCriteria cleanCritera() => FilterCriteria(
@@ -54,6 +58,7 @@ class FilterCriteria {
         kinds: [],
         equipments: [],
         capacity: 30,
+        timetable: Timetable(),
       );
 
   @override
@@ -70,7 +75,8 @@ class FilterCriteria {
             this.name == other.name &&
             listEquals(this.kinds, other.kinds) &&
             listEquals(this.equipments, other.equipments) &&
-            this.capacity == other.capacity);
+            this.capacity == other.capacity &&
+            this.timetable == other.timetable);
   }
 
   @override
@@ -79,7 +85,8 @@ class FilterCriteria {
       this.name.hashCode ^
       this.kinds.hashCode ^
       this.equipments.hashCode ^
-      this.capacity.hashCode;
+      this.capacity.hashCode ^
+      this.timetable.hashCode;
 
   factory FilterCriteria.fromJson(Map<String, dynamic> json) =>
       _$FilterCriteriaFromJson(json);

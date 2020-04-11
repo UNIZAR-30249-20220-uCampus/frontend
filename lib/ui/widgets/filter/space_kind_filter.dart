@@ -22,7 +22,6 @@ class SpaceKindFilter extends StatefulWidget {
 }
 
 class _SpaceKindFilterState extends State<SpaceKindFilter> {
-
   List<SpaceKind> _selectedKinds;
 
   @override
@@ -39,19 +38,28 @@ class _SpaceKindFilterState extends State<SpaceKindFilter> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                'Tipo de espacio',
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    color: Theme.of(context).primaryColor),
-              ),
-              Text(
-                  'Selecciona los tipos de espacio que quieres incluir en tu búsqueda'),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Checkbox(
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'Tipo de espacio',
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              color: this.widget.isEnabled
+                                  ? Theme.of(context).primaryColor
+                                  : Colors.grey),
+                        ),
+                        Text(
+                            'Selecciona los tipos de espacio que quieres incluir en tu búsqueda'),
+                      ],
+                    ),
+                  ),
+                  Switch(
                     value: this.widget.isEnabled,
                     onChanged: (value) {
                       if (value) {
@@ -62,6 +70,12 @@ class _SpaceKindFilterState extends State<SpaceKindFilter> {
                     },
                     activeColor: Theme.of(context).primaryColor,
                   ),
+                ],
+              ),
+              Container(height: 10),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
                   Expanded(
                       child: Padding(
                     padding: const EdgeInsets.only(left: 20.0),

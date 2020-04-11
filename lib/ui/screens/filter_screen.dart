@@ -3,6 +3,7 @@ import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:ucampus/core/redux/connectors/filter/capacity_filter.dart';
 import 'package:ucampus/core/redux/connectors/filter/equipment_filter.dart';
 import 'package:ucampus/core/redux/connectors/filter/space_kind_filter.dart';
+import 'package:ucampus/core/redux/connectors/filter/timetable_filter.dart';
 
 class FilterScreen extends StatelessWidget {
   @override
@@ -16,12 +17,13 @@ class FilterScreen extends StatelessWidget {
         children: <Widget>[
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 20),
               child: ListView(
                 children: <Widget>[
                   CapacityFilterConnector(),
                   SpaceKindFilterConnector(),
                   EquipmentFilterConnector(),
+                  TimetableFilterConnector()
                 ],
               ),
             ),

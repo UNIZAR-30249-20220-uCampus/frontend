@@ -22,7 +22,7 @@ class CapacityFilter extends StatefulWidget {
 class _CapacityFilterState extends State<CapacityFilter> {
   static const MIN_CAPACITY = 5;
   static const MAX_CAPACITY = 300;
-  
+
   int _capacity;
 
   @override
@@ -39,18 +39,27 @@ class _CapacityFilterState extends State<CapacityFilter> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                'Aforo',
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                    color: Theme.of(context).primaryColor),
-              ),
-              Text(
-                  'Selecciona el número mínimo de personas que deseas que quepan en el espacio que buscas'),
               Row(
                 children: <Widget>[
-                  Checkbox(
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'Aforo',
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              color: this.widget.isEnabled
+                                  ? Theme.of(context).primaryColor
+                                  : Colors.grey),
+                        ),
+                        Text(
+                            'Selecciona el número mínimo de personas que deseas que quepan en el espacio que buscas'),
+                      ],
+                    ),
+                  ),
+                  Switch(
                     value: this.widget.isEnabled,
                     onChanged: (value) {
                       if (value) {
@@ -61,6 +70,10 @@ class _CapacityFilterState extends State<CapacityFilter> {
                     },
                     activeColor: Theme.of(context).primaryColor,
                   ),
+                ],
+              ),
+              Row(
+                children: <Widget>[
                   Expanded(
                     child: Slider(
                       inactiveColor: Colors.grey,

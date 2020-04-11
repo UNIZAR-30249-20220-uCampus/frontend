@@ -3,6 +3,7 @@ import 'package:async_redux/async_redux.dart';
 import 'package:ucampus/core/models/equipment.dart';
 import 'package:ucampus/core/models/filter_criteria.dart';
 import 'package:ucampus/core/models/space.dart';
+import 'package:ucampus/core/models/timetable.dart';
 import 'package:ucampus/core/redux/app_state.dart';
 
 class SetFilterValueAction extends ReduxAction<AppState> {
@@ -16,7 +17,6 @@ class SetFilterValueAction extends ReduxAction<AppState> {
     if (!state.filterCriteria.activeCriteria.contains(criteriaKind)) {
       return null;
     }
-    print(value);
     FilterCriteria newCriteria = state.filterCriteria;
     switch (criteriaKind) {
       case CriteriaKind.NAME:
@@ -47,7 +47,7 @@ class SetFilterValueAction extends ReduxAction<AppState> {
         newCriteria = newCriteria.copy(equipments: newEquipment);
         break;
       case CriteriaKind.TIMETABLE:
-        //TODO:implementar TimeTable
+        newCriteria = newCriteria.copy(timetable: value as Timetable);
         break;
     }
     return state.copy(filterCriteria: newCriteria);

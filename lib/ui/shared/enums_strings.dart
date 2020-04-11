@@ -1,5 +1,6 @@
 import 'package:ucampus/core/models/equipment.dart';
 import 'package:ucampus/core/models/filter_criteria.dart';
+import 'package:ucampus/core/models/slot.dart';
 import 'package:ucampus/core/models/space.dart';
 
 class EnumsStrings {
@@ -28,5 +29,15 @@ class EnumsStrings {
     CriteriaKind.KIND : 'Tipo de espacio',
     CriteriaKind.EQUIPMENT : 'Equipamiento',
     CriteriaKind.TIMETABLE : 'Disponibilidad',
+  };
+
+  static const Map<Weekday, String> weekday = {
+    Weekday.MONDAY : 'Lunes',
+    Weekday.TUESDAY : 'Martes',
+    Weekday.WEDNESDAY : 'Miércoles',
+    Weekday.THURSDAY : 'Jueves',
+    Weekday.FRIDAY : 'Viernes',
+    Weekday.SATURDAY : 'Sábado',
+    Weekday.SUNDAY : 'Domingo',
   };
 }
