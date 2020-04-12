@@ -94,3 +94,18 @@ class CleanFilterCriteriaAction extends ReduxAction<AppState> {
     return state.copy(filterCriteria: FilterCriteria.cleanCritera());
   }
 }
+
+class RemoveAndCopyCriteriaAction extends ReduxAction<AppState> {
+  final CriteriaKind criteriaKindToRemove;
+  
+  RemoveAndCopyCriteriaAction({@required this.criteriaKindToRemove});
+
+  @override
+  AppState reduce() {
+    return state.copy(
+      filterCriteria: state.filterCriteria.copy(
+        activeCriteria: state.appliedCriteria..remove(criteriaKindToRemove)
+      ),
+    );
+  }
+}

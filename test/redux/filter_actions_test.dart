@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:ucampus/core/models/equipment.dart';
 import 'package:ucampus/core/models/filter_criteria.dart';
 import 'package:ucampus/core/models/space.dart';
+import 'package:ucampus/core/models/timetable.dart';
 import 'package:ucampus/core/redux/actions/filter_actions.dart';
 import 'package:ucampus/core/redux/app_state.dart';
 import 'package:ucampus/locator.dart';
@@ -15,6 +16,7 @@ void main() {
     kinds: <SpaceKind>[],
     equipments: <Equipment>[],
     capacity: 20,
+    timetable: Timetable()
   );
 
   setUp(() {

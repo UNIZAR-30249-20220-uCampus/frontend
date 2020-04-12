@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:meta/meta.dart';
 import 'package:ucampus/core/models/filter_criteria.dart';
 import 'package:ucampus/core/models/space.dart';
@@ -6,12 +7,14 @@ import 'package:ucampus/core/models/space.dart';
 class AppState {
   final List<Space> featuredSpaces;
   final FilterCriteria filterCriteria;
+  final List<CriteriaKind> appliedCriteria;
   final int currentFloor;
   final bool isLoading;
 
   AppState({
     @required this.featuredSpaces,
     @required this.filterCriteria,
+    @required this.appliedCriteria,
     @required this.currentFloor,
     @required this.isLoading,
   });
@@ -19,6 +22,7 @@ class AppState {
   static AppState initialState() => AppState(
         featuredSpaces: [],
         filterCriteria: FilterCriteria.cleanCritera(),
+        appliedCriteria: [],
         currentFloor: 0,
         isLoading: false,
       );
@@ -26,21 +30,27 @@ class AppState {
   AppState copy({
     List<Space> featuredSpaces,
     FilterCriteria filterCriteria,
+    List<CriteriaKind> appliedCriteria,
     int currentFloor,
     bool isLoading,
   }) =>
       AppState(
         featuredSpaces: featuredSpaces ?? this.featuredSpaces,
         filterCriteria: filterCriteria ?? this.filterCriteria,
+        appliedCriteria: appliedCriteria ?? this.appliedCriteria,
         currentFloor: currentFloor ?? this.currentFloor,
         isLoading: isLoading ?? this.isLoading,
       );
 
   @override
   String toString() {
-    return this.featuredSpaces.toString() +
+    return 'featuredSpaces: [...]' +
+        //this.featuredSpaces.toString() +
         '\n' +
         this.filterCriteria.toString() +
+        '\n' +
+        'appliedCriteria: ' +
+        this.appliedCriteria.toString() +
         '\n' +
         'currentFloor: ' +
         this.currentFloor.toString() +
@@ -50,7 +60,8 @@ class AppState {
   }
 
   @override
-  int get hashCode => this.featuredSpaces.hashCode ^ this.filterCriteria.hashCode;
+  int get hashCode =>
+      this.featuredSpaces.hashCode ^ this.filterCriteria.hashCode;
 
   @override
   bool operator ==(Object other) {
@@ -58,6 +69,7 @@ class AppState {
         (other is AppState &&
             this.featuredSpaces == other.featuredSpaces &&
             this.filterCriteria == other.filterCriteria &&
+            listEquals(this.appliedCriteria, other.appliedCriteria) &&
             this.currentFloor == other.currentFloor &&
             this.isLoading == this.isLoading);
   }

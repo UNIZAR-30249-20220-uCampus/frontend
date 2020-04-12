@@ -64,7 +64,7 @@ class _SlotSelectorState extends State<SlotSelector> {
                   style: TextStyle(fontStyle: FontStyle.italic)),
               Expanded(child: Container()),
               IconButton(
-                icon: Icon(Icons.close, color: _featuredColor),
+                icon: Icon(Icons.delete_forever, color: _featuredColor),
                 onPressed: () {
                   if (this.widget.isEnabled) {
                     widget.onDeleted();

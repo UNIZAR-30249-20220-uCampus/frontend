@@ -1,5 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
+import 'package:ucampus/core/models/filter_criteria.dart';
+import 'package:ucampus/core/redux/actions/filter_actions.dart';
 import 'package:ucampus/core/redux/actions/map_actions.dart';
 import 'package:ucampus/core/redux/app_state.dart';
 import 'package:ucampus/ui/widgets/home/search_bar.dart';
@@ -30,7 +32,12 @@ class ViewModel extends BaseModel<AppState> {
 
   @override
   BaseModel fromStore() => ViewModel.build(
-        onSearch: (text) => dispatch(SearchSpacesAction(searchText: text)),
+        onSearch: (text) {
+          dispatch(
+            SetFilterValueAction(criteriaKind: CriteriaKind.NAME, value: text),
+          );
+          dispatch(ApplyFilterAction());
+        },
         isLoading: state.isLoading,
       );
 }
