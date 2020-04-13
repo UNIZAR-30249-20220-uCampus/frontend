@@ -12,7 +12,7 @@ class BackgroundMapConnector extends StatelessWidget {
       model: ViewModel(),
       builder: (context, model) => BackgroundMap(
         selectedFloor: model.selectedFloor,
-        onMapTap: model.onMapTap,
+        onMapTap: model.onMapTap, featuredSpaces: [], onFeaturedSpaceTap: (_) {  },
       ),
     );
   }
