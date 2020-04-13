@@ -1,5 +1,6 @@
 import 'package:meta/meta.dart';
 import 'package:ucampus/core/models/filter_criteria.dart';
+import 'package:ucampus/core/models/reservation.dart';
 import 'package:ucampus/core/models/space.dart';
 
 @immutable
@@ -8,12 +9,14 @@ class AppState {
   final FilterCriteria filterCriteria;
   final int currentFloor;
   final bool isLoading;
+  final List<ReservationStatus> reservationFilterCriteria;
 
   AppState({
     @required this.featuredSpaces,
     @required this.filterCriteria,
     @required this.currentFloor,
     @required this.isLoading,
+    @required this.reservationFilterCriteria,
   });
 
   static AppState initialState() => AppState(
@@ -21,6 +24,7 @@ class AppState {
         filterCriteria: FilterCriteria.cleanCritera(),
         currentFloor: 0,
         isLoading: false,
+        reservationFilterCriteria: [],
       );
 
   AppState copy({
@@ -28,12 +32,14 @@ class AppState {
     FilterCriteria filterCriteria,
     int currentFloor,
     bool isLoading,
+    List<ReservationStatus> reservationOrderCriteria,
   }) =>
       AppState(
         featuredSpaces: featuredSpaces ?? this.featuredSpaces,
         filterCriteria: filterCriteria ?? this.filterCriteria,
         currentFloor: currentFloor ?? this.currentFloor,
         isLoading: isLoading ?? this.isLoading,
+        reservationFilterCriteria: reservationOrderCriteria ?? this.reservationFilterCriteria
       );
 
   @override

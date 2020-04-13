@@ -6,6 +6,7 @@ import 'package:ucampus/ui/screens/reservation_screen.dart';
 import 'package:ucampus/ui/screens/space_info_screen.dart';
 import 'package:ucampus/ui/screens/filter_screen.dart';
 import 'package:ucampus/ui/screens/home_screen.dart';
+import 'package:ucampus/ui/screens/user_reservations_screen.dart';
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -23,6 +24,8 @@ class Router {
         return MaterialPageRoute(builder: (_) => RentalScreen(space: space));
       case 'filter':
         return MaterialPageRoute(builder: (_) => FilterScreen());        
+      case 'user_reservations':
+        return MaterialPageRoute(builder: (_) => UserReservationsScreen());      
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

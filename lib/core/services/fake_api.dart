@@ -36,7 +36,7 @@ class FakeApi implements ApiService {
   Future<List<Reservation>> getSpaceReservation(String spaceID) async {
     await Future.delayed(Duration(milliseconds: 700));
     return List.generate(
-      2,
+      5,
       (index) => Reservation.randomReservation(labNumber: index),
     );
   }
@@ -44,7 +44,10 @@ class FakeApi implements ApiService {
   @override
   Future<List<Reservation>> getReservation() async {
     await Future.delayed(Duration(milliseconds: 700));
-    throw UnimplementedError();
+    return List.generate(
+      15,
+      (index) => Reservation.randomReservation(labNumber: index),
+    );
   }
 
   @override
