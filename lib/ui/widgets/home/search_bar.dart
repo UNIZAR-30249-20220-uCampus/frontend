@@ -37,7 +37,6 @@ class _SearchBarState extends State<SearchBar> {
                   splashColor: Colors.grey,
                   icon: Icon(Icons.menu),
                   onPressed: () {
-                    print('Hola');
                     widget.openDrawer();
                   },
                 ),
