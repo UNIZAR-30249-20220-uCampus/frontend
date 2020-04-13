@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ucampus/core/models/space.dart';
+import 'package:ucampus/ui/shared/enums_strings.dart';
 
 class SpaceInfoCard extends StatelessWidget {
   final Space space;
@@ -47,7 +48,7 @@ class SpaceInfoCard extends StatelessWidget {
                                   fontSize: 15,
                                   fontWeight: FontWeight.w500,
                                   color: Colors.black)),
-                          Text(space.kind,
+                          Text(EnumsStrings.spaceKind[space.kind],
                               style: TextStyle(
                                 fontSize: 15,
                               ))
@@ -107,7 +108,8 @@ class SpaceInfoCard extends StatelessWidget {
                                   padding: EdgeInsets.only(top: 10, left: 30),
                                   child: Text(
                                       'Tipo: ' +
-                                          equipment.equipmentKind.toString(),
+                                          EnumsStrings.equipmentKind[
+                                              equipment.equipmentKind],
                                       style: TextStyle(
                                         fontSize: 15,
                                       ))),

@@ -30,26 +30,22 @@ class SpaceTapAction extends ReduxAction<AppState> {
   }
 }
 
-class SearchSpacesAction extends ReduxAction<AppState> {
-  final String searchText;
-
-  SearchSpacesAction({@required this.searchText});
-  
+class ApplyFilterAction extends ReduxAction<AppState> {
   @override
   Future<AppState> reduce() async {
     dispatch(SetLoadingAction(isLoading: true));
-    dispatch(AddFilterCriteriaAction(criteriaKind: CriteriaKind.NAME, value: searchText));
     ApiService apiService = locator<ApiService>();
     List<Space> results = await apiService.filterSpaces(state.filterCriteria);
-    if(results.length == 0){
+    if (results.length == 0) {
       //TODO: mostrar algún tipo de pop up informando
       return null;
     }
     dispatch(SetLoadingAction(isLoading: false));
     return state.copy(
-      featuredSpaces: results
+      featuredSpaces: results,
+      appliedCriteria: state.filterCriteria.activeCriteria,
     );
-  }  
+  }
 }
 
 class SelectFloorAction extends ReduxAction<AppState> {

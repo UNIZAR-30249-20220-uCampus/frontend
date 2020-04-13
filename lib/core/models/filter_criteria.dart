@@ -4,6 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:ucampus/core/models/equipment.dart';
+import 'package:ucampus/core/models/space.dart';
+import 'package:ucampus/core/models/timetable.dart';
 
 part 'filter_criteria.g.dart';
 
@@ -12,7 +14,6 @@ enum CriteriaKind {
   KIND,
   EQUIPMENT,
   CAPACITY,
-  SURFACE,
   TIMETABLE,
 }
 
@@ -20,45 +21,44 @@ enum CriteriaKind {
 class FilterCriteria {
   final List<CriteriaKind> activeCriteria;
   final String name;
-  final String kind;
+  final List<SpaceKind> kinds;
   final List<Equipment> equipments;
   final int capacity;
-  final double surface;
-  //TODO: considerar Timetable
+  final Timetable timetable;
 
   FilterCriteria({
     @required this.activeCriteria,
     @required this.name,
-    @required this.kind,
+    @required this.kinds,
     @required this.equipments,
     @required this.capacity,
-    @required this.surface,
+    @required this.timetable,
   });
 
   FilterCriteria copy({
     List<CriteriaKind> activeCriteria,
     String name,
-    String kind,
+    List<SpaceKind> kinds,
     List<Equipment> equipments,
     int capacity,
-    double surface,
+    Timetable timetable,
   }) =>
       FilterCriteria(
         activeCriteria: activeCriteria ?? this.activeCriteria,
         name: name ?? this.name,
-        kind: kind ?? this.kind,
+        kinds: kinds ?? this.kinds,
         equipments: equipments ?? this.equipments,
         capacity: capacity ?? this.capacity,
-        surface: surface ?? this.surface,
+        timetable: timetable ?? this.timetable,
       );
 
   static FilterCriteria cleanCritera() => FilterCriteria(
         activeCriteria: [],
-        name: null,
-        kind: null,
-        equipments: null,
-        capacity: null,
-        surface: null,
+        name: '',
+        kinds: [],
+        equipments: [],
+        capacity: 30,
+        timetable: Timetable(),
       );
 
   @override
@@ -73,20 +73,20 @@ class FilterCriteria {
         (other is FilterCriteria &&
             listEquals(this.activeCriteria, other.activeCriteria) &&
             this.name == other.name &&
-            this.kind == other.kind &&
-            this.equipments == other.equipments &&
+            listEquals(this.kinds, other.kinds) &&
+            listEquals(this.equipments, other.equipments) &&
             this.capacity == other.capacity &&
-            this.surface == other.surface);
+            this.timetable == other.timetable);
   }
 
   @override
   int get hashCode =>
       this.activeCriteria.hashCode ^
       this.name.hashCode ^
-      this.kind.hashCode ^
+      this.kinds.hashCode ^
       this.equipments.hashCode ^
       this.capacity.hashCode ^
-      this.surface.hashCode;
+      this.timetable.hashCode;
 
   factory FilterCriteria.fromJson(Map<String, dynamic> json) =>
       _$FilterCriteriaFromJson(json);

@@ -1,22 +1,23 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'equipment.dart';
+part of 'slot.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Equipment _$EquipmentFromJson(Map<String, dynamic> json) {
-  return Equipment(
-    equipmentKind:
-        _$enumDecodeNullable(_$EquipmentKindEnumMap, json['equipmentKind']),
-    amount: json['amount'] as int,
+Slot _$SlotFromJson(Map<String, dynamic> json) {
+  return Slot(
+    weekday: _$enumDecodeNullable(_$WeekdayEnumMap, json['weekday']),
+    startingSlotNumber: json['startingSlotNumber'] as int,
+    endingSlotNumber: json['endingSlotNumber'] as int,
   );
 }
 
-Map<String, dynamic> _$EquipmentToJson(Equipment instance) => <String, dynamic>{
-      'equipmentKind': _$EquipmentKindEnumMap[instance.equipmentKind],
-      'amount': instance.amount,
+Map<String, dynamic> _$SlotToJson(Slot instance) => <String, dynamic>{
+      'weekday': _$WeekdayEnumMap[instance.weekday],
+      'startingSlotNumber': instance.startingSlotNumber,
+      'endingSlotNumber': instance.endingSlotNumber,
     };
 
 T _$enumDecode<T>(
@@ -51,10 +52,12 @@ T _$enumDecodeNullable<T>(
   return _$enumDecode<T>(enumValues, source, unknownValue: unknownValue);
 }
 
-const _$EquipmentKindEnumMap = {
-  EquipmentKind.TABLE: 'TABLE',
-  EquipmentKind.CHAIR: 'CHAIR',
-  EquipmentKind.COMPUTER: 'COMPUTER',
-  EquipmentKind.PROJECTOR: 'PROJECTOR',
-  EquipmentKind.BOARD: 'BOARD',
+const _$WeekdayEnumMap = {
+  Weekday.MONDAY: 'MONDAY',
+  Weekday.TUESDAY: 'TUESDAY',
+  Weekday.WEDNESDAY: 'WEDNESDAY',
+  Weekday.THURSDAY: 'THURSDAY',
+  Weekday.FRIDAY: 'FRIDAY',
+  Weekday.SATURDAY: 'SATURDAY',
+  Weekday.SUNDAY: 'SUNDAY',
 };
