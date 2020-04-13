@@ -23,6 +23,7 @@ class SpaceInfoScreen extends StatelessWidget {
               top: 10,
               right: 10,
               left: 10,
+              bottom: 10,
               child: Container(
                 height: MediaQuery.of(context).size.height,
                 child: ListView(

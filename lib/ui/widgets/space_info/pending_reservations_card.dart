@@ -35,7 +35,7 @@ class PendingReservationsCard extends StatelessWidget {
                                     top: 30, bottom: 10, left: 5),
                                 child: Text('Reservas pendientes ',
                                     style: TextStyle(
-                                      fontSize: 23,
+                                      fontSize: 24,
                                     ))))),
                     for (var reservation in snapshot.data)
                       Card(
@@ -51,54 +51,73 @@ class PendingReservationsCard extends StatelessWidget {
                                   Padding(
                                       padding:
                                           EdgeInsets.only(left: 10, top: 15),
-                                      child: Text(
-                                          'Inicio: ' +
-                                              reservation.inicio.day
-                                                  .toString() +
-                                              '-' +
-                                              reservation.inicio.month
-                                                  .toString() +
-                                              '-' +
-                                              reservation.inicio.year
-                                                  .toString() +
-                                              '   ' +
-                                              reservation.inicio.hour
-                                                  .toString() +
-                                              ':' +
-                                              reservation.inicio.minute
-                                                  .toString() +
-                                              ' ',
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                          ))),
+                                      child: Row(children: <Widget>[
+                                        Text("Inicio: ",
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.black)),
+                                        Text(
+                                            reservation.inicio.day.toString() +
+                                                '-' +
+                                                reservation.inicio.month
+                                                    .toString() +
+                                                '-' +
+                                                reservation.inicio.year
+                                                    .toString() +
+                                                '   ' +
+                                                reservation.inicio.hour
+                                                    .toString() +
+                                                ':' +
+                                                reservation.inicio.minute
+                                                    .toString() +
+                                                ' ',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                            ))
+                                      ])),
                                   Padding(
                                       padding:
                                           EdgeInsets.only(top: 5, left: 10),
-                                      child: Text(
-                                          'Fin: ' +
-                                              reservation.fin.day.toString() +
-                                              '-' +
-                                              reservation.fin.month.toString() +
-                                              '-' +
-                                              reservation.fin.year.toString() +
-                                              '   ' +
-                                              reservation.fin.hour.toString() +
-                                              ':' +
-                                              reservation.fin.minute
-                                                  .toString() +
-                                              ' ',
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                          ))),
+                                      child: Row(children: <Widget>[
+                                        Text("Fin: ",
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.black)),
+                                        Text(
+                                            reservation.fin.day.toString() +
+                                                '-' +
+                                                reservation.fin.month
+                                                    .toString() +
+                                                '-' +
+                                                reservation.fin.year
+                                                    .toString() +
+                                                '   ' +
+                                                reservation.fin.hour
+                                                    .toString() +
+                                                ':' +
+                                                reservation.fin.minute
+                                                    .toString() +
+                                                ' ',
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                            ))
+                                      ])),
                                   Padding(
                                       padding:
                                           EdgeInsets.only(top: 5, left: 10),
-                                      child: Text(
-                                          'Frecuencia: ' +
-                                              reservation.frecuencia,
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                          ))),
+                                      child: Row(children: <Widget>[
+                                        Text('Frecuencia: ',
+                                            style: TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.black)),
+                                        Text(reservation.frecuencia,
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                            ))
+                                      ])),
                                 ],
                               ),
                             )),

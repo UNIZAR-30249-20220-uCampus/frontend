@@ -28,40 +28,76 @@ class SpaceInfoCard extends StatelessWidget {
                   children: <Widget>[
                     Padding(
                         padding: EdgeInsets.only(top: 5, left: 10),
-                        child: Text('Nombre: ' + space.name,
-                            style: TextStyle(
-                              fontSize: 15,
-                            ))),
+                        child: Row(children: <Widget>[
+                          Text('Nombre: ',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black)),
+                          Text(space.name,
+                              style: TextStyle(
+                                fontSize: 15,
+                              ))
+                        ])),
                     Padding(
                         padding: EdgeInsets.only(top: 5, left: 10),
-                        child: Text('Tipo: ' + space.kind,
-                            style: TextStyle(
-                              fontSize: 15,
-                            ))),
+                        child: Row(children: <Widget>[
+                          Text('Tipo: ',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black)),
+                          Text(space.kind,
+                              style: TextStyle(
+                                fontSize: 15,
+                              ))
+                        ])),
                     Padding(
                         padding: EdgeInsets.only(top: 5, left: 10),
-                        child: Text('Aforo: ' + space.capacity.toString(),
-                            style: TextStyle(
-                              fontSize: 15,
-                            ))),
+                        child: Row(children: <Widget>[
+                          Text('Aforo: ',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black)),
+                          Text(space.capacity.toString(),
+                              style: TextStyle(
+                                fontSize: 15,
+                              ))
+                        ])),
                     Padding(
                         padding: EdgeInsets.only(top: 5, left: 10),
-                        child: Text('Edificio: ' + space.building,
-                            style: TextStyle(
-                              fontSize: 15,
-                            ))),
+                        child: Row(children: <Widget>[
+                          Text('Edificio: ',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black)),
+                          Text(space.building,
+                              style: TextStyle(
+                                fontSize: 15,
+                              ))
+                        ])),
                     Padding(
                         padding: EdgeInsets.only(top: 5, left: 10),
-                        child: Text('Superficie: ' + space.surface.toString(),
-                            style: TextStyle(
-                              fontSize: 15,
-                            ))),
+                        child: Row(children: <Widget>[
+                          Text('Superficie: ',
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black)),
+                          Text(space.surface.toString(),
+                              style: TextStyle(
+                                fontSize: 15,
+                              ))
+                        ])),
                     Padding(
                         padding: EdgeInsets.only(top: 5, left: 10),
                         child: Text('Equipamiento: ',
                             style: TextStyle(
-                              fontSize: 15,
-                            ))),
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black))),
                     for (var equipment in space.equipments)
                       Column(
                         children: <Widget>[
