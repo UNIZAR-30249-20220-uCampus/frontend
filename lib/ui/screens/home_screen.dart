@@ -27,7 +27,7 @@ class HomeScreen extends StatelessWidget {
             left: 15,
             child: Column(
               children: <Widget>[
-                SearchBarConnector(),
+                SearchBarConnector(openDrawer: openTheDrawer),
                 MiniFilterDisplayConnector()
               ],
             ),
