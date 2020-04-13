@@ -9,7 +9,6 @@ class HomeScreen extends StatelessWidget {
    final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   
   openTheDrawer(){
-    print('hola2');
     _scaffoldKey.currentState.openDrawer();
   }
 
