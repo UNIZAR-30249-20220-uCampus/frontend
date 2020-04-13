@@ -5,6 +5,10 @@ import 'package:ucampus/core/redux/app_state.dart';
 import 'package:ucampus/ui/widgets/home/search_bar.dart';
 
 class SearchBarConnector extends StatelessWidget {
+  final Function() openDrawer;
+
+  const SearchBarConnector({this.openDrawer});
+  
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, ViewModel>(
@@ -12,6 +16,7 @@ class SearchBarConnector extends StatelessWidget {
       builder: (context, model) => SearchBar(
         onSearch: model.onSearch,
         isLoading: model.isLoading,
+        openDrawer: openDrawer,
       ),
     );
   }

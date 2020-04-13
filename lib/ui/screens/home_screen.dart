@@ -3,11 +3,21 @@ import 'package:ucampus/core/redux/connectors/home/background_map.dart';
 import 'package:ucampus/core/redux/connectors/home/search_bar.dart';
 import 'package:ucampus/core/redux/connectors/home/spaces_carousel.dart';
 import 'package:ucampus/core/redux/connectors/home/floor_selector.dart';
+import 'package:ucampus/ui/widgets/drawer.dart';
 
 class HomeScreen extends StatelessWidget {
+   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  
+  openTheDrawer(){
+    print('hola2');
+    _scaffoldKey.currentState.openDrawer();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
+      drawer: DrawerApp(),
       body: Stack(
         children: <Widget>[
           BackgroundMapConnector(),
@@ -15,13 +25,13 @@ class HomeScreen extends StatelessWidget {
             top: 50,
             right: 15,
             left: 15,
-            child: SearchBarConnector(),
+            child: SearchBarConnector(openDrawer: openTheDrawer),
           ),
           Positioned(
             bottom: 30,
             right: 0,
             left: 0,
-            child:  FloorSelectorConnector(),
+            child: FloorSelectorConnector(),
           ),
           Positioned(
             bottom: 0,

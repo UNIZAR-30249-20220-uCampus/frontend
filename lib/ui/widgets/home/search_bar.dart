@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 class SearchBar extends StatefulWidget {
   final Function(String) onSearch;
   final bool isLoading;
-  SearchBar({@required this.onSearch, @required this.isLoading});
+  final Function() openDrawer;
+  SearchBar({@required this.onSearch, @required this.isLoading, @required this.openDrawer,});
+
 
   @override
   _SearchBarState createState() => _SearchBarState();
@@ -20,19 +22,25 @@ class _SearchBarState extends State<SearchBar> {
       ),
       child: Row(
         children: <Widget>[
-          Padding(
-            padding: EdgeInsets.all(12.0),
-            child: widget.isLoading
-                ? Container(
+          widget.isLoading
+              ? Padding(
+                  padding: EdgeInsets.all(12.0),
+                  child: Container(
                     width: 27,
                     height: 27,
                     child: CircularProgressIndicator(
                       backgroundColor: Theme.of(context).primaryColor,
                       strokeWidth: 3,
                     ),
-                  )
-                : Icon(Icons.search, size: 27),
-          ),
+                  ))
+              : IconButton(
+                  splashColor: Colors.grey,
+                  icon: Icon(Icons.menu),
+                  onPressed: () {
+                    print('Hola');
+                    widget.openDrawer();
+                  },
+                ),
           Expanded(
             child: TextField(
               cursorColor: Colors.black,
