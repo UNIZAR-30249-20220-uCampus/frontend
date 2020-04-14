@@ -4,7 +4,7 @@ import 'package:ucampus/core/models/space.dart';
 import 'package:ucampus/core/models/timetable.dart';
 import 'package:ucampus/core/redux/actions/reservation_actions.dart';
 import 'package:ucampus/core/redux/app_state.dart';
-import 'package:ucampus/ui/widgets/space_info/reservation_form.dart';
+import 'package:ucampus/ui/widgets/reservation/reservation_form.dart';
 
 class ReservationFormConnector extends StatelessWidget {
   final Space space;

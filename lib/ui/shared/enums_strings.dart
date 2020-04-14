@@ -1,5 +1,6 @@
 import 'package:ucampus/core/models/equipment.dart';
 import 'package:ucampus/core/models/filter_criteria.dart';
+import 'package:ucampus/core/models/reservation.dart';
 import 'package:ucampus/core/models/slot.dart';
 import 'package:ucampus/core/models/space.dart';
 
@@ -39,5 +40,12 @@ class EnumsStrings {
     Weekday.FRIDAY : 'Viernes',
     Weekday.SATURDAY : 'Sábado',
     Weekday.SUNDAY : 'Domingo',
+  };
+
+  static const Map<ReservationFrequency, String> reservationFrequency = {
+    ReservationFrequency.NO : 'No',
+    ReservationFrequency.WEEKLY: 'Semana',
+    ReservationFrequency.MONTHLY: 'Mes',
+    ReservationFrequency.ANNUALLY: 'Año',
   };
 }

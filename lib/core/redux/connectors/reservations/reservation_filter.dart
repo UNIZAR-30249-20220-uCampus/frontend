@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ucampus/core/models/reservation.dart';
 import 'package:ucampus/core/redux/actions/reservation_filter_actions.dart';
 import 'package:ucampus/core/redux/app_state.dart';
-import 'package:ucampus/ui/widgets/reservations/reservation_filter.dart';
+import 'package:ucampus/ui/widgets/reservation/reservation_filter.dart';
 
 class ReservationFilterConnector extends StatelessWidget {
   @override

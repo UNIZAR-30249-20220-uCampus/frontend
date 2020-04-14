@@ -4,7 +4,7 @@ import 'package:ucampus/core/models/reservation.dart';
 import 'package:ucampus/core/redux/app_state.dart';
 import 'package:ucampus/core/services/api_service.dart';
 import 'package:ucampus/locator.dart';
-import 'package:ucampus/ui/widgets/reservations/user_reservations.dart';
+import 'package:ucampus/ui/widgets/reservation/user_reservations.dart';
 
 class UserReservationsConnector extends StatelessWidget {
   @override

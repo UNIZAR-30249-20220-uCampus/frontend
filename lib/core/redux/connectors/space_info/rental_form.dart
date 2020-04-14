@@ -4,7 +4,7 @@ import 'package:ucampus/core/models/space.dart';
 import 'package:ucampus/core/models/timetable.dart';
 import 'package:ucampus/core/redux/actions/reservation_actions.dart';
 import 'package:ucampus/core/redux/app_state.dart';
-import 'package:ucampus/ui/widgets/space_info/rental_form.dart';
+import 'package:ucampus/ui/widgets/rental/rental_form.dart';
 
 
 class RentalFormConnector extends StatelessWidget {
