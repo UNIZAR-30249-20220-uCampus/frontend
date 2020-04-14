@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -47,5 +48,13 @@ class Timetable {
   bool operator ==(other) {
     return identical(this, other) ||
         (other is Timetable && listEquals(this.slots, other.slots));
+  }
+
+  static Timetable randomTimetable({int labNumber}) {
+    final _random = Random();
+    var timetable = Timetable();    
+    timetable.addSlot(Weekday.values[_random.nextInt(Weekday.values.length)]);
+    timetable.addSlot(Weekday.values[_random.nextInt(Weekday.values.length)]);
+    return timetable;
   }
 }

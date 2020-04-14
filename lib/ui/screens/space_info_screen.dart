@@ -32,6 +32,7 @@ class SpaceInfoScreen extends StatelessWidget {
                     SpaceInfoCard(
                       space: space,
                     ),
+                    Divider(),
                     PendingReservationsCard(
                       space: space,
                     ),

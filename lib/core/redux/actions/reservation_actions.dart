@@ -1,5 +1,6 @@
 import 'package:meta/meta.dart';
 import 'package:async_redux/async_redux.dart';
+import 'package:ucampus/core/models/reservation.dart';
 import 'package:ucampus/core/models/timetable.dart';
 import 'package:ucampus/core/redux/actions/loading_actions.dart';
 import 'package:ucampus/core/redux/app_state.dart';
@@ -10,9 +11,10 @@ class ReservationAction extends ReduxAction<AppState> {
   final Timetable time;
   final String spaceID;
   final bool isForRent;
+  final ReservationFrequency frequency;
 
   ReservationAction(
-      {@required this.time, @required this.spaceID, @required this.isForRent});
+      {@required this.time, @required this.spaceID, @required this.isForRent, this.frequency});
 
   @override
   Future<AppState> reduce() async {

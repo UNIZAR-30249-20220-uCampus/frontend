@@ -48,6 +48,7 @@ class SpacesCarousel extends StatelessWidget {
                           child: Text(space.uuid,
                               style: TextStyle(
                                 fontSize: 25,
+                                fontWeight: FontWeight.w600,
                               ))),
                       subtitle: Padding(
                         padding: EdgeInsets.only(bottom: 0, left: 10),

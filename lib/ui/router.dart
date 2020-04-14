@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ucampus/core/models/reservation.dart';
 import 'package:ucampus/core/models/space.dart';
 import 'package:ucampus/ui/screens/rental_screen.dart';
+import 'package:ucampus/ui/screens/reservation_info_screen.dart';
 import 'package:ucampus/ui/screens/reservation_screen.dart';
 import 'package:ucampus/ui/screens/space_info_screen.dart';
 import 'package:ucampus/ui/screens/filter_screen.dart';
@@ -26,6 +28,12 @@ class Router {
         return MaterialPageRoute(builder: (_) => FilterScreen());        
       case 'user_reservations':
         return MaterialPageRoute(builder: (_) => UserReservationsScreen());      
+      case 'reservation_info':
+        var reservation = settings.arguments as Reservation;
+        return MaterialPageRoute(builder: (_) => ReservationInfoScreen(reservation: reservation, canCancel: false)); 
+      case 'reservation_info_cancel':
+        var reservation = settings.arguments as Reservation;
+        return MaterialPageRoute(builder: (_) => ReservationInfoScreen(reservation: reservation, canCancel: true)); 
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

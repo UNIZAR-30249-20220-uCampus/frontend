@@ -21,6 +21,8 @@ class SpaceInfoCard extends StatelessWidget {
                   child: Text(space.uuid,
                       style: TextStyle(
                         fontSize: 30,
+                        fontWeight: FontWeight.w600,
+                        color: Theme.of(context).primaryColor,
                       ))),
               subtitle: Padding(
                 padding: EdgeInsets.only(bottom: 20, left: 10),
@@ -129,7 +131,7 @@ class SpaceInfoCard extends StatelessWidget {
                             ],
                           )
                         ],
-                      )
+                      ),
                   ],
                 ),
               )),
