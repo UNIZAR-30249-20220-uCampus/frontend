@@ -95,7 +95,7 @@ class _ReservationFormState extends State<ReservationForm> {
                                         color: Theme.of(context).primaryColor),
                                   ),
                                   Text(
-                                      'Selecciona la frecuencia con que quieres que repita la reserva'),
+                                      'Selecciona la frecuencia con que quieres que se repita la reserva'),
                                 ],
                               ),
                              ),
