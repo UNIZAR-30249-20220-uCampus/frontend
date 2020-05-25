@@ -48,8 +48,18 @@ class BackgroundMap extends StatelessWidget {
               transparent: true),
         ),
         MarkerLayerOptions(
-          //markers: List.generate(this.featuredSpaces.length, (index) => null)
-        ),
+        markers: [
+          for (var feature in this.featuredSpaces)
+            new Marker(
+              point: feature.coordinates,
+              builder: (ctx) =>
+              new Container(
+                child: new Icon(Icons.location_on),
+              ),
+            ),
+        ],
+      ),
+
       ],
     );
   }
