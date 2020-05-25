@@ -73,8 +73,7 @@ class DrawerApp extends StatelessWidget {
                     ],
                   )),
               onTap: () {
-                // Update the state of the app.
-                // ...
+                Navigator.pushReplacementNamed(context, "settings");
               },
             )
           ],

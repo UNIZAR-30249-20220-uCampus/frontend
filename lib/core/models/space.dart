@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:ucampus/core/models/equipment.dart';
+import 'package:latlong/latlong.dart';
 
 part 'space.g.dart';
 
@@ -28,6 +29,7 @@ class Space {
   final bool isBookable;
   final double surface;
   final List<Equipment> equipments;
+  final LatLng coordinates;
 
   Space({
     @required this.uuid,
@@ -38,6 +40,7 @@ class Space {
     @required this.isBookable,
     @required this.surface,
     @required this.equipments,
+     @required this.coordinates,
   });
 
   Space copy({
@@ -49,6 +52,7 @@ class Space {
     bool isBookable,
     double surface,
     List<Equipment> equipments,
+    LatLng coordinates
   }) =>
       Space(
         uuid: uuid ?? this.uuid,
@@ -59,6 +63,7 @@ class Space {
         isBookable: isBookable ?? this.isBookable,
         surface: surface ?? this.surface,
         equipments: equipments ?? this.equipments,
+        coordinates: coordinates ?? this.coordinates
       );
 
   static Space randomSpace({int labNumber}) {
@@ -79,6 +84,7 @@ class Space {
         _random.nextInt(4),
         (index) => Equipment.randomEquipment(),
       ),
+      coordinates: LatLng(41.683252, -0.887632)
     );
   }
 
@@ -102,7 +108,8 @@ class Space {
             this.building == other.building &&
             this.isBookable == other.isBookable &&
             this.surface == other.surface &&
-            this.equipments == other.equipments);
+            this.equipments == other.equipments &&
+            this.coordinates == other.coordinates);
   }
 
   factory Space.fromJson(Map<String, dynamic> json) => _$SpaceFromJson(json);

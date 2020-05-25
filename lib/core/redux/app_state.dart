@@ -12,6 +12,7 @@ class AppState {
   final int currentFloor;
   final bool isLoading;
   final List<ReservationStatus> reservationFilterCriteria;
+  final bool externalUser;
 
   AppState({
     @required this.featuredSpaces,
@@ -20,6 +21,7 @@ class AppState {
     @required this.currentFloor,
     @required this.isLoading,
     @required this.reservationFilterCriteria,
+     @required this.externalUser,
   });
 
   static AppState initialState() => AppState(
@@ -29,6 +31,7 @@ class AppState {
         currentFloor: 0,
         isLoading: false,
         reservationFilterCriteria: [],
+        externalUser: false
       );
 
   AppState copy({
@@ -38,6 +41,7 @@ class AppState {
     int currentFloor,
     bool isLoading,
     List<ReservationStatus> reservationOrderCriteria,
+    bool externalUser
   }) =>
       AppState(
         featuredSpaces: featuredSpaces ?? this.featuredSpaces,
@@ -45,7 +49,8 @@ class AppState {
         appliedCriteria: appliedCriteria ?? this.appliedCriteria,
         currentFloor: currentFloor ?? this.currentFloor,
         isLoading: isLoading ?? this.isLoading,
-        reservationFilterCriteria: reservationOrderCriteria ?? this.reservationFilterCriteria
+        reservationFilterCriteria: reservationOrderCriteria ?? this.reservationFilterCriteria,
+        externalUser: externalUser ?? this.externalUser
       );
 
   @override
@@ -62,7 +67,10 @@ class AppState {
         this.currentFloor.toString() +
         '\n' +
         'isLoading: ' +
-        this.isLoading.toString();
+        this.isLoading.toString() +
+        '\n' +
+        'externalUser: ' +
+        this.externalUser.toString();
   }
 
   @override
@@ -77,6 +85,7 @@ class AppState {
             this.filterCriteria == other.filterCriteria &&
             listEquals(this.appliedCriteria, other.appliedCriteria) &&
             this.currentFloor == other.currentFloor &&
-            this.isLoading == this.isLoading);
+            this.isLoading == other.isLoading &&
+            this.externalUser == other.externalUser);
   }
 }

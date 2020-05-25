@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:ucampus/core/models/reservation.dart';
 import 'package:ucampus/core/models/space.dart';
@@ -9,8 +11,9 @@ import 'package:ucampus/ui/widgets/timetables/timetable_selector.dart';
 class ReservationForm extends StatefulWidget {
   final Space space;
   final Function(Timetable, String, bool) onReservation;
+  final bool externalUser;
 
-  const ReservationForm({Key key, this.space, this.onReservation})
+  const ReservationForm({Key key, this.space, this.onReservation, this.externalUser})
       : super(key: key);
   @override
   _ReservationFormState createState() => _ReservationFormState();
@@ -18,13 +21,12 @@ class ReservationForm extends StatefulWidget {
 
 class _ReservationFormState extends State<ReservationForm> {
   ReservationFrequency selectedFrecuency = ReservationFrequency.NO;
-
   Timetable _timetable;
 
   @override
   void initState() {
     super.initState();
-  }
+}
 
   void onTimetableChange(Timetable initialTimetable) {
     setState(() => _timetable = initialTimetable);
@@ -172,7 +174,7 @@ class _ReservationFormState extends State<ReservationForm> {
                       onPressed: () async {
                         await Future.delayed(Duration(seconds: 2));
                         widget.onReservation(
-                            _timetable, widget.space.uuid, false);
+                            _timetable, widget.space.uuid, widget.externalUser);
                         Navigator.of(context).pop();
                       }),
                 ))),

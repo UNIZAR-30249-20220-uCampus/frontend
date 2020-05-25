@@ -9,6 +9,7 @@ import 'package:ucampus/ui/screens/space_info_screen.dart';
 import 'package:ucampus/ui/screens/filter_screen.dart';
 import 'package:ucampus/ui/screens/home_screen.dart';
 import 'package:ucampus/ui/screens/user_reservations_screen.dart';
+import 'package:ucampus/ui/screens/settings.dart';
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -34,6 +35,8 @@ class Router {
       case 'reservation_info_cancel':
         var reservation = settings.arguments as Reservation;
         return MaterialPageRoute(builder: (_) => ReservationInfoScreen(reservation: reservation, canCancel: true)); 
+      case 'settings':
+        return MaterialPageRoute(builder: (_) => SettingsScreen()); 
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(
