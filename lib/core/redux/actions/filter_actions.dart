@@ -66,7 +66,7 @@ class AddFilterCriteriaAction extends ReduxAction<AppState> {
     }
     return state.copy(
         filterCriteria: state.filterCriteria.copy(
-            activeCriteria: state.filterCriteria.activeCriteria.toList()
+            activeCriteria: List.of(state.filterCriteria.activeCriteria)
               ..add(criteriaKind)));
   }
 }
@@ -83,7 +83,7 @@ class RemoveFilterCriteriaAction extends ReduxAction<AppState> {
     }
     return state.copy(
         filterCriteria: state.filterCriteria.copy(
-            activeCriteria: state.filterCriteria.activeCriteria.toList()
+            activeCriteria: List.of(state.filterCriteria.activeCriteria)
               ..remove(criteriaKind)));
   }
 }
@@ -97,15 +97,15 @@ class CleanFilterCriteriaAction extends ReduxAction<AppState> {
 
 class RemoveAndCopyCriteriaAction extends ReduxAction<AppState> {
   final CriteriaKind criteriaKindToRemove;
-  
+
   RemoveAndCopyCriteriaAction({@required this.criteriaKindToRemove});
 
   @override
   AppState reduce() {
     return state.copy(
       filterCriteria: state.filterCriteria.copy(
-        activeCriteria: state.appliedCriteria..remove(criteriaKindToRemove)
-      ),
+          activeCriteria: List.of(state.appliedCriteria)
+            ..remove(criteriaKindToRemove)),
     );
   }
 }

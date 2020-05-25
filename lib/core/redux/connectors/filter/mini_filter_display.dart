@@ -30,10 +30,7 @@ class ViewModel extends BaseModel<AppState> {
   ViewModel.build({
     @required this.appliedCriteria,
     @required this.onCriteriaRemoved,
-  });
-
-  @override
-  int get hashCode => this.appliedCriteria.hashCode;
+  }) : super(equals: [appliedCriteria]);
 
   @override
   BaseModel fromStore() => ViewModel.build(
@@ -43,11 +40,4 @@ class ViewModel extends BaseModel<AppState> {
           dispatch(ApplyFilterAction());
         },
       );
-
-  @override
-  bool operator ==(Object other) {
-    return (identical(this, other) ||
-        other is ViewModel &&
-            listEquals(this.appliedCriteria, other.appliedCriteria));
-  }
 }

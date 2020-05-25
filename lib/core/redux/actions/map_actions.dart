@@ -1,9 +1,7 @@
 import 'package:meta/meta.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:latlong/latlong.dart';
-import 'package:ucampus/core/models/filter_criteria.dart';
 import 'package:ucampus/core/models/space.dart';
-import 'package:ucampus/core/redux/actions/filter_actions.dart';
 import 'package:ucampus/core/redux/actions/loading_actions.dart';
 import 'package:ucampus/core/redux/app_state.dart';
 import 'package:ucampus/core/services/api_service.dart';
