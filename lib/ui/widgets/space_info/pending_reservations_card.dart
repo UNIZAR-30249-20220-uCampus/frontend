@@ -27,8 +27,9 @@ class PendingReservationsCard extends StatelessWidget {
               future: getUpendingReservations(space.uuid),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  return Container(
-                      child: Column(children: <Widget>[
+                  return Expanded(
+                      child: ListView(padding: EdgeInsets.all(0.0), children: <
+                          Widget>[
                     for (var reservation in snapshot.data)
                       Card(
                           child: InkWell(
@@ -126,7 +127,7 @@ class PendingReservationsCard extends StatelessWidget {
                           style: Theme.of(context).textTheme.headline));
                 } else {
                   return Padding(
-                      padding: EdgeInsets.only(top: 30, bottom: 10, left: 10),
+                      padding: EdgeInsets.only(top: 15),
                       child: CircularProgressIndicator(
                         backgroundColor: Theme.of(context).primaryColor,
                       ));

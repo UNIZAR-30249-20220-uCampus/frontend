@@ -26,7 +26,6 @@ class Space {
   final int capacity;
   final String building;
   final bool isBookable;
-  final double surface;
   final List<Equipment> equipments;
 
   Space({
@@ -36,7 +35,6 @@ class Space {
     @required this.capacity,
     @required this.building,
     @required this.isBookable,
-    @required this.surface,
     @required this.equipments,
   });
 
@@ -47,7 +45,6 @@ class Space {
     int capacity,
     String building,
     bool isBookable,
-    double surface,
     List<Equipment> equipments,
   }) =>
       Space(
@@ -57,7 +54,6 @@ class Space {
         capacity: capacity ?? this.capacity,
         building: building ?? this.building,
         isBookable: isBookable ?? this.isBookable,
-        surface: surface ?? this.surface,
         equipments: equipments ?? this.equipments,
       );
 
@@ -74,7 +70,6 @@ class Space {
       capacity: _random.nextInt(100) + 5,
       building: 'Edif. Ada Byron',
       isBookable: true,
-      surface: _random.nextDouble() * 100.0,
       equipments: List.generate(
         _random.nextInt(4),
         (index) => Equipment.randomEquipment(),
@@ -101,7 +96,6 @@ class Space {
             this.capacity == other.capacity &&
             this.building == other.building &&
             this.isBookable == other.isBookable &&
-            this.surface == other.surface &&
             this.equipments == other.equipments);
   }
 

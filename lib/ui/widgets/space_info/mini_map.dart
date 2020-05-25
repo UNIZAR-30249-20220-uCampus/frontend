@@ -3,26 +3,19 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
 import 'package:ucampus/core/models/space.dart';
 
-class BackgroundMap extends StatelessWidget {
-  final int selectedFloor;
-  final Function(LatLng) onMapTap;
-  final List<Space> featuredSpaces;
-  final Function(Space) onFeaturedSpaceTap;
+class MiniMap extends StatelessWidget {
+  final Space space;
 
-  BackgroundMap({
-    @required this.selectedFloor,
-    @required this.onMapTap,
-    @required this.featuredSpaces,
-    @required this.onFeaturedSpaceTap,
-  });
+  MiniMap({@required this.space});
 
   @override
   Widget build(BuildContext context) {
+    LatLng _spaceCenter = LatLng(41.683402, -0.887682);
+    int _floor = 0;
     return FlutterMap(
       options: MapOptions(
-        center: LatLng(41.683252, -0.887632),
-        zoom: 18.0,
-        onTap: (position) => onMapTap(position),
+        center: _spaceCenter, //TODO: añadir
+        zoom: 19.0,
       ),
       layers: [
         TileLayerOptions(
@@ -40,16 +33,21 @@ class BackgroundMap extends StatelessWidget {
                   'http://geo.ucampus.xyz/geoserver/ucampus/wms?service=WMS',
               layers: [
                 'ucampus:eina_' +
-                    (selectedFloor == -1
-                        ? 'sotano'
-                        : 'planta_' + selectedFloor.toString())
+                    (_floor == -1 ? 'sotano' : 'planta_' + _floor.toString())
               ],
               format: 'image/png',
               transparent: true),
         ),
-        MarkerLayerOptions(
-          //markers: List.generate(this.featuredSpaces.length, (index) => null)
-        ),
+        MarkerLayerOptions(markers: [
+          Marker(
+            point: _spaceCenter,
+            builder: (context) => Icon(
+              Icons.location_on,
+              color: Theme.of(context).primaryColor,
+              size: 40,
+            ),
+          ),
+        ]),
       ],
     );
   }

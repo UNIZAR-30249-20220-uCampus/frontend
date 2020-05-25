@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ucampus/core/models/space.dart';
 import 'package:ucampus/ui/shared/enums_strings.dart';
+import 'package:ucampus/ui/widgets/space_info/mini_map.dart';
 
 class SpaceInfoCard extends StatelessWidget {
   final Space space;
@@ -11,132 +12,111 @@ class SpaceInfoCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          ListTile(
-              title: Padding(
-                  padding: EdgeInsets.only(top: 20, bottom: 10, left: 10),
-                  child: Text(space.uuid,
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.w600,
-                        color: Theme.of(context).primaryColor,
-                      ))),
-              subtitle: Padding(
-                padding: EdgeInsets.only(bottom: 20, left: 10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                        padding: EdgeInsets.only(top: 5, left: 10),
-                        child: Row(children: <Widget>[
-                          Text('Nombre: ',
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black)),
-                          Text(space.name,
-                              style: TextStyle(
-                                fontSize: 15,
-                              ))
-                        ])),
-                    Padding(
-                        padding: EdgeInsets.only(top: 5, left: 10),
-                        child: Row(children: <Widget>[
-                          Text('Tipo: ',
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black)),
-                          Text(EnumsStrings.spaceKind[space.kind],
-                              style: TextStyle(
-                                fontSize: 15,
-                              ))
-                        ])),
-                    Padding(
-                        padding: EdgeInsets.only(top: 5, left: 10),
-                        child: Row(children: <Widget>[
-                          Text('Aforo: ',
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black)),
-                          Text(space.capacity.toString(),
-                              style: TextStyle(
-                                fontSize: 15,
-                              ))
-                        ])),
-                    Padding(
-                        padding: EdgeInsets.only(top: 5, left: 10),
-                        child: Row(children: <Widget>[
-                          Text('Edificio: ',
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black)),
-                          Text(space.building,
-                              style: TextStyle(
-                                fontSize: 15,
-                              ))
-                        ])),
-                    Padding(
-                        padding: EdgeInsets.only(top: 5, left: 10),
-                        child: Row(children: <Widget>[
-                          Text('Superficie: ',
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black)),
-                          Text(space.surface.toString(),
-                              style: TextStyle(
-                                fontSize: 15,
-                              ))
-                        ])),
-                    Padding(
-                        padding: EdgeInsets.only(top: 5, left: 10),
-                        child: Text('Equipamiento: ',
-                            style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w500,
-                                color: Colors.black))),
-                    for (var equipment in space.equipments)
-                      Column(
-                        children: <Widget>[
-                          Row(
-                            children: <Widget>[
-                              Padding(
-                                  padding: EdgeInsets.only(top: 10, left: 30),
-                                  child: Text(
-                                      'Tipo: ' +
-                                          EnumsStrings.equipmentKind[
-                                              equipment.equipmentKind],
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                      ))),
-                            ],
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Padding(
-                                  padding: EdgeInsets.only(
-                                      top: 5, left: 30, bottom: 5),
-                                  child: Text(
-                                      'Cantidad: ' +
-                                          equipment.amount.toString(),
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                      ))),
-                            ],
-                          )
-                        ],
-                      ),
-                  ],
-                ),
-              )),
-        ],
+    List<Widget> details = [
+      ListTile(
+        title: Text(
+          space.name,
+          style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.w500,
+            color: Theme.of(context).primaryColor
+          ),
+        ),
+        subtitle: Text(EnumsStrings.spaceKind[space.kind]),
       ),
+      buildDetailsItem(
+        context,
+        Icons.info_outline,
+        space.uuid,
+      ),
+      buildDetailsItem(
+        context,
+        Icons.people,
+        space.capacity.toString() + ' personas',
+      ),
+      buildDetailsItem(
+        context,
+        Icons.account_balance,
+        space.building,
+      ),
+      buildDetailsItem(
+        context,
+        Icons.developer_board,
+        'Equipamiento',
+        body: buildEquipmentTable(),
+      ),
+      buildDetailsItem(
+        context,
+        Icons.location_on,
+        'Ubicación',
+        body: Container(height: 200, child: MiniMap(space: this.space)),
+      ),
+    ];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Expanded(
+          child: ListView.separated(
+            padding: EdgeInsets.all(10.0),
+            itemBuilder: (_, index) => details[index],
+            separatorBuilder: (_, __) => Divider(),
+            itemCount: details.length,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Padding buildEquipmentTable() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 10),
+      child: LayoutBuilder(
+        builder: (context, constraints) => ConstrainedBox(
+          constraints: BoxConstraints(minWidth: constraints.maxWidth),
+          child: DataTable(
+            columnSpacing: 30,
+            columns: <DataColumn>[
+              DataColumn(
+                  label: Text(
+                    'Cantidad',
+                    style: TextStyle(color: Theme.of(context).primaryColor),
+                  ),
+                  numeric: true),
+              DataColumn(
+                label: Text(
+                  'Tipo',
+                  style: TextStyle(color: Theme.of(context).primaryColor),
+                ),
+              ),
+            ],
+            rows: List.generate(
+              space.equipments.length,
+              (index) => DataRow(
+                cells: [
+                  DataCell(
+                      Text('x ' + space.equipments[index].amount.toString())),
+                  DataCell(Text(EnumsStrings
+                      .equipmentKind[space.equipments[index].equipmentKind]))
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildDetailsItem(BuildContext context, IconData icon, String value,
+      {Widget body}) {
+    return Column(
+      children: <Widget>[
+        ListTile(
+          leading: Icon(icon, color: Theme.of(context).primaryColor),
+          title: Text(value),
+        ),
+        body ?? Container()
+      ],
     );
   }
 }

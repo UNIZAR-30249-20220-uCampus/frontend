@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ucampus/core/models/space.dart';
+import 'package:ucampus/ui/shared/enums_strings.dart';
 
 class SpacesCarousel extends StatelessWidget {
   final List<Space> spaces;
@@ -42,24 +43,26 @@ class SpacesCarousel extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   ListTile(
-                      title: Padding(
-                          padding:
-                              EdgeInsets.only(top: 20, bottom: 10, left: 10),
-                          child: Text(space.uuid,
-                              style: TextStyle(
-                                fontSize: 25,
-                                fontWeight: FontWeight.w600,
-                              ))),
-                      subtitle: Padding(
-                        padding: EdgeInsets.only(bottom: 0, left: 10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text('Edificio: ' + space.building),
-                            Text('Aforo: ' + space.capacity.toString()),
-                          ],
-                        ),
-                      )),
+                    title: Padding(
+                        padding: EdgeInsets.only(top: 20, bottom: 5, left: 10),
+                        child: Text(space.uuid,
+                            style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.w600,
+                            ))),
+                    subtitle: Padding(
+                      padding: EdgeInsets.only(bottom: 0, left: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(EnumsStrings.spaceKind[space.kind]),
+                          Container(height: 5,),
+                          Text(space.building, style: TextStyle(fontWeight: FontWeight.w700),),
+                        ],
+                      ),
+                    ),
+                    isThreeLine: true,
+                  ),
                   ButtonBar(
                     children: <Widget>[
                       Padding(
