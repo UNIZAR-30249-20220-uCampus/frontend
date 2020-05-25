@@ -14,39 +14,47 @@ class SpaceInfoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Datos del espacio'),
-      ),
-      body: Stack(
-        children: <Widget>[
-          Positioned(
-              top: 10,
-              right: 10,
-              left: 10,
-              bottom: 10,
-              child: Container(
-                height: MediaQuery.of(context).size.height,
-                child: ListView(
-                  scrollDirection: Axis.vertical,
-                  children: <Widget>[
-                    SpaceInfoCard(
-                      space: space,
-                    ),
-                    Divider(),
-                    PendingReservationsCard(
-                      space: space,
-                    ),
+      body: DefaultTabController(
+        length: 2,
+        child: NestedScrollView(
+          headerSliverBuilder: (context, value) {
+            return [
+              SliverAppBar(
+                titleSpacing: 10,
+                elevation: 3.0,
+                forceElevated: true,
+                title: Text('Información del espacio'),
+                bottom: TabBar(
+                  tabs: [
+                    Tab(child: Text('RESUMEN')),
+                    Tab(child: Text('RESERVAS')),
                   ],
                 ),
-              )),
-          Positioned(
-              bottom: 30,
-              right: 10,
-              left: 0,
-              child: ReservationRentalDial(
+              ),
+            ];
+          },
+          body: TabBarView(
+            children: [
+              Stack(
+                children: <Widget>[
+                  SpaceInfoCard(
+                    space: space,
+                  ),
+                  Positioned(
+                      bottom: 30,
+                      right: 10,
+                      left: 0,
+                      child: ReservationRentalDial(
+                        space: space,
+                      )),
+                ],
+              ),
+              PendingReservationsCard(
                 space: space,
-              )),
-        ],
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
