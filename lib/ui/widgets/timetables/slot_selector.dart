@@ -97,7 +97,7 @@ class _SlotSelectorState extends State<SlotSelector> {
                           }
                         : null,
                     onChangeEnd: (range) {
-                      this.widget.onChanged(_startingTime, _endingTime);
+                      this.widget.onChanged(_startingTime + 1, _endingTime + 1);
                     },
                     values: RangeValues(
                         _startingTime.toDouble(), _endingTime.toDouble()),
