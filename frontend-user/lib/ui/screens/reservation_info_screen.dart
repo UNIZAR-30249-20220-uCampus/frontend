@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ucampus/core/models/reservation.dart';
-import 'package:ucampus/ui/widgets/reservation/reservation_info_card.dart';
+import 'package:ucampus_lib/core/models/reservation.dart';
+import 'package:ucampus_lib/ui/widgets/reservation/reservation_info_card.dart';
 
 class ReservationInfoScreen extends StatelessWidget {
   final Reservation reservation;

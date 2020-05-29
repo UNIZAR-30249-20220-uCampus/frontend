@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ucampus/ui/shared/colors.dart';
+import 'package:ucampus_lib/ui/shared/colors.dart';
 
 class TypeUser extends StatefulWidget {
   final bool externalUser;

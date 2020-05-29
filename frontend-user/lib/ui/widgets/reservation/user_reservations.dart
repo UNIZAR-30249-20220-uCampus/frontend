@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ucampus/core/models/reservation.dart';
-import 'package:ucampus/ui/shared/enums_strings.dart';
-import 'package:ucampus/ui/shared/string_utils.dart';
+import 'package:ucampus_lib/core/models/reservation.dart';
+import 'package:ucampus_lib/ui/shared/enums_strings.dart';
+import 'package:ucampus_lib/ui/shared/string_utils.dart';
 
 class UserReservations extends StatefulWidget {
   final List<ReservationStatus> reservationFilterCriteria;
@@ -105,14 +105,18 @@ class _UserReservationsState extends State<UserReservations> {
                                               ))),
                                       subtitle: Padding(
                                         padding: EdgeInsets.only(
-                                            bottom: 0, left: 10,),
+                                          bottom: 0,
+                                          left: 10,
+                                        ),
                                         child: Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: <Widget>[
                                             Padding(
                                                 padding: EdgeInsets.only(
-                                                    left: 10, top: 15, bottom: 5),
+                                                    left: 10,
+                                                    top: 15,
+                                                    bottom: 5),
                                                 child: Row(children: <Widget>[
                                                   Text("Horario: ",
                                                       style: TextStyle(
@@ -130,7 +134,8 @@ class _UserReservationsState extends State<UserReservations> {
                                                       Padding(
                                                           padding:
                                                               EdgeInsets.only(
-                                                                  left: 20, bottom: 5),
+                                                                  left: 20,
+                                                                  bottom: 5),
                                                           child: Text(
                                                               EnumsStrings.weekday[slot
                                                                       .weekday] +

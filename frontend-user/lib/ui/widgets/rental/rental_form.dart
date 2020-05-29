@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ucampus/core/models/space.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
-import 'package:ucampus/core/models/timetable.dart';
+import 'package:ucampus_lib/core/models/space.dart';
+import 'package:ucampus_lib/core/models/timetable.dart';
 
 class RentalForm extends StatefulWidget {
   final Space space;

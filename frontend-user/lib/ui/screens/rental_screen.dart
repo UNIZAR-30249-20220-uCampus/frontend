@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ucampus/core/models/space.dart';
 import 'package:ucampus/core/redux/connectors/space_info/rental_form.dart';
+import 'package:ucampus_lib/core/models/space.dart';
 
 class RentalScreen extends StatelessWidget {
   final Space space;

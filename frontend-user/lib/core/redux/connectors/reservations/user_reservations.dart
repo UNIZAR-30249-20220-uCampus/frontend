@@ -1,9 +1,9 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
-import 'package:ucampus/core/models/reservation.dart';
-import 'package:ucampus/core/redux/app_state.dart';
-import 'package:ucampus/core/services/api_service.dart';
-import 'package:ucampus/locator.dart';
+import 'package:ucampus_lib/core/models/reservation.dart';
+import 'package:ucampus_lib/core/redux/app_state.dart';
+import 'package:ucampus_lib/core/services/api_service.dart';
+import 'package:ucampus_lib/locator.dart';
 import 'package:ucampus/ui/widgets/reservation/user_reservations.dart';
 
 class UserReservationsConnector extends StatelessWidget {

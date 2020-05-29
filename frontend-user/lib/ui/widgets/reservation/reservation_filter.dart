@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ucampus/core/models/reservation.dart';
+import 'package:ucampus_lib/core/models/reservation.dart';
 
 class ReservationFilter extends StatefulWidget {
   final List<ReservationStatus> reservationFilterCriteria;

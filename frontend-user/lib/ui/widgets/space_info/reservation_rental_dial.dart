@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:ucampus/core/models/space.dart';
+import 'package:ucampus_lib/core/models/space.dart';
 
 class ReservationRentalDial extends StatelessWidget {
   final Space space;

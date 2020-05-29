@@ -1,10 +1,10 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:ucampus/core/redux/app_state.dart';
-import 'package:ucampus/locator.dart';
+import 'package:ucampus_lib/core/redux/app_state.dart';
 import 'package:ucampus/ui/router.dart';
-import 'package:ucampus/ui/shared/theme.dart';
+import 'package:ucampus_lib/locator.dart';
+import 'package:ucampus_lib/ui/shared/theme.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
