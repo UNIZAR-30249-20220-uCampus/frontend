@@ -18,6 +18,8 @@ class ReservationInfoCard extends StatefulWidget {
 
 class _ReservationInfoCardtate extends State<ReservationInfoCard> {
   String _deviceid = '';
+  final RoundedLoadingButtonController _btnController =
+      new RoundedLoadingButtonController();
 
   @override
   void initState() {
@@ -243,6 +245,7 @@ class _ReservationInfoCardtate extends State<ReservationInfoCard> {
                       width: 250,
                       child: RoundedLoadingButton(
                           color: Theme.of(context).primaryColor,
+                          controller: _btnController,
                           child: Text(
                             'Cancelar reserva',
                             style: TextStyle(
@@ -251,7 +254,8 @@ class _ReservationInfoCardtate extends State<ReservationInfoCard> {
                           ),
                           onPressed: () async {
                             widget.onCancel(widget.reservation.reservationID);
-                            Navigator.of(context).pop();
+                            _btnController.success();
+                            //Navigator.of(context).pop();
                           }),
                     )))
             : Container(),

@@ -10,10 +10,10 @@ part 'timetable.g.dart';
 @JsonSerializable()
 class Timetable {
   List<Slot> slots;
-  final DateTime startDate;
-  final DateTime endDate;
+  DateTime startDate;
+  DateTime endDate;
 
-  Timetable({@required this.startDate, @required this.endDate}) {
+  Timetable({this.startDate, this.endDate}) {
     slots = [];
   }
 
@@ -22,6 +22,11 @@ class Timetable {
         weekday: weekday,
         startingSlotNumber: 10 * 2,
         endingSlotNumber: 12 * 2));
+  }
+
+  void addDates(DateTime _startDate, DateTime _endDate) {
+    startDate = _startDate;
+    endDate = _endDate;
   }
 
   void updateSlot(int index, int start, int end) {
@@ -57,7 +62,7 @@ class Timetable {
 
   static Timetable randomTimetable({int labNumber}) {
     final _random = Random();
-    var timetable = Timetable(startDate: DateTime.now(), endDate: DateTime.now(),);
+    var timetable = Timetable(startDate: DateTime.now(), endDate: DateTime.now());
     timetable.addSlot(Weekday.values[_random.nextInt(Weekday.values.length)]);
     timetable.addSlot(Weekday.values[_random.nextInt(Weekday.values.length)]);
     return timetable;

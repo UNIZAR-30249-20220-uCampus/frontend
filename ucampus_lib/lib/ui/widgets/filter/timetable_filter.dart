@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ucampus_lib/core/models/timetable.dart';
 import 'package:ucampus_lib/ui/widgets/timetables/timetable_selector.dart';
 
+
 class TimetableFilter extends StatefulWidget {
   final bool isEnabled;
   final Function onFilterAdded;
@@ -22,6 +23,7 @@ class TimetableFilter extends StatefulWidget {
 }
 
 class _TimetableFilterState extends State<TimetableFilter> {
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -41,7 +43,7 @@ class _TimetableFilterState extends State<TimetableFilter> {
                           : Colors.grey),
                 ),
                 Text(
-                    'Selecciona las franjas horarias en las que deseas que esté disponible el espacio que buscas'),
+                    'Selecciona las franjas horarias en las que deseas que esté disponible el espacio que buscas y las fechas de inicio y fin'),
               ],
             ),
           ),

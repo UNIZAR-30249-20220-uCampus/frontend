@@ -19,6 +19,8 @@ class ReservationFormExternal extends StatefulWidget {
 }
 
 class _ReservationFormExternalState extends State<ReservationFormExternal> {
+  final RoundedLoadingButtonController _btnController =
+      new RoundedLoadingButtonController();
 
 
   @override
@@ -81,6 +83,7 @@ class _ReservationFormExternalState extends State<ReservationFormExternal> {
                   width: 250,
                   child: RoundedLoadingButton(
                       color: Theme.of(context).primaryColor,
+                      controller: _btnController,
                       child: Text(
                         'Solicitar reserva',
                         style: TextStyle(
@@ -89,7 +92,9 @@ class _ReservationFormExternalState extends State<ReservationFormExternal> {
                       onPressed: () async {
                         widget.onReservation(widget.reservation.timeTable, widget.reservation.space.uuid,
                             true, widget.reservation.frecuency, widget.reservation.userID);
-                        Navigator.of(context).pop();
+                        
+                        _btnController.success();
+                        //Navigator.of(context).pop();
                       }),
                 ))),
       ],
