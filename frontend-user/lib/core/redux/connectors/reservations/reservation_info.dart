@@ -6,37 +6,33 @@ import 'package:ucampus_lib/core/redux/actions/reservation_actions.dart';
 import 'package:ucampus_lib/core/redux/app_state.dart';
 import 'package:ucampus/ui/widgets/reservation/reservation_form.dart';
 import 'package:ucampus_lib/core/models/reservation.dart';
+import 'package:ucampus_lib/ui/widgets/reservation/reservation_info_card.dart';
 
-class ReservationFormConnector extends StatelessWidget {
-  final Space space;
+class ReservationInfoConnector extends StatelessWidget {
+  final Reservation reservation;
   
-  ReservationFormConnector({
-    @required this.space,
+  ReservationInfoConnector({
+    @required this.reservation,
   });
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, ViewModel>(
       model: ViewModel(),
       builder: (context, model) =>
-          ReservationForm(space: space, onReservation: model.onReservation, externalUser: model.externalUser,),
+          ReservationInfoCard(reservation: reservation, onCancel: model.onCancel),
     );
   }
 }
 
 class ViewModel extends BaseModel<AppState> {
   ViewModel();
-
-  Function(Timetable, String, bool, ReservationFrequency, String) onReservation;
-  bool externalUser;
+  Function(String) onCancel;
 
   ViewModel.build({
-    @required this.onReservation,
-    @required this.externalUser,
-  }) : super(equals: [externalUser]);
+    @required this.onCancel,
+  }) : super(equals: []);
 
   @override
   BaseModel fromStore() => ViewModel.build(
-      externalUser: state.externalUser,
-       onReservation: (time, spaceID, isForRent, frequency, userID) => dispatch(ReservationAction(
-          time: time, spaceID: spaceID, isForRent: isForRent, frequency : frequency, userID: userID)));
+      onCancel: (reservationID) => dispatch(CancelReservationAction(reservationID: reservationID)));
 }

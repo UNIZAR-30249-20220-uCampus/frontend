@@ -4,15 +4,35 @@ import 'package:ucampus_lib/core/models/reservation.dart';
 import 'package:ucampus_lib/core/models/timetable.dart';
 import 'package:ucampus_lib/ui/shared/enums_strings.dart';
 import 'package:ucampus_lib/ui/widgets/timetables/timetable_display.dart';
+import 'package:device_id/device_id.dart';
 
-class ReservationInfoCard extends StatelessWidget {
+class ReservationInfoCard extends StatefulWidget {
   final Reservation reservation;
-  final bool canCancel;
+  final Function(String) onCancel;
 
-  ReservationInfoCard({
-    @required this.reservation,
-    @required this.canCancel,
-  });
+  const ReservationInfoCard({Key key, this.reservation, this.onCancel})
+      : super(key: key);
+  @override
+  _ReservationInfoCardtate createState() => _ReservationInfoCardtate();
+}
+
+class _ReservationInfoCardtate extends State<ReservationInfoCard> {
+  String _deviceid = '';
+
+  @override
+  void initState() {
+    super.initState();
+    initDeviceId();
+  }
+
+  Future<void> initDeviceId() async {
+    String deviceid;
+    deviceid = await DeviceId.getID;
+
+    setState(() {
+      _deviceid = deviceid;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +51,8 @@ class ReservationInfoCard extends StatelessWidget {
                       title: Padding(
                           padding:
                               EdgeInsets.only(top: 20, bottom: 10, left: 10),
-                          child: Text('Reserva de ' + reservation.space.uuid,
+                          child: Text(
+                              'Reserva de ' + widget.reservation.space.uuid,
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 30,
@@ -63,8 +84,114 @@ class ReservationInfoCard extends StatelessWidget {
                             TimetableDisplay(
                               onTimetableChanged: (timetable) =>
                                   onTimetableChange(timetable),
-                              initialTimetable: reservation.timeTable,
+                              initialTimetable: widget.reservation.timeTable,
                             ),
+                            Padding(
+                              padding:
+                                  EdgeInsets.only(top: 10, left: 0, bottom: 10),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    'Fechas',
+                                    style: TextStyle(
+                                        fontSize: 19,
+                                        fontWeight: FontWeight.w600,
+                                        color: Theme.of(context).primaryColor),
+                                  ),
+                                  Text(
+                                      'Fechas de inicio y de fin de la reserva')
+                                ],
+                              ),
+                            ),
+                            Padding(
+                                padding: EdgeInsets.only(left: 10),
+                                child: Container(
+                                    child: Row(children: <Widget>[
+                                  Padding(
+                                      padding: EdgeInsets.only(right: 15),
+                                      child: RaisedButton(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(5.0)),
+                                        elevation: 4.0,
+                                        onPressed: null,
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          height: 30.0,
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              Row(
+                                                children: <Widget>[
+                                                  Container(
+                                                    child: Row(
+                                                      children: <Widget>[
+                                                        Icon(
+                                                          Icons.date_range,
+                                                          size: 15.0,
+                                                          color: Colors.black,
+                                                        ),
+                                                        Text(
+                                                          '${widget.reservation.timeTable.startDate.day} - ${widget.reservation.timeTable.startDate.month} - ${widget.reservation.timeTable.startDate.year}',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 15.0),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        color: Colors.white,
+                                        disabledColor: Colors.white
+                                      )),
+                                  RaisedButton(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(5.0)),
+                                    elevation: 4.0,
+                                    onPressed: null,
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      height: 30.0,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                          Row(
+                                            children: <Widget>[
+                                              Container(
+                                                child: Row(
+                                                  children: <Widget>[
+                                                    Icon(
+                                                      Icons.date_range,
+                                                      size: 15.0,
+                                                      color: Colors.black,
+                                                    ),
+                                                    Text(
+                                                      '${widget.reservation.timeTable.endDate.day} - ${widget.reservation.timeTable.endDate.month} - ${widget.reservation.timeTable.endDate.year}',
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontSize: 15.0),
+                                                    ),
+                                                  ],
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    color: Colors.white,
+                                    disabledColor: Colors.white
+                                  )
+                                ]))),
                             Padding(
                               padding:
                                   EdgeInsets.only(top: 20, left: 0, bottom: 10),
@@ -80,57 +207,20 @@ class ReservationInfoCard extends StatelessWidget {
                                   ),
                                   Text(
                                       'Frecuencia de repetición de la reserva'),
+                                  Padding(
+                                      padding: EdgeInsets.only(
+                                        top: 10,
+                                        left: 20,
+                                      ),
+                                      child: Text(
+                                          EnumsStrings.reservationFrequency[
+                                              widget.reservation.frecuency],
+                                          style: TextStyle(
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.w600,
+                                              color: Theme.of(context)
+                                                  .primaryColor))),
                                 ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 5, bottom: 10),
-                              child: Container(
-                                width: 270.0,
-                                height: 35.9,
-                                child: Material(
-                                  color: Theme.of(context).accentColor,
-                                  elevation: 4.0,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(5)),
-                                  child: Wrap(
-                                    spacing: 0.0,
-                                    direction: Axis.horizontal,
-                                    children: <Widget>[
-                                      for (var frequency
-                                          in ReservationFrequency.values)
-                                        Container(
-                                          width: frequency ==
-                                                  ReservationFrequency.WEEKLY
-                                              ? 90
-                                              : 60,
-                                          child: FlatButton(
-                                            disabledColor: reservation
-                                                        .frecuency ==
-                                                    frequency
-                                                ? Theme.of(context).primaryColor
-                                                : Colors.white,
-                                            materialTapTargetSize:
-                                                MaterialTapTargetSize
-                                                    .shrinkWrap,
-                                            child: Text(
-                                                EnumsStrings
-                                                        .reservationFrequency[
-                                                    frequency],
-                                                style: TextStyle(
-                                                  color: reservation
-                                                              .frecuency ==
-                                                          frequency
-                                                      ? Theme.of(context)
-                                                          .accentColor
-                                                      : Colors.black,
-                                                )),
-                                            onPressed: null,
-                                          ),
-                                        )
-                                    ],
-                                  ),
-                                ),
                               ),
                             ),
                           ],
@@ -139,7 +229,10 @@ class ReservationInfoCard extends StatelessWidget {
                 ],
               ),
             )),
-        canCancel
+        // _deviceid == widget.reservation.userID &&
+        (widget.reservation.reservationStatus == ReservationStatus.PENDING ||
+                widget.reservation.reservationStatus ==
+                    ReservationStatus.PENDING_PAYMENT)
             ? Positioned(
                 bottom: 50,
                 right: 10,
@@ -156,7 +249,10 @@ class ReservationInfoCard extends StatelessWidget {
                                 fontSize: 15,
                                 color: Theme.of(context).accentColor),
                           ),
-                          onPressed: () async {}),
+                          onPressed: () async {
+                            widget.onCancel(widget.reservation.reservationID);
+                            Navigator.of(context).pop();
+                          }),
                     )))
             : Container(),
       ],

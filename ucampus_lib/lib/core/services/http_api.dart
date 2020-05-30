@@ -22,6 +22,7 @@ class HttpApi implements ApiService {
     Timetable time,
     String spaceID,
     bool isForRent,
+    String userID
   ) {
     throw UnimplementedError();
   }

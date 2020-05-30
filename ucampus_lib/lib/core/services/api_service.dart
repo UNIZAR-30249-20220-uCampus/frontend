@@ -18,6 +18,7 @@ abstract class ApiService {
     Timetable time,
     String spaceID,
     bool isForRent,
+    String userID
   );
  
   Future<List<Reservation>> getSpaceReservation(String spaceID);

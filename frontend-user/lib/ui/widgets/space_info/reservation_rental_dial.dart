@@ -28,20 +28,6 @@ class ReservationRentalDial extends StatelessWidget {
             SpeedDialChild(
               child: Center(
                 child: Icon(
-                  Icons.euro_symbol,
-                  color: Theme.of(context).primaryColor,
-                ),
-              ),
-              label: 'Alquilar',
-              backgroundColor: Theme.of(context).accentColor,
-              labelStyle: TextStyle(fontSize: 18.0),
-              onTap: () {
-                Navigator.pushNamed(context, "rental", arguments: space);
-              },
-            ),
-            SpeedDialChild(
-              child: Center(
-                child: Icon(
                   Icons.calendar_today,
                   color: Theme.of(context).primaryColor,
                 ),

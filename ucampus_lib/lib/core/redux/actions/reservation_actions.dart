@@ -12,9 +12,10 @@ class ReservationAction extends ReduxAction<AppState> {
   final String spaceID;
   final bool isForRent;
   final ReservationFrequency frequency;
+  final String userID;
 
   ReservationAction(
-      {@required this.time, @required this.spaceID, @required this.isForRent, this.frequency});
+      {@required this.time, @required this.spaceID, @required this.isForRent, this.frequency, this.userID});
 
   @override
   Future<AppState> reduce() async {
@@ -24,10 +25,36 @@ class ReservationAction extends ReduxAction<AppState> {
       this.time,
       this.spaceID,
       this.isForRent,
+      this.userID
     );
     dispatch(SetLoadingAction(isLoading: false));
 
     if (reservationResult == ReservationResult.error) {
+      return state; //TODO: mostrar algún tipo de pop up informando
+    } else if (reservationResult == ReservationResult.success) {
+      return state; //TODO: mostrar algún tipo de pop up informando
+    } else {
+      return null;
+    }
+  }
+}
+
+class CancelReservationAction extends ReduxAction<AppState> {
+  final String reservationID;
+
+  CancelReservationAction(
+      {@required this.reservationID});
+
+  @override
+  Future<AppState> reduce() async {
+    dispatch(SetLoadingAction(isLoading: true));
+    ApiService apiService = locator<ApiService>();
+    CancelReservationResult reservationResult = await apiService.cancelReservation(
+      this.reservationID,
+    );
+    dispatch(SetLoadingAction(isLoading: false));
+
+    if (reservationResult == CancelReservationResult.error) {
       return state; //TODO: mostrar algún tipo de pop up informando
     } else if (reservationResult == ReservationResult.success) {
       return state; //TODO: mostrar algún tipo de pop up informando

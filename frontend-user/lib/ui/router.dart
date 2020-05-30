@@ -11,6 +11,7 @@ import 'package:ucampus_lib/core/models/reservation.dart';
 import 'package:ucampus_lib/core/models/space.dart';
 import 'package:ucampus_lib/ui/screens/filter_screen.dart';
 import 'package:ucampus_lib/ui/screens/home_screen.dart';
+import 'package:ucampus/ui/screens/reservation_screen_external.dart';
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -25,6 +26,10 @@ class Router {
         var space = settings.arguments as Space;
         return MaterialPageRoute(
             builder: (_) => ReservationScreen(space: space));
+      case 'reservation_external':
+        var eservation = settings.arguments as Reservation;
+        return MaterialPageRoute(
+            builder: (_) => ReservationScreenExternal(reservation: eservation));
       case 'rental':
         var space = settings.arguments as Space;
         return MaterialPageRoute(builder: (_) => RentalScreen(space: space));
@@ -36,12 +41,7 @@ class Router {
         var reservation = settings.arguments as Reservation;
         return MaterialPageRoute(
             builder: (_) => ReservationInfoScreen(
-                reservation: reservation, canCancel: false));
-      case 'reservation_info_cancel':
-        var reservation = settings.arguments as Reservation;
-        return MaterialPageRoute(
-            builder: (_) => ReservationInfoScreen(
-                reservation: reservation, canCancel: true));
+                reservation: reservation));
       case 'settings':
         return MaterialPageRoute(builder: (_) => SettingsScreen());
       default:

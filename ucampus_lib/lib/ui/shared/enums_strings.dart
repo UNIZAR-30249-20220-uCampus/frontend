@@ -43,9 +43,9 @@ class EnumsStrings {
   };
 
   static const Map<ReservationFrequency, String> reservationFrequency = {
-    ReservationFrequency.NO : 'No',
-    ReservationFrequency.WEEKLY: 'Semana',
-    ReservationFrequency.MONTHLY: 'Mes',
-    ReservationFrequency.ANNUALLY: 'Año',
+    ReservationFrequency.NO : 'Ninguna',
+    ReservationFrequency.WEEKLY: 'Semanal',
+    ReservationFrequency.MONTHLY: 'Mensual',
+    ReservationFrequency.ANNUALLY: 'Anual',
   };
 }

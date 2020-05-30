@@ -10,8 +10,10 @@ part 'timetable.g.dart';
 @JsonSerializable()
 class Timetable {
   List<Slot> slots;
+  final DateTime startDate;
+  final DateTime endDate;
 
-  Timetable() {
+  Timetable({@required this.startDate, @required this.endDate}) {
     slots = [];
   }
 
@@ -47,12 +49,15 @@ class Timetable {
   @override
   bool operator ==(other) {
     return identical(this, other) ||
-        (other is Timetable && listEquals(this.slots, other.slots));
+        (other is Timetable &&
+            listEquals(this.slots, other.slots) &&
+            this.startDate == other.startDate &&
+            this.endDate == other.endDate);
   }
 
   static Timetable randomTimetable({int labNumber}) {
     final _random = Random();
-    var timetable = Timetable();    
+    var timetable = Timetable(startDate: DateTime.now(), endDate: DateTime.now(),);
     timetable.addSlot(Weekday.values[_random.nextInt(Weekday.values.length)]);
     timetable.addSlot(Weekday.values[_random.nextInt(Weekday.values.length)]);
     return timetable;

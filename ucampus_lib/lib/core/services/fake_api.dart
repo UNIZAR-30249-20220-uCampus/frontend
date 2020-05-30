@@ -27,6 +27,7 @@ class FakeApi implements ApiService {
     Timetable time,
     String spaceID,
     bool isForRent,
+    String userID
   ) async {
     await Future.delayed(Duration(milliseconds: 700));
     return ReservationResult.success; // TODO
@@ -54,7 +55,7 @@ class FakeApi implements ApiService {
   Future<CancelReservationResult> cancelReservation(
       String reservationID) async {
     await Future.delayed(Duration(milliseconds: 700));
-    throw UnimplementedError();
+    return CancelReservationResult.success; // TODO
   }
 
   @override

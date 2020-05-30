@@ -76,18 +76,9 @@ class _UserReservationsState extends State<UserReservations> {
                           child: InkWell(
                               splashColor: Colors.blue.withAlpha(30),
                               onTap: () {
-                                if (reservation.reservationStatus ==
-                                        ReservationStatus.PENDING ||
-                                    reservation.reservationStatus ==
-                                        ReservationStatus.PENDING_PAYMENT) {
-                                  Navigator.pushNamed(
-                                      context, "reservation_info_cancel",
-                                      arguments: reservation);
-                                } else {
-                                  Navigator.pushNamed(
+                                Navigator.pushNamed(
                                       context, "reservation_info",
                                       arguments: reservation);
-                                }
                               },
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,

@@ -4,21 +4,21 @@ import 'package:ucampus_lib/core/models/space.dart';
 import 'package:ucampus_lib/core/models/timetable.dart';
 import 'package:ucampus_lib/core/redux/actions/reservation_actions.dart';
 import 'package:ucampus_lib/core/redux/app_state.dart';
-import 'package:ucampus/ui/widgets/reservation/reservation_form.dart';
+import 'package:ucampus/ui/widgets/reservation/reservation_form_external.dart';
 import 'package:ucampus_lib/core/models/reservation.dart';
 
-class ReservationFormConnector extends StatelessWidget {
-  final Space space;
+class ReservationFormExternalConnector extends StatelessWidget {
+  final Reservation reservation;
   
-  ReservationFormConnector({
-    @required this.space,
+  ReservationFormExternalConnector({
+    @required this.reservation,
   });
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, ViewModel>(
       model: ViewModel(),
       builder: (context, model) =>
-          ReservationForm(space: space, onReservation: model.onReservation, externalUser: model.externalUser,),
+          ReservationFormExternal(reservation: reservation, onReservation: model.onReservation),
     );
   }
 }
@@ -27,16 +27,13 @@ class ViewModel extends BaseModel<AppState> {
   ViewModel();
 
   Function(Timetable, String, bool, ReservationFrequency, String) onReservation;
-  bool externalUser;
 
   ViewModel.build({
     @required this.onReservation,
-    @required this.externalUser,
-  }) : super(equals: [externalUser]);
+  }) : super(equals: []);
 
   @override
   BaseModel fromStore() => ViewModel.build(
-      externalUser: state.externalUser,
-       onReservation: (time, spaceID, isForRent, frequency, userID) => dispatch(ReservationAction(
+      onReservation: (time, spaceID, isForRent, frequency, userID) => dispatch(ReservationAction(
           time: time, spaceID: spaceID, isForRent: isForRent, frequency : frequency, userID: userID)));
 }

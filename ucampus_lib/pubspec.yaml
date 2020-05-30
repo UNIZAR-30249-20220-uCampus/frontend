@@ -25,6 +25,7 @@ dependencies:
   flutter_speed_dial: ^1.2.5
   floating_search_bar: ^0.3.0
   flutter_launcher_icons: ^0.7.4
+  device_id: ^0.2.0
 
 dev_dependencies:
   flutter_test:
