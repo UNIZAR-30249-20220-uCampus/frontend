@@ -18,7 +18,7 @@ class Router {
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(
-            builder: (_) => HomeScreen(drawer: DrawerApp()));
+            builder: (_) => HomeScreen(drawer: DrawerApp(), isUser: true));
       case 'space_info':
         var space = settings.arguments as Space;
         return MaterialPageRoute(builder: (_) => SpaceInfoScreen(space: space));

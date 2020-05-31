@@ -4,8 +4,9 @@ import 'package:ucampus_lib/ui/shared/enums_strings.dart';
 
 class SpacesCarousel extends StatelessWidget {
   final List<Space> spaces;
+  final bool isUser;
 
-  SpacesCarousel({@required this.spaces});
+  SpacesCarousel({@required this.spaces, @required this.isUser});
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +64,7 @@ class SpacesCarousel extends StatelessWidget {
                     ),
                     isThreeLine: true,
                   ),
+                  isUser?
                   ButtonBar(
                     children: <Widget>[
                       Padding(
@@ -76,7 +78,8 @@ class SpacesCarousel extends StatelessWidget {
                         ),
                       )
                     ],
-                  ),
+                  ):
+                  Container(),
                 ],
               ),
             )),
