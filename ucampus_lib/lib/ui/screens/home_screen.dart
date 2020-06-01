@@ -8,8 +8,9 @@ import 'package:ucampus_lib/core/redux/connectors/home/floor_selector.dart';
 class HomeScreen extends StatelessWidget {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   final Widget drawer;
+  final bool isUser;
 
-  HomeScreen({@required this.drawer});
+  HomeScreen({@required this.drawer, @required this.isUser});
 
   openTheDrawer() {
     _scaffoldKey.currentState.openDrawer();
@@ -44,7 +45,7 @@ class HomeScreen extends StatelessWidget {
             bottom: 0,
             right: 0,
             left: 0,
-            child: SpacesCarouselConnector(),
+            child: SpacesCarouselConnector(isUser: isUser),
           ),
         ],
       ),

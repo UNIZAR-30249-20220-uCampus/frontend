@@ -5,12 +5,17 @@ import 'package:ucampus_lib/ui/widgets/home/spaces_carousel.dart';
 import 'package:ucampus_lib/core/models/space.dart';
 
 class SpacesCarouselConnector extends StatelessWidget {
+  final bool isUser;
+
+  SpacesCarouselConnector({@required this.isUser});
+
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, ViewModel>(
       model: ViewModel(),
       builder: (context, model) => SpacesCarousel(
-        spaces: model.spaces
+        spaces: model.spaces,
+        isUser: isUser
       ),
     );
   }
