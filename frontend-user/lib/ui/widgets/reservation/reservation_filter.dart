@@ -23,16 +23,16 @@ class _ReservationFilterState extends State<ReservationFilter> {
 
   String statusToLabel(ReservationStatus status) {
     switch (status) {
-      case ReservationStatus.ACCEPTED:
+      case ReservationStatus.ACEPTADA:
         return 'Aceptadas';
         break;
-      case ReservationStatus.REJECTED:
+      case ReservationStatus.CANCELADA:
         return 'Rechazadas';
         break;
-      case ReservationStatus.PENDING:
+      case ReservationStatus.PENDIENTE:
         return 'Pendientes';
         break;
-      case ReservationStatus.PENDING_PAYMENT:
+      case ReservationStatus.PENDIENTEPAGO:
         return 'Pendientes de pago';
         break;
     }

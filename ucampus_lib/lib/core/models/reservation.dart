@@ -3,41 +3,47 @@ import 'dart:math';
 import 'package:meta/meta.dart';
 import 'package:ucampus_lib/core/models/space.dart';
 import 'package:ucampus_lib/core/models/timetable.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-enum ReservationStatus { ACCEPTED, REJECTED, PENDING, PENDING_PAYMENT}
-enum ReservationFrequency { NO, WEEKLY, MONTHLY, ANNUALLY}
+part 'reservation.g.dart';
 
+enum ReservationStatus { PENDIENTE, PENDIENTEPAGO, ACEPTADA, CANCELADA}
+
+
+@JsonSerializable()
 class Reservation {
-  final String reservationID;
-  final Space space;
-  final Timetable timeTable;
-  final ReservationFrequency frecuency;
-  final ReservationStatus reservationStatus;
+  @JsonKey(name: 'id')
+  final int reservationID;
+  @JsonKey(name: 'usuario')
   final String userID;
+  @JsonKey(name: 'espacio')
+  final String space;
+  @JsonKey(name: 'horario')
+  final Timetable timeTable;
+  @JsonKey(name: 'estado')
+  final ReservationStatus reservationStatus;
+  
 
   Reservation({
     @required this.reservationID,
     @required this.space,
     @required this.timeTable,
-    @required this.frecuency,
     @required this.reservationStatus,
     @required this.userID
   });
 
   Reservation copy({
-    String reservationID,
-    Space espacio,
+    int reservationID,
+    String space,
     Timetable timeTable,
-    ReservationFrequency frecuencia,
     ReservationStatus reservationStatus,
     String userID
 
   }) =>
       Reservation(
         reservationID: reservationID ?? reservationID,
-        space: espacio ?? this.space,
+        space: space ?? this.space,
         timeTable: timeTable ?? this.timeTable,
-        frecuency: frecuencia ?? this.frecuency,
         reservationStatus: reservationStatus ?? this.reservationStatus,
         userID: userID ?? this.userID
       );
@@ -45,13 +51,16 @@ class Reservation {
   static Reservation randomReservation({int labNumber}) {
     final _random = Random();
     return Reservation(
-      reservationID: '1',
-      space: Space.randomSpace(labNumber: labNumber),
+      reservationID: 1,
+      space: Space.randomSpace(labNumber: labNumber).uuid,
       timeTable: Timetable.randomTimetable(),
-      frecuency: ReservationFrequency.values[_random.nextInt(ReservationFrequency.values.length)],
       reservationStatus: ReservationStatus.values[_random.nextInt(ReservationStatus.values.length)],
       userID: '1'
     );
   }
+
+  factory Reservation.fromJson(Map<String, dynamic> json) =>
+      _$ReservationFromJson(json);
+  Map<String, dynamic> toJson() => _$ReservationToJson(this);
 
 }

@@ -21,10 +21,13 @@ class SpaceTapAction extends ReduxAction<AppState> {
       this.tappedPosition,
     );
     if (tappedSpace == null) {
-      return null;
+      dispatch(SetLoadingAction(isLoading: false));
+      return state.copy(featuredSpaces: []);
     }
-    dispatch(SetLoadingAction(isLoading: false));
-    return state.copy(featuredSpaces: [tappedSpace]);
+    else{
+      dispatch(SetLoadingAction(isLoading: false));
+      return state.copy(featuredSpaces: [tappedSpace]);
+    }
   }
 }
 

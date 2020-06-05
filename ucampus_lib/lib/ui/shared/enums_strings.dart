@@ -17,11 +17,22 @@ class EnumsStrings {
   };
 
   static const Map<EquipmentKind, String> equipmentKind = {
-    EquipmentKind.BOARD: 'Pizarra',
-    EquipmentKind.CHAIR: 'Silla',
-    EquipmentKind.COMPUTER: 'Ordenador',
-    EquipmentKind.PROJECTOR: 'Proyector',
-    EquipmentKind.TABLE: 'Mesa'
+    EquipmentKind.CAYON_FIJO: 'CAYON_FIJO',
+    EquipmentKind.CANYON_FIJO: 'CANYON_FIJO',
+    EquipmentKind.PANTALLA_PROYECTOR: 'PANTALLA_PROYECTOR',
+    EquipmentKind.EQUIPO_DE_SONIDO: 'EQUIPO_DE_SONIDO',
+    EquipmentKind.TV: 'TV',
+    EquipmentKind.VIDEO: 'VIDEO',
+    EquipmentKind.DVD: 'DVD',
+    EquipmentKind.FOTOCOPIADORAS: 'FOTOCOPIADORAS',
+    EquipmentKind.IMPRESORAS: 'IMPRESORAS',
+    EquipmentKind.ORDENADORES: 'ORDENADORES',
+    EquipmentKind.FAXES: 'FAXES',
+    EquipmentKind.TELEFONOS: 'TELEFONOS',
+    EquipmentKind.PIZARRA: 'PIZARRA',
+    EquipmentKind.NMRO_EXTINTORES_POLVO: 'NMRO_EXTINTORES_POLVO',
+    EquipmentKind.NMRO_EXTINTORES_CO2: 'NMRO_EXTINTORES_CO2',
+    EquipmentKind.NMRO_PLAZAS: 'NMRO_PLAZAS',
   };
 
   static const Map<CriteriaKind, String> criteriaKind = {
@@ -42,10 +53,4 @@ class EnumsStrings {
     Weekday.SUNDAY : 'Domingo',
   };
 
-  static const Map<ReservationFrequency, String> reservationFrequency = {
-    ReservationFrequency.NO : 'Ninguna',
-    ReservationFrequency.WEEKLY: 'Semanal',
-    ReservationFrequency.MONTHLY: 'Mensual',
-    ReservationFrequency.ANNUALLY: 'Anual',
-  };
 }

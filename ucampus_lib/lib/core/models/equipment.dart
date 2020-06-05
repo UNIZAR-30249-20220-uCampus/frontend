@@ -6,11 +6,13 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'equipment.g.dart';
 
-enum EquipmentKind { TABLE, CHAIR, COMPUTER, PROJECTOR, BOARD }
+enum EquipmentKind { CAYON_FIJO,CANYON_FIJO, PANTALLA_PROYECTOR,EQUIPO_DE_SONIDO,TV,VIDEO,DVD,FOTOCOPIADORAS,IMPRESORAS,ORDENADORES,FAXES,TELEFONOS,PIZARRA,NMRO_EXTINTORES_POLVO,NMRO_EXTINTORES_CO2,NMRO_PLAZAS }
 
 @JsonSerializable()
 class Equipment {
+  @JsonKey(name: 'tipo')
   final EquipmentKind equipmentKind;
+  @JsonKey(name: 'cantidad')
   final int amount;
 
   Equipment({@required this.equipmentKind, @required this.amount});

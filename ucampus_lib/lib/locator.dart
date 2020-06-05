@@ -5,7 +5,7 @@ import 'package:ucampus_lib/core/services/http_api.dart';
 
 GetIt locator = GetIt.instance;
 
-const bool USE_FAKE_IMPLEMENTATION = true;
+const bool USE_FAKE_IMPLEMENTATION = false;
 
 void setupLocator() {
   locator.registerLazySingleton<ApiService>(

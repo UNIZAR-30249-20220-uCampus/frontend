@@ -4,16 +4,23 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:ucampus_lib/core/models/slot.dart';
+import 'package:intl/intl.dart';
 
 part 'timetable.g.dart';
 
+
 @JsonSerializable()
 class Timetable {
+  @JsonKey(name: 'conjuntoDiaSlots')
   List<Slot> slots;
+  @JsonKey(name: 'fechaInicio')
   DateTime startDate;
+  @JsonKey(name: 'fechaFin')
   DateTime endDate;
+  @JsonKey(name: 'frecuencia')
+  int frecuency;
 
-  Timetable({this.startDate, this.endDate}) {
+  Timetable({this.startDate, this.endDate, this.frecuency}) {
     slots = [];
   }
 
@@ -27,6 +34,10 @@ class Timetable {
   void addDates(DateTime _startDate, DateTime _endDate) {
     startDate = _startDate;
     endDate = _endDate;
+  }
+
+  void setFrecuency(int _frecuendy) {
+    frecuency = _frecuendy;
   }
 
   void updateSlot(int index, int start, int end) {
@@ -62,7 +73,7 @@ class Timetable {
 
   static Timetable randomTimetable({int labNumber}) {
     final _random = Random();
-    var timetable = Timetable(startDate: DateTime.now(), endDate: DateTime.now());
+    var timetable = Timetable(startDate: DateTime.now(), endDate: DateTime.now(),  frecuency: 1);
     timetable.addSlot(Weekday.values[_random.nextInt(Weekday.values.length)]);
     timetable.addSlot(Weekday.values[_random.nextInt(Weekday.values.length)]);
     return timetable;

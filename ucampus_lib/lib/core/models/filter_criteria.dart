@@ -19,17 +19,22 @@ enum CriteriaKind {
 
 @JsonSerializable()
 class FilterCriteria {
+  @JsonKey(name: 'filtrosActivos')
   final List<CriteriaKind> activeCriteria;
+  @JsonKey(name: 'nombre')
   final String name;
   final List<SpaceKind> kinds;
+  @JsonKey(name: 'equipamientos')
   final List<Equipment> equipments;
+  @JsonKey(name: 'aforo')
   final int capacity;
+  @JsonKey(name: 'horarioRequest')
   final Timetable timetable;
 
   FilterCriteria({
     @required this.activeCriteria,
     @required this.name,
-    @required this.kinds,
+    this.kinds,
     @required this.equipments,
     @required this.capacity,
     @required this.timetable,

@@ -23,12 +23,12 @@ abstract class ApiService {
  
   Future<List<Reservation>> getSpaceReservation(String spaceID);
 
-  Future<List<Reservation>> getReservation();
+  Future<List<Reservation>> getReservation(String userID);
 
-  Future<CancelReservationResult> cancelReservation(String reservationID);
+  Future<CancelReservationResult> cancelReservation(int reservationID);
 
   Future<PaymentReservationResult> paymentReservation(
-    String reservationID,
+    int reservationID,
     Payment paymentConfirmation,
   );
 }

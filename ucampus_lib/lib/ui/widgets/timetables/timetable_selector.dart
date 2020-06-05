@@ -27,6 +27,7 @@ class _TimetableSelectorState extends State<TimetableSelector> {
   DateTime endDate;
   String _dateStart = "-- -- ----";
   String _dateFinish = "-- -- ----";
+  TextEditingController _controller = new TextEditingController(text: '0');
 
   @override
   void initState() {
@@ -35,6 +36,11 @@ class _TimetableSelectorState extends State<TimetableSelector> {
       _timetable = Timetable();
     } else {
       _timetable = this.widget.initialTimetable;
+      _controller = new TextEditingController(text: _timetable.frecuency != null ?_timetable.frecuency.toString(): '0');
+      startDate = _timetable.startDate;
+      _dateStart = startDate != null ? '${startDate.day} - ${startDate.month} - ${startDate.year}': "-- -- ----";
+      endDate = _timetable.endDate;
+      _dateFinish = endDate!= null ? '${endDate.day} - ${endDate.month} - ${endDate.year}': "-- -- ----";
     }
 
     _weekday = Weekday.MONDAY;
@@ -138,7 +144,9 @@ class _TimetableSelectorState extends State<TimetableSelector> {
                                         startDate = date;
                                         _timetable.addDates(startDate, endDate);
                                       });
-                                      this.widget.onTimetableChanged(_timetable);
+                                      this
+                                          .widget
+                                          .onTimetableChanged(_timetable);
                                     },
                                         currentTime: DateTime.now(),
                                         locale: LocaleType.es);
@@ -236,6 +244,47 @@ class _TimetableSelectorState extends State<TimetableSelector> {
                         ),
                       )
                     ]))),
+                Padding(
+                    padding: EdgeInsets.only(top: 15, left: 8, bottom: 0),
+                    child: Row(children: <Widget>[
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.replay,
+                                color: this.widget.isEnabled
+                                    ? Theme.of(context).primaryColor
+                                    : Colors.grey,
+                              ),
+                              Text(
+                                ' Frecuencia ',
+                                style: TextStyle(fontSize: 17),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ])),
+                Padding(
+                  padding: EdgeInsets.only(top: 0, bottom: 10, left: 40),
+                  child: Container(
+                    width: 200,
+                      child: TextField(
+                        enabled: this.widget.isEnabled,   
+                    controller: _controller,    
+                    onChanged: (texto) {
+                      setState(() {
+                        _timetable.setFrecuency(int.parse(texto));
+                      });
+                      this.widget.onTimetableChanged(_timetable);
+                    },
+                    decoration: InputDecoration(
+                      labelText: 'Cada X semanas',
+                    ),
+                  )),
+                ),
               ]);
         }
         return SlotSelector(

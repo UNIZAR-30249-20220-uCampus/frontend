@@ -25,7 +25,7 @@ class EquipmentFilter extends StatefulWidget {
 
 class _EquipmentFilterState extends State<EquipmentFilter> {
   bool _adderIsActive = false;
-  EquipmentKind _newEquipmentKind = EquipmentKind.CHAIR;
+  EquipmentKind _newEquipmentKind = EquipmentKind.NMRO_PLAZAS;
   int _newEquipmentAmount = 2;
 
   @override

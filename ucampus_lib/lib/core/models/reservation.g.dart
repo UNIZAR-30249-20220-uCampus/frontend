@@ -1,23 +1,31 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'slot.dart';
+part of 'reservation.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Slot _$SlotFromJson(Map<String, dynamic> json) {
-  return Slot(
-    weekday: _$enumDecodeNullable(_$WeekdayEnumMap, json['diaSemana']),
-    startingSlotNumber: json['slotInicio'] as int,
-    endingSlotNumber: json['slotFinal'] as int,
+Reservation _$ReservationFromJson(Map<String, dynamic> json) {
+  return Reservation(
+    reservationID: json['id'] as int,
+    space: json['espacio'] as String,
+    timeTable: json['horario'] == null
+        ? null
+        : Timetable.fromJson(json['horario'] as Map<String, dynamic>),
+    reservationStatus:
+        _$enumDecodeNullable(_$ReservationStatusEnumMap, json['estado']),
+    userID: json['usuario'] as String,
   );
 }
 
-Map<String, dynamic> _$SlotToJson(Slot instance) => <String, dynamic>{
-      'diaSemana': _$WeekdayEnumMap[instance.weekday],
-      'slotInicio': instance.startingSlotNumber,
-      'slotFinal': instance.endingSlotNumber,
+Map<String, dynamic> _$ReservationToJson(Reservation instance) =>
+    <String, dynamic>{
+      'id': instance.reservationID,
+      'usuario': instance.userID,
+      'espacio': instance.space,
+      'horario': instance.timeTable,
+      'estado': _$ReservationStatusEnumMap[instance.reservationStatus],
     };
 
 T _$enumDecode<T>(
@@ -52,12 +60,9 @@ T _$enumDecodeNullable<T>(
   return _$enumDecode<T>(enumValues, source, unknownValue: unknownValue);
 }
 
-const _$WeekdayEnumMap = {
-  Weekday.MONDAY: 1,
-  Weekday.TUESDAY: 2,
-  Weekday.WEDNESDAY: 3,
-  Weekday.THURSDAY: 4,
-  Weekday.FRIDAY: 5,
-  Weekday.SATURDAY: 6,
-  Weekday.SUNDAY: 7,
+const _$ReservationStatusEnumMap = {
+  ReservationStatus.PENDIENTE: 'PENDIENTE',
+  ReservationStatus.PENDIENTEPAGO: 'PENDIENTEPAGO',
+  ReservationStatus.ACEPTADA: 'ACEPTADA',
+  ReservationStatus.CANCELADA: 'CANCELADA',
 };

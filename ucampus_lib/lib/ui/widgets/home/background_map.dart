@@ -51,7 +51,7 @@ class BackgroundMap extends StatelessWidget {
         markers: [
           for (var feature in this.featuredSpaces)
             new Marker(
-              point: feature.coordinates,
+              point:  LatLng(feature.lat, feature.long),
               builder: (ctx) =>
               new Container(
                 child: new Icon(Icons.location_on),

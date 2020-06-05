@@ -15,8 +15,11 @@ enum Weekday {
 
 @JsonSerializable()
 class Slot {
+  @JsonKey(name: 'diaSemana')
   final Weekday weekday;
+  @JsonKey(name: 'slotInicio')
   final int startingSlotNumber;
+  @JsonKey(name: 'slotFinal')
   final int endingSlotNumber;
 
   Slot(

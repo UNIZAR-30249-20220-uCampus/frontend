@@ -7,28 +7,38 @@ part of 'space.dart';
 // **************************************************************************
 
 Space _$SpaceFromJson(Map<String, dynamic> json) {
+  final latlon = UTM.fromUtm(
+    easting: (json['lat_center'] as double),
+    northing: (json['lng_center'] as double),
+    zoneNumber: 30,
+    zoneLetter: 'T',
+  );
+
   return Space(
-    uuid: json['uuid'] as String,
-    name: json['name'] as String,
-    kind: _$enumDecodeNullable(_$SpaceKindEnumMap, json['kind']),
-    capacity: json['capacity'] as int,
-    building: json['building'] as String,
-    isBookable: json['isBookable'] as bool,
-    equipments: (json['equipments'] as List)
+    uuid: json['id_espacio'] as String,
+    name: json['id_utc'] as String,
+    capacity: json['superficie'] as String,
+    building: json['id_edificio'] as String,
+    isBookable: (json['alquilable'] as int) == 0 ? false : true,
+    equipments: (json['equipamientos'] as List)
         ?.map((e) =>
             e == null ? null : Equipment.fromJson(e as Map<String, dynamic>))
         ?.toList(),
+    lat: latlon.lat,
+    long: latlon.lon,
   );
 }
 
 Map<String, dynamic> _$SpaceToJson(Space instance) => <String, dynamic>{
-      'uuid': instance.uuid,
-      'name': instance.name,
+      'id_espacio': instance.uuid,
+      'id_utc': instance.name,
       'kind': _$SpaceKindEnumMap[instance.kind],
-      'capacity': instance.capacity,
-      'building': instance.building,
-      'isBookable': instance.isBookable,
-      'equipments': instance.equipments,
+      'superficie': instance.capacity,
+      'id_edificio': instance.building,
+      'alquilable': instance.isBookable,
+      'equipamientos': instance.equipments,
+      'lat_center': instance.lat,
+      'lng_center': instance.long,
     };
 
 T _$enumDecode<T>(
