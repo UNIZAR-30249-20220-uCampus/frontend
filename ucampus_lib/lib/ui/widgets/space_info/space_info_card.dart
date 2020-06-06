@@ -22,7 +22,7 @@ class SpaceInfoCard extends StatelessWidget {
             color: Theme.of(context).primaryColor
           ),
         ),
-        subtitle: Text(EnumsStrings.spaceKind[space.kind]),
+        //subtitle: Text(EnumsStrings.spaceKind[space.kind]),
       ),
       buildDetailsItem(
         context,
@@ -31,8 +31,8 @@ class SpaceInfoCard extends StatelessWidget {
       ),
       buildDetailsItem(
         context,
-        Icons.people,
-        space.capacity.toString() + ' personas',
+        Icons.crop_din,
+        space.capacity + ' m2',
       ),
       buildDetailsItem(
         context,

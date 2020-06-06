@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
+import 'package:ucampus_lib/core/models/payment.dart';
 import 'package:ucampus_lib/core/models/reservation.dart';
 import 'package:ucampus_lib/core/models/timetable.dart';
 import 'package:ucampus_lib/ui/shared/enums_strings.dart';
@@ -8,9 +9,10 @@ import 'package:device_id/device_id.dart';
 
 class ReservationInfoCard extends StatefulWidget {
   final Reservation reservation;
-  final Function(String) onCancel;
+  final Function(int) onCancel;
+  final Function(int, Payment) onPay;
 
-  const ReservationInfoCard({Key key, this.reservation, this.onCancel})
+  const ReservationInfoCard({Key key, this.reservation, this.onCancel, this.onPay})
       : super(key: key);
   @override
   _ReservationInfoCardtate createState() => _ReservationInfoCardtate();
@@ -54,7 +56,7 @@ class _ReservationInfoCardtate extends State<ReservationInfoCard> {
                           padding:
                               EdgeInsets.only(top: 20, bottom: 10, left: 10),
                           child: Text(
-                              'Reserva de ' + widget.reservation.space.uuid,
+                              'Reserva de ' + widget.reservation.space,
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 30,
@@ -215,8 +217,7 @@ class _ReservationInfoCardtate extends State<ReservationInfoCard> {
                                         left: 20,
                                       ),
                                       child: Text(
-                                          EnumsStrings.reservationFrequency[
-                                              widget.reservation.frecuency],
+                                          ' Cada ' + widget.reservation.timeTable.frecuency.toString() + ' semana(s)',
                                           style: TextStyle(
                                               fontSize: 17,
                                               fontWeight: FontWeight.w600,
@@ -231,10 +232,8 @@ class _ReservationInfoCardtate extends State<ReservationInfoCard> {
                 ],
               ),
             )),
-        // _deviceid == widget.reservation.userID &&
-        (widget.reservation.reservationStatus == ReservationStatus.PENDING ||
-                widget.reservation.reservationStatus ==
-                    ReservationStatus.PENDING_PAYMENT)
+        _deviceid == widget.reservation.userID &&
+        (widget.reservation.reservationStatus == ReservationStatus.PENDIENTE)
             ? Positioned(
                 bottom: 50,
                 right: 10,
@@ -254,6 +253,32 @@ class _ReservationInfoCardtate extends State<ReservationInfoCard> {
                           ),
                           onPressed: () async {
                             widget.onCancel(widget.reservation.reservationID);
+                            _btnController.success();
+                            //Navigator.of(context).pop();
+                          }),
+                    )))
+            : Container(),
+          _deviceid == widget.reservation.userID &&
+        (widget.reservation.reservationStatus == ReservationStatus.PENDIENTEPAGO)
+            ? Positioned(
+                bottom: 50,
+                right: 10,
+                left: 10,
+                child: Align(
+                    alignment: Alignment.center,
+                    child: Container(
+                      width: 250,
+                      child: RoundedLoadingButton(
+                          color: Theme.of(context).primaryColor,
+                          controller: _btnController,
+                          child: Text(
+                            'Pagar reserva',
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: Theme.of(context).accentColor),
+                          ),
+                          onPressed: () async {
+                            widget.onPay(widget.reservation.reservationID, Payment());
                             _btnController.success();
                             //Navigator.of(context).pop();
                           }),

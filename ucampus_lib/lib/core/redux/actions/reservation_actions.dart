@@ -1,5 +1,6 @@
 import 'package:meta/meta.dart';
 import 'package:async_redux/async_redux.dart';
+import 'package:ucampus_lib/core/models/payment.dart';
 import 'package:ucampus_lib/core/models/reservation.dart';
 import 'package:ucampus_lib/core/models/timetable.dart';
 import 'package:ucampus_lib/core/redux/actions/loading_actions.dart';
@@ -11,11 +12,10 @@ class ReservationAction extends ReduxAction<AppState> {
   final Timetable time;
   final String spaceID;
   final bool isForRent;
-  final ReservationFrequency frequency;
   final String userID;
 
   ReservationAction(
-      {@required this.time, @required this.spaceID, @required this.isForRent, this.frequency, this.userID});
+      {@required this.time, @required this.spaceID, @required this.isForRent, this.userID});
 
   @override
   Future<AppState> reduce() async {
@@ -40,7 +40,7 @@ class ReservationAction extends ReduxAction<AppState> {
 }
 
 class CancelReservationAction extends ReduxAction<AppState> {
-  final String reservationID;
+  final int reservationID;
 
   CancelReservationAction(
       {@required this.reservationID});
@@ -57,6 +57,33 @@ class CancelReservationAction extends ReduxAction<AppState> {
     if (reservationResult == CancelReservationResult.error) {
       return state; //TODO: mostrar algún tipo de pop up informando
     } else if (reservationResult == ReservationResult.success) {
+      return state; //TODO: mostrar algún tipo de pop up informando
+    } else {
+      return null;
+    }
+  }
+}
+
+class PayReservationAction extends ReduxAction<AppState> {
+  final int reservationID;
+  final Payment payment;
+
+  PayReservationAction(
+      {@required this.reservationID, @required this.payment});
+
+  @override
+  Future<AppState> reduce() async {
+    dispatch(SetLoadingAction(isLoading: true));
+    ApiService apiService = locator<ApiService>();
+    PaymentReservationResult reservationResult = await apiService.paymentReservation(
+      this.reservationID,this.payment
+
+    );
+    dispatch(SetLoadingAction(isLoading: false));
+
+    if (reservationResult == PaymentReservationResult.error) {
+      return state; //TODO: mostrar algún tipo de pop up informando
+    } else if (reservationResult == PaymentReservationResult.success) {
       return state; //TODO: mostrar algún tipo de pop up informando
     } else {
       return null;

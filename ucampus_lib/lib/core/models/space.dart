@@ -4,9 +4,10 @@ import 'dart:math';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 import 'package:ucampus_lib/core/models/equipment.dart';
-import 'package:latlong/latlong.dart';
+import 'package:utm/utm.dart';
 
 part 'space.g.dart';
+
 
 enum SpaceKind {
   WAREHOUSE,
@@ -21,35 +22,46 @@ enum SpaceKind {
 
 @JsonSerializable()
 class Space {
+  @JsonKey(name: 'id_espacio')
   final String uuid;
+  @JsonKey(name: 'id_utc')
   final String name;
   final SpaceKind kind;
-  final int capacity;
+  @JsonKey(name: 'superficie')
+  final String capacity;
+  @JsonKey(name: 'id_edificio')
   final String building;
+  @JsonKey(name: 'alquilable')
   final bool isBookable;
+  @JsonKey(name: 'equipamientos')
   final List<Equipment> equipments;
-  final LatLng coordinates;
+  @JsonKey(name: 'lat_center')
+  final double lat;
+  @JsonKey(name: 'lng_center')
+  final double long;
 
   Space({
     @required this.uuid,
     @required this.name,
-    @required this.kind,
+    this.kind,
     @required this.capacity,
     @required this.building,
     @required this.isBookable,
     @required this.equipments,
-     @required this.coordinates,
+    this.lat,
+    this.long,
   });
 
   Space copy({
     String uuid,
     String name,
     String kind,
-    int capacity,
+    String capacity,
     String building,
     bool isBookable,
     List<Equipment> equipments,
-    LatLng coordinates
+    double lat,
+    double long,
   }) =>
       Space(
         uuid: uuid ?? this.uuid,
@@ -59,7 +71,8 @@ class Space {
         building: building ?? this.building,
         isBookable: isBookable ?? this.isBookable,
         equipments: equipments ?? this.equipments,
-        coordinates: coordinates ?? this.coordinates
+        lat: lat ?? this.lat,
+        long: long ?? this.long
       );
 
   static Space randomSpace({int labNumber}) {
@@ -72,14 +85,15 @@ class Space {
       uuid: 'lab-' + labUUID,
       name: 'Laboratorio ' + labUUID,
       kind: SpaceKind.LABORATORY,
-      capacity: _random.nextInt(100) + 5,
+      capacity: "100.0",
       building: 'Edif. Ada Byron',
       isBookable: true,
+      lat: 41.683252,
+      long:  -0.887632,
       equipments: List.generate(
         _random.nextInt(4),
         (index) => Equipment.randomEquipment(),
       ),
-      coordinates: LatLng(41.683252, -0.887632)
     );
   }
 
@@ -102,8 +116,9 @@ class Space {
             this.capacity == other.capacity &&
             this.building == other.building &&
             this.isBookable == other.isBookable &&
-            this.equipments == other.equipments &&
-            this.coordinates == other.coordinates);
+            this.lat == other.lat &&
+            this.long == other.long &&
+            this.equipments == other.equipments);
   }
 
   factory Space.fromJson(Map<String, dynamic> json) => _$SpaceFromJson(json);

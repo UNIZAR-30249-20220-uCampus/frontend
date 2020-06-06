@@ -106,9 +106,7 @@ class PendingReservationsCard extends StatelessWidget {
                                                     fontWeight: FontWeight.w500,
                                                     color: Colors.black)),
                                             Text(
-                                                EnumsStrings
-                                                        .reservationFrequency[
-                                                    reservation.frecuency],
+                                              ' Cada ' + reservation.timeTable.frecuency.toString() + ' semana(s)',
                                                 style: TextStyle(
                                                   fontSize: 15,
                                                 ))

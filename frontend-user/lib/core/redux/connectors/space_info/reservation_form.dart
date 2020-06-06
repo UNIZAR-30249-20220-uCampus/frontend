@@ -26,7 +26,7 @@ class ReservationFormConnector extends StatelessWidget {
 class ViewModel extends BaseModel<AppState> {
   ViewModel();
 
-  Function(Timetable, String, bool, ReservationFrequency, String) onReservation;
+  Function(Timetable, String, bool, String) onReservation;
   bool externalUser;
 
   ViewModel.build({
@@ -37,6 +37,6 @@ class ViewModel extends BaseModel<AppState> {
   @override
   BaseModel fromStore() => ViewModel.build(
       externalUser: state.externalUser,
-       onReservation: (time, spaceID, isForRent, frequency, userID) => dispatch(ReservationAction(
-          time: time, spaceID: spaceID, isForRent: isForRent, frequency : frequency, userID: userID)));
+       onReservation: (time, spaceID, isForRent, userID) => dispatch(ReservationAction(
+          time: time, spaceID: spaceID, isForRent: isForRent, userID: userID)));
 }

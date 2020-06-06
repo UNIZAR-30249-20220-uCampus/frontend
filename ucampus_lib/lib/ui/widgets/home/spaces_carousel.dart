@@ -56,7 +56,7 @@ class SpacesCarousel extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(EnumsStrings.spaceKind[space.kind]),
+                          //Text(EnumsStrings.spaceKind[space.kind]),
                           Container(height: 5,),
                           Text(space.building, style: TextStyle(fontWeight: FontWeight.w700),),
                         ],

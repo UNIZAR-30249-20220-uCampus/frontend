@@ -8,34 +8,34 @@ part of 'filter_criteria.dart';
 
 FilterCriteria _$FilterCriteriaFromJson(Map<String, dynamic> json) {
   return FilterCriteria(
-    activeCriteria: (json['activeCriteria'] as List)
+    activeCriteria: (json['filtrosActivos'] as List)
         ?.map((e) => _$enumDecodeNullable(_$CriteriaKindEnumMap, e))
         ?.toList(),
-    name: json['name'] as String,
-    kinds: (json['kinds'] as List)
+    name: json['nombre'] as String,
+    /*kinds: (json['kinds'] as List)
         ?.map((e) => _$enumDecodeNullable(_$SpaceKindEnumMap, e))
-        ?.toList(),
-    equipments: (json['equipments'] as List)
+        ?.toList(),*/
+    equipments: (json['equipamientos'] as List)
         ?.map((e) =>
             e == null ? null : Equipment.fromJson(e as Map<String, dynamic>))
         ?.toList(),
-    capacity: json['capacity'] as int,
-    timetable: json['timetable'] == null
+    capacity: json['aforo'] as int,
+    timetable: json['horarioRequest'] == null
         ? null
-        : Timetable.fromJson(json['timetable'] as Map<String, dynamic>),
+        : Timetable.fromJson(json['horarioRequest'] as Map<String, dynamic>),
   );
 }
 
 Map<String, dynamic> _$FilterCriteriaToJson(FilterCriteria instance) =>
     <String, dynamic>{
-      'activeCriteria': instance.activeCriteria
+      'filtrosActivos': instance.activeCriteria
           ?.map((e) => _$CriteriaKindEnumMap[e])
           ?.toList(),
-      'name': instance.name,
-      'kinds': instance.kinds?.map((e) => _$SpaceKindEnumMap[e])?.toList(),
-      'equipments': instance.equipments,
-      'capacity': instance.capacity,
-      'timetable': instance.timetable,
+      'nombre': instance.name,
+      /*'kinds': instance.kinds?.map((e) => _$SpaceKindEnumMap[e])?.toList(),*/
+      'equipamientos': instance.equipments,
+      'aforo': instance.capacity,
+      'horarioRequest': instance.timetable,
     };
 
 T _$enumDecode<T>(

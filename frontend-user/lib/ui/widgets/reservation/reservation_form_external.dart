@@ -9,7 +9,7 @@ import 'package:device_id/device_id.dart';
 
 class ReservationFormExternal extends StatefulWidget {
   final Reservation reservation;
-  final Function(Timetable, String, bool, ReservationFrequency, String) onReservation;
+  final Function(Timetable, String, bool, String) onReservation;
 
   const ReservationFormExternal({Key key, this.reservation, this.onReservation})
       : super(key: key);
@@ -39,7 +39,7 @@ class _ReservationFormExternalState extends State<ReservationFormExternal> {
                       title: Padding(
                           padding:
                               EdgeInsets.only(top: 20, bottom: 10, left: 10),
-                          child: Text('Reserva de ' + widget.reservation.space.uuid,
+                          child: Text('Reserva de ' + widget.reservation.space,
                               style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 30,
@@ -90,8 +90,8 @@ class _ReservationFormExternalState extends State<ReservationFormExternal> {
                             fontSize: 15, color: Theme.of(context).accentColor),
                       ),
                       onPressed: () async {
-                        widget.onReservation(widget.reservation.timeTable, widget.reservation.space.uuid,
-                            true, widget.reservation.frecuency, widget.reservation.userID);
+                        widget.onReservation(widget.reservation.timeTable, widget.reservation.space,
+                            true, widget.reservation.userID);
                         
                         _btnController.success();
                         //Navigator.of(context).pop();

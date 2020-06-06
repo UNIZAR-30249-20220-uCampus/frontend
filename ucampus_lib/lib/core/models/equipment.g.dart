@@ -8,15 +8,14 @@ part of 'equipment.dart';
 
 Equipment _$EquipmentFromJson(Map<String, dynamic> json) {
   return Equipment(
-    equipmentKind:
-        _$enumDecodeNullable(_$EquipmentKindEnumMap, json['equipmentKind']),
-    amount: json['amount'] as int,
+    equipmentKind: _$enumDecodeNullable(_$EquipmentKindEnumMap, json['tipo']),
+    amount: json['cantidad'] as int,
   );
 }
 
 Map<String, dynamic> _$EquipmentToJson(Equipment instance) => <String, dynamic>{
-      'equipmentKind': _$EquipmentKindEnumMap[instance.equipmentKind],
-      'amount': instance.amount,
+      'tipo': _$EquipmentKindEnumMap[instance.equipmentKind],
+      'cantidad': instance.amount,
     };
 
 T _$enumDecode<T>(
@@ -52,9 +51,20 @@ T _$enumDecodeNullable<T>(
 }
 
 const _$EquipmentKindEnumMap = {
-  EquipmentKind.TABLE: 'TABLE',
-  EquipmentKind.CHAIR: 'CHAIR',
-  EquipmentKind.COMPUTER: 'COMPUTER',
-  EquipmentKind.PROJECTOR: 'PROJECTOR',
-  EquipmentKind.BOARD: 'BOARD',
+  EquipmentKind.CAYON_FIJO: 'CAYON_FIJO',
+  EquipmentKind.CANYON_FIJO: 'CANYON_FIJO',
+  EquipmentKind.PANTALLA_PROYECTOR: 'PANTALLA_PROYECTOR',
+  EquipmentKind.EQUIPO_DE_SONIDO: 'EQUIPO_DE_SONIDO',
+  EquipmentKind.TV: 'TV',
+  EquipmentKind.VIDEO: 'VIDEO',
+  EquipmentKind.DVD: 'DVD',
+  EquipmentKind.FOTOCOPIADORAS: 'FOTOCOPIADORAS',
+  EquipmentKind.IMPRESORAS: 'IMPRESORAS',
+  EquipmentKind.ORDENADORES: 'ORDENADORES',
+  EquipmentKind.FAXES: 'FAXES',
+  EquipmentKind.TELEFONOS: 'TELEFONOS',
+  EquipmentKind.PIZARRA: 'PIZARRA',
+  EquipmentKind.NMRO_EXTINTORES_POLVO: 'NMRO_EXTINTORES_POLVO',
+  EquipmentKind.NMRO_EXTINTORES_CO2: 'NMRO_EXTINTORES_CO2',
+  EquipmentKind.NMRO_PLAZAS: 'NMRO_PLAZAS',
 };

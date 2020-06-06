@@ -1,22 +1,31 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'equipment.dart';
+part of 'reservation.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Equipment _$EquipmentFromJson(Map<String, dynamic> json) {
-  return Equipment(
-    equipmentKind:
-        _$enumDecodeNullable(_$EquipmentKindEnumMap, json['equipmentKind']),
-    amount: json['amount'] as int,
+Reservation _$ReservationFromJson(Map<String, dynamic> json) {
+  return Reservation(
+    reservationID: json['id'] as int,
+    space: json['espacio'] as String,
+    timeTable: json['horario'] == null
+        ? null
+        : Timetable.fromJson(json['horario'] as Map<String, dynamic>),
+    reservationStatus:
+        _$enumDecodeNullable(_$ReservationStatusEnumMap, json['estado']),
+    userID: json['usuario'] as String,
   );
 }
 
-Map<String, dynamic> _$EquipmentToJson(Equipment instance) => <String, dynamic>{
-      'equipmentKind': _$EquipmentKindEnumMap[instance.equipmentKind],
-      'amount': instance.amount,
+Map<String, dynamic> _$ReservationToJson(Reservation instance) =>
+    <String, dynamic>{
+      'id': instance.reservationID,
+      'usuario': instance.userID,
+      'espacio': instance.space,
+      'horario': instance.timeTable,
+      'estado': _$ReservationStatusEnumMap[instance.reservationStatus],
     };
 
 T _$enumDecode<T>(
@@ -51,10 +60,9 @@ T _$enumDecodeNullable<T>(
   return _$enumDecode<T>(enumValues, source, unknownValue: unknownValue);
 }
 
-const _$EquipmentKindEnumMap = {
-  EquipmentKind.TABLE: 'TABLE',
-  EquipmentKind.CHAIR: 'CHAIR',
-  EquipmentKind.COMPUTER: 'COMPUTER',
-  EquipmentKind.PROJECTOR: 'PROJECTOR',
-  EquipmentKind.BOARD: 'BOARD',
+const _$ReservationStatusEnumMap = {
+  ReservationStatus.PENDIENTE: 'PENDIENTE',
+  ReservationStatus.PENDIENTEPAGO: 'PENDIENTEPAGO',
+  ReservationStatus.ACEPTADA: 'ACEPTADA',
+  ReservationStatus.CANCELADA: 'CANCELADA',
 };

@@ -12,7 +12,7 @@ import 'package:ucampus_lib/core/models/timetable.dart';
 
 class ReservationForm extends StatefulWidget {
   final Space space;
-  final Function(Timetable, String, bool, ReservationFrequency, String)
+  final Function(Timetable, String, bool, String)
       onReservation;
   final bool externalUser;
 
@@ -24,7 +24,6 @@ class ReservationForm extends StatefulWidget {
 }
 
 class _ReservationFormState extends State<ReservationForm> {
-  ReservationFrequency selectedFrecuency = ReservationFrequency.NO;
   Timetable _timetable;
   String _deviceid = '';
   bool showError = false;
@@ -101,42 +100,6 @@ class _ReservationFormState extends State<ReservationForm> {
                               isEnabled: true,
                               initialTimetable: null,
                             ),
-                            Padding(
-                              padding:
-                                  EdgeInsets.only(top: 20, left: 0, bottom: 10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Text(
-                                    'Frecuencia',
-                                    style: TextStyle(
-                                        fontSize: 19,
-                                        fontWeight: FontWeight.w600,
-                                        color: Theme.of(context).primaryColor),
-                                  ),
-                                  Text(
-                                      'Selecciona la frecuencia con que quieres que se repita la reserva entre las fechas seleccionadas'),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  EdgeInsets.only(top: 5, bottom: 10, left: 10),
-                              child: Container(
-                                  child: DropdownButton<ReservationFrequency>(
-                                items: ReservationFrequency.values
-                                    .map((ReservationFrequency value) {
-                                  return DropdownMenuItem<ReservationFrequency>(
-                                    value: value,
-                                    child: Text(EnumsStrings
-                                        .reservationFrequency[value]),
-                                  );
-                                }).toList(),
-                                onChanged: (kind) =>
-                                    setState(() => selectedFrecuency = kind),
-                                value: selectedFrecuency,
-                              )),
-                            ),
                             showError
                                 ? Padding(
                                     padding: EdgeInsets.only(
@@ -191,11 +154,10 @@ class _ReservationFormState extends State<ReservationForm> {
                           });
                           if (widget.externalUser) {
                             var reservation = new Reservation(
-                                reservationID: '1',
-                                space: widget.space,
+                                reservationID: 1,
+                                space: widget.space.uuid,
                                 timeTable: _timetable,
-                                frecuency: selectedFrecuency,
-                                reservationStatus: ReservationStatus.PENDING,
+                                reservationStatus: ReservationStatus.PENDIENTE,
                                 userID: _deviceid);
                             _btnController.stop();
                             Navigator.pushReplacementNamed(
@@ -203,7 +165,7 @@ class _ReservationFormState extends State<ReservationForm> {
                                 arguments: reservation);
                           } else { 
                             widget.onReservation(_timetable, widget.space.uuid,
-                                false, selectedFrecuency, _deviceid);
+                               false, _deviceid);
                             _btnController.success();
                             //Navigator.of(context).pop();
                           }

@@ -8,16 +8,16 @@ part of 'slot.dart';
 
 Slot _$SlotFromJson(Map<String, dynamic> json) {
   return Slot(
-    weekday: _$enumDecodeNullable(_$WeekdayEnumMap, json['weekday']),
-    startingSlotNumber: json['startingSlotNumber'] as int,
-    endingSlotNumber: json['endingSlotNumber'] as int,
+    weekday: _$enumDecodeNullable(_$WeekdayEnumMap, json['diaSemana']),
+    startingSlotNumber: json['slotInicio'] as int,
+    endingSlotNumber: json['slotFinal'] as int,
   );
 }
 
 Map<String, dynamic> _$SlotToJson(Slot instance) => <String, dynamic>{
-      'weekday': _$WeekdayEnumMap[instance.weekday],
-      'startingSlotNumber': instance.startingSlotNumber,
-      'endingSlotNumber': instance.endingSlotNumber,
+      'diaSemana': _$WeekdayEnumMap[instance.weekday],
+      'slotInicio': instance.startingSlotNumber,
+      'slotFinal': instance.endingSlotNumber,
     };
 
 T _$enumDecode<T>(
@@ -53,11 +53,11 @@ T _$enumDecodeNullable<T>(
 }
 
 const _$WeekdayEnumMap = {
-  Weekday.MONDAY: 'MONDAY',
-  Weekday.TUESDAY: 'TUESDAY',
-  Weekday.WEDNESDAY: 'WEDNESDAY',
-  Weekday.THURSDAY: 'THURSDAY',
-  Weekday.FRIDAY: 'FRIDAY',
-  Weekday.SATURDAY: 'SATURDAY',
-  Weekday.SUNDAY: 'SUNDAY',
+  Weekday.MONDAY: 1,
+  Weekday.TUESDAY: 2,
+  Weekday.WEDNESDAY: 3,
+  Weekday.THURSDAY: 4,
+  Weekday.FRIDAY: 5,
+  Weekday.SATURDAY: 6,
+  Weekday.SUNDAY: 7,
 };

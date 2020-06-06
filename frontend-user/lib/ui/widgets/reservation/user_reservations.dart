@@ -32,19 +32,19 @@ class _UserReservationsState extends State<UserReservations> {
     String label = 'default';
 
     switch (status) {
-      case ReservationStatus.ACCEPTED:
+      case ReservationStatus.ACEPTADA:
         color = Colors.greenAccent;
         label = 'Aceptada';
         break;
-      case ReservationStatus.REJECTED:
+      case ReservationStatus.CANCELADA:
         color = Colors.redAccent;
         label = 'Rechazada';
         break;
-      case ReservationStatus.PENDING:
+      case ReservationStatus.PENDIENTE:
         color = Colors.grey;
         label = 'Pendiente';
         break;
-      case ReservationStatus.PENDING_PAYMENT:
+      case ReservationStatus.PENDIENTEPAGO:
         color = Colors.amberAccent;
         label = 'Pendiente de pago';
         break;
@@ -54,8 +54,6 @@ class _UserReservationsState extends State<UserReservations> {
       label: Text(label, style: TextStyle(color: Colors.white)),
     );
   }
-
-  Widget _(BuildContext context) {}
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +85,7 @@ class _UserReservationsState extends State<UserReservations> {
                                       title: Padding(
                                           padding: EdgeInsets.only(
                                               top: 20, bottom: 0, left: 10),
-                                          child: Text(reservation.space.uuid,
+                                          child: Text(reservation.space,
                                               style: TextStyle(
                                                 fontSize: 25,
                                                 fontWeight: FontWeight.w600,
@@ -156,10 +154,7 @@ class _UserReservationsState extends State<UserReservations> {
                                                               FontWeight.w500,
                                                           color: Colors.black)),
                                                   Text(
-                                                      EnumsStrings
-                                                              .reservationFrequency[
-                                                          reservation
-                                                              .frecuency],
+                                                      ' Cada ' + reservation.timeTable.frecuency.toString() + ' semana(s)',
                                                       style: TextStyle(
                                                         fontSize: 15,
                                                       ))

@@ -43,7 +43,7 @@ class FakeApi implements ApiService {
   }
 
   @override
-  Future<List<Reservation>> getReservation() async {
+  Future<List<Reservation>> getReservation(String userID) async {
     await Future.delayed(Duration(milliseconds: 700));
     return List.generate(
       15,
@@ -53,17 +53,17 @@ class FakeApi implements ApiService {
 
   @override
   Future<CancelReservationResult> cancelReservation(
-      String reservationID) async {
+      int reservationID) async {
     await Future.delayed(Duration(milliseconds: 700));
     return CancelReservationResult.success; // TODO
   }
 
   @override
   Future<PaymentReservationResult> paymentReservation(
-    String reservationID,
+    int reservationID,
     Payment paymentConfirmation,
   ) async {
     await Future.delayed(Duration(milliseconds: 700));
-    throw UnimplementedError();
+    return PaymentReservationResult.success; 
   }
 }

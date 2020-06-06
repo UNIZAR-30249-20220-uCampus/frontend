@@ -101,7 +101,7 @@ void main() {
           criteriaKind: CriteriaKind.EQUIPMENT,
           value: [
             Equipment(
-              equipmentKind: EquipmentKind.CHAIR,
+              equipmentKind: EquipmentKind.NMRO_PLAZAS,
               amount: 10,
             ),
           ],
