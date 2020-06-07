@@ -95,7 +95,7 @@ class Space {
       name: 'Laboratorio ' + labUUID,
       kind: SpaceKind.LABORATORY,
       capacity: "100.0",
-      building: 'Edif. Ada Byron',
+      building: "\"CRE.1200.\"",
       isBookable: true,
       isLeasable: true,
       lat: 41.683252,

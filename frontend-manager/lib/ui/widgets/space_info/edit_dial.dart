@@ -14,7 +14,7 @@ class EditDial extends StatelessWidget {
     return SizedBox(
         height: 600.0,
         child: SpeedDial(
-          animatedIcon: AnimatedIcons.event_add,
+          animatedIcon: AnimatedIcons.menu_close,
           animatedIconTheme: IconThemeData(size: 22.0),
           visible: true,
           closeManually: false,

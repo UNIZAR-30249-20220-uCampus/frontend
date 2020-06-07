@@ -159,17 +159,11 @@ class HttpApi implements ApiService {
   Future<UpdateEquipmentResult> updateEquipment(
       String spaceID, List<Equipment> newEquipment) async {
     var newEquipmentBody = {};
+    spaceID = spaceID.replaceAll('"', '');
     newEquipmentBody["nombre"] = spaceID;
     newEquipmentBody["equipamientos"] = newEquipment;
-    /*
-    newEquipmentBody["equipamientos"] = newEquipment
-          ?.map((e) => e.toJson())
-          ?.toList();*/
     newEquipmentBody["filtrosActivos"] = ["NOMBRE"];
 
-    print(json.encode(newEquipmentBody));
-
-    /*
 
     final http.Response response = await http.post(
       _baseUrl + '/equipamiento',
@@ -179,12 +173,10 @@ class HttpApi implements ApiService {
       body: json.encode(newEquipmentBody),
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print('OK');
       return UpdateEquipmentResult.success;
     } else {
-      print('BAD');
       return UpdateEquipmentResult.error;
-    }*/
+    }
   }
 
   @override

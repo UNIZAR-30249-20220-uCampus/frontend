@@ -20,29 +20,14 @@ class _EditEquipmentFormState extends State<EditEquipmentForm> {
   final RoundedLoadingButtonController _btnController =
       new RoundedLoadingButtonController();
 
-  bool _isBookable;
-  bool _isLeasable;
   List<Equipment> _equipments;
 
   @override
   void initState() {
     super.initState();
-    _isBookable = widget.space.isBookable;
-    _isLeasable = widget.space.isLeasable;
     _equipments = widget.space.equipments;
   }
 
-  void onBookableCange(bool isBookable) {
-    setState(() {
-      _isBookable = isBookable;
-    });
-  }
-
-void onLeasableCange(bool isLeasable) {
-    setState(() {
-      _isLeasable = isLeasable;
-    });
-  }
   void onEquipmentsChange(List<Equipment> equipments) {
     setState(() {
       _equipments = equipments;

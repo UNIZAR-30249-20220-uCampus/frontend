@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:ucampus_lib/core/models/equipment.dart';
 import 'package:ucampus_lib/core/models/filter_criteria.dart';
 import 'package:ucampus_lib/core/models/payment.dart';
@@ -88,6 +90,16 @@ class FakeApi implements ApiService {
   Future<UpdateEquipmentResult> updateEquipment(
       String spaceID, List<Equipment> newEquipment) async {
         await Future.delayed(Duration(milliseconds: 700));
+        var newEquipmentBody = {};
+    newEquipmentBody["nombre"] = spaceID;
+    newEquipmentBody["equipamientos"] = newEquipment;
+    /*
+    newEquipmentBody["equipamientos"] = newEquipment
+          ?.map((e) => e.toJson())
+          ?.toList();*/
+    newEquipmentBody["filtrosActivos"] = ["NOMBRE"];
+
+    print(json.encode(newEquipmentBody));
     return UpdateEquipmentResult.success; // TODO
   }
 

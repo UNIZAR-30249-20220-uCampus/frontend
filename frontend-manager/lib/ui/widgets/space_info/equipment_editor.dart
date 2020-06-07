@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_picker/flutter_picker.dart';
 
 import 'package:ucampus_lib/core/models/equipment.dart';
-import 'package:ucampus_lib/core/models/space.dart';
 import 'package:ucampus_lib/ui/shared/enums_strings.dart';
 
 class EquipmentEditor extends StatefulWidget {
@@ -54,7 +53,7 @@ class _EquipmentEditorState extends State<EquipmentEditor> {
           ],
         ),
         Padding(
-          padding: EdgeInsets.only(left: 10, right: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 0.0),
           child: LayoutBuilder(
             builder: (context, constraints) => ConstrainedBox(
               constraints: BoxConstraints(minWidth: constraints.maxWidth),
