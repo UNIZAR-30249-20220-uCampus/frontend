@@ -43,6 +43,22 @@ class DrawerApp extends StatelessWidget {
               Navigator.pushReplacementNamed(context, "/");
             },
           ),
+          ListTile(
+            title: Padding(
+                padding: EdgeInsets.only(top: 20, bottom: 20),
+                child: Row(
+                  children: <Widget>[
+                    Icon(Icons.calendar_today),
+                    Padding(
+                      padding: EdgeInsets.only(left: 8.0),
+                      child: Text('Todas las reservas'),
+                    )
+                  ],
+                )),
+            onTap: () {
+              Navigator.pushReplacementNamed(context, "all_reservations");
+            },
+          ),
         ],
       ),
     );

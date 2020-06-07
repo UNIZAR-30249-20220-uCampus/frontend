@@ -8,7 +8,6 @@ import 'package:utm/utm.dart';
 
 part 'space.g.dart';
 
-
 enum SpaceKind {
   WAREHOUSE,
   CLASSROOM,
@@ -31,14 +30,18 @@ class Space {
   final String capacity;
   @JsonKey(name: 'id_edificio')
   final String building;
-  @JsonKey(name: 'alquilable')
+  @JsonKey(name: 'reservable')
   final bool isBookable;
+  @JsonKey(name: 'alquilable')
+  final bool isLeasable;
   @JsonKey(name: 'equipamientos')
   final List<Equipment> equipments;
   @JsonKey(name: 'lat_center')
   final double lat;
   @JsonKey(name: 'lng_center')
   final double long;
+  @JsonKey(name: 'planta')
+  final int floor;
 
   Space({
     @required this.uuid,
@@ -47,7 +50,9 @@ class Space {
     @required this.capacity,
     @required this.building,
     @required this.isBookable,
+    @required this.isLeasable,
     @required this.equipments,
+    this.floor,
     this.lat,
     this.long,
   });
@@ -59,7 +64,9 @@ class Space {
     String capacity,
     String building,
     bool isBookable,
+    bool isLeasable,
     List<Equipment> equipments,
+    int floor,
     double lat,
     double long,
   }) =>
@@ -70,9 +77,11 @@ class Space {
         capacity: capacity ?? this.capacity,
         building: building ?? this.building,
         isBookable: isBookable ?? this.isBookable,
+        isLeasable: isLeasable ?? this.isLeasable,
         equipments: equipments ?? this.equipments,
         lat: lat ?? this.lat,
-        long: long ?? this.long
+        long: long ?? this.long,
+        floor: floor ?? this.floor,
       );
 
   static Space randomSpace({int labNumber}) {
@@ -88,12 +97,14 @@ class Space {
       capacity: "100.0",
       building: 'Edif. Ada Byron',
       isBookable: true,
+      isLeasable: true,
       lat: 41.683252,
-      long:  -0.887632,
+      long: -0.887632,
       equipments: List.generate(
         _random.nextInt(4),
         (index) => Equipment.randomEquipment(),
       ),
+      floor: 1,
     );
   }
 
@@ -116,6 +127,7 @@ class Space {
             this.capacity == other.capacity &&
             this.building == other.building &&
             this.isBookable == other.isBookable &&
+            this.isLeasable == other.isLeasable &&
             this.lat == other.lat &&
             this.long == other.long &&
             this.equipments == other.equipments);

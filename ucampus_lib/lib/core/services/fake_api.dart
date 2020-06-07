@@ -1,3 +1,4 @@
+import 'package:ucampus_lib/core/models/equipment.dart';
 import 'package:ucampus_lib/core/models/filter_criteria.dart';
 import 'package:ucampus_lib/core/models/payment.dart';
 import 'package:ucampus_lib/core/models/reservation.dart';
@@ -43,6 +44,15 @@ class FakeApi implements ApiService {
   }
 
   @override
+  Future<List<Reservation>> getSpacePendingReservation(String spaceID) async {
+    await Future.delayed(Duration(milliseconds: 700));
+    return List.generate(
+      5,
+      (index) => Reservation.randomReservation(labNumber: index),
+    );
+  }
+
+  @override
   Future<List<Reservation>> getReservation(String userID) async {
     await Future.delayed(Duration(milliseconds: 700));
     return List.generate(
@@ -65,5 +75,28 @@ class FakeApi implements ApiService {
   ) async {
     await Future.delayed(Duration(milliseconds: 700));
     return PaymentReservationResult.success; 
+  }
+
+  @override
+  Future<AcceptReservationResult> acceptReservation(
+      int reservationID) async {
+    await Future.delayed(Duration(milliseconds: 700));
+    return AcceptReservationResult.success; // TODO
+  }
+
+  @override
+  Future<UpdateEquipmentResult> updateEquipment(
+      String spaceID, List<Equipment> newEquipment) async {
+        await Future.delayed(Duration(milliseconds: 700));
+    return UpdateEquipmentResult.success; // TODO
+  }
+
+   @override
+  Future<List<Reservation>> getAllReservations() async {
+        await Future.delayed(Duration(milliseconds: 700));
+    return List.generate(
+      15,
+      (index) => Reservation.randomReservation(labNumber: index),
+    );
   }
 }

@@ -71,11 +71,11 @@ T _$enumDecodeNullable<T>(
 }
 
 const _$CriteriaKindEnumMap = {
-  CriteriaKind.NAME: 'NAME',
-  CriteriaKind.KIND: 'KIND',
+  CriteriaKind.NAME: 'NOMBRE',
+  CriteriaKind.KIND: 'TIPO',
   CriteriaKind.EQUIPMENT: 'EQUIPMENT',
-  CriteriaKind.CAPACITY: 'CAPACITY',
-  CriteriaKind.TIMETABLE: 'TIMETABLE',
+  CriteriaKind.CAPACITY: 'AFORO',
+  CriteriaKind.TIMETABLE: 'HORARIO',
 };
 
 const _$SpaceKindEnumMap = {

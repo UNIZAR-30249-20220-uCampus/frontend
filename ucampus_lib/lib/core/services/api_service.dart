@@ -1,4 +1,5 @@
 import 'package:latlong/latlong.dart';
+import 'package:ucampus_lib/core/models/equipment.dart';
 import 'package:ucampus_lib/core/models/filter_criteria.dart';
 import 'package:ucampus_lib/core/models/payment.dart';
 import 'package:ucampus_lib/core/models/reservation.dart';
@@ -7,7 +8,9 @@ import 'package:ucampus_lib/core/models/timetable.dart';
 
 enum ReservationResult { success, error }
 enum CancelReservationResult { success, error }
+enum AcceptReservationResult { success, error }
 enum PaymentReservationResult { success, error }
+enum UpdateEquipmentResult { success, error }
 
 abstract class ApiService {
   Future<Space> getSpaceInformation(int floor, LatLng coordinates);
@@ -23,6 +26,8 @@ abstract class ApiService {
  
   Future<List<Reservation>> getSpaceReservation(String spaceID);
 
+  Future<List<Reservation>> getSpacePendingReservation(String spaceID);
+
   Future<List<Reservation>> getReservation(String userID);
 
   Future<CancelReservationResult> cancelReservation(int reservationID);
@@ -31,4 +36,11 @@ abstract class ApiService {
     int reservationID,
     Payment paymentConfirmation,
   );
+
+  Future<AcceptReservationResult> acceptReservation(int reservationID);
+
+  Future<UpdateEquipmentResult> updateEquipment(String spaceID, List<Equipment> newEquipment);
+
+  Future<List<Reservation>> getAllReservations();
 }
+

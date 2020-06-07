@@ -64,6 +64,31 @@ class CancelReservationAction extends ReduxAction<AppState> {
   }
 }
 
+class AcceptReservationAction extends ReduxAction<AppState> {
+  final int reservationID;
+
+  AcceptReservationAction(
+      {@required this.reservationID});
+
+  @override
+  Future<AppState> reduce() async {
+    dispatch(SetLoadingAction(isLoading: true));
+    ApiService apiService = locator<ApiService>();
+    AcceptReservationResult reservationResult = await apiService.acceptReservation(
+      this.reservationID,
+    );
+    dispatch(SetLoadingAction(isLoading: false));
+
+    if (reservationResult == AcceptReservationResult.error) {
+      return state; //TODO: mostrar algún tipo de pop up informando
+    } else if (reservationResult == AcceptReservationResult.success) {
+      return state; //TODO: mostrar algún tipo de pop up informando
+    } else {
+      return null;
+    }
+  }
+}
+
 class PayReservationAction extends ReduxAction<AppState> {
   final int reservationID;
   final Payment payment;

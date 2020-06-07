@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ucampus_lib/core/models/equipment.dart';
 import 'package:ucampus_lib/core/models/space.dart';
 import 'package:ucampus_lib/ui/shared/enums_strings.dart';
 import 'package:ucampus_lib/ui/widgets/space_info/mini_map.dart';
@@ -17,27 +18,26 @@ class SpaceInfoCard extends StatelessWidget {
         title: Text(
           space.name,
           style: TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.w500,
-            color: Theme.of(context).primaryColor
-          ),
+              fontSize: 30,
+              fontWeight: FontWeight.w500,
+              color: Theme.of(context).primaryColor),
         ),
         //subtitle: Text(EnumsStrings.spaceKind[space.kind]),
       ),
       buildDetailsItem(
         context,
         Icons.info_outline,
-        space.uuid,
+        space.uuid.replaceAll("\"", ""),
       ),
       buildDetailsItem(
         context,
-        Icons.crop_din,
-        space.capacity + ' m2',
+        Icons.photo_size_select_small,
+        space.capacity.replaceAll("\"", "") + ' m²',
       ),
       buildDetailsItem(
         context,
         Icons.account_balance,
-        space.building,
+        EnumsStrings.building[space.building],
       ),
       buildDetailsItem(
         context,
@@ -69,6 +69,8 @@ class SpaceInfoCard extends StatelessWidget {
   }
 
   Padding buildEquipmentTable() {
+    List<Equipment> cleanEquipments =
+        space.equipments.where((equipment) => equipment.amount > 0).toList()..sort((a, b) => a.amount > b.amount ? -1 : 1);
     return Padding(
       padding: const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 10),
       child: LayoutBuilder(
@@ -91,13 +93,13 @@ class SpaceInfoCard extends StatelessWidget {
               ),
             ],
             rows: List.generate(
-              space.equipments.length,
+              cleanEquipments.length,
               (index) => DataRow(
                 cells: [
                   DataCell(
-                      Text('x ' + space.equipments[index].amount.toString())),
+                      Text('x ' + cleanEquipments[index].amount.toString())),
                   DataCell(Text(EnumsStrings
-                      .equipmentKind[space.equipments[index].equipmentKind]))
+                      .equipmentKind[cleanEquipments[index].equipmentKind]))
                 ],
               ),
             ),

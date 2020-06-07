@@ -1,3 +1,4 @@
+import 'package:ucampus_lib/core/models/equipment.dart';
 import 'package:ucampus_lib/core/models/filter_criteria.dart';
 import 'package:ucampus_lib/core/models/payment.dart';
 import 'package:ucampus_lib/core/models/reservation.dart';
@@ -30,6 +31,10 @@ class HttpApi implements ApiService {
 
   @override
   Future<List<Space>> filterSpaces(FilterCriteria criteria) async {
+    if (!criteria.activeCriteria.contains(CriteriaKind.EQUIPMENT)) {
+      criteria = criteria.copy(equipments: []);
+    }
+    print(criteria.toString());
     final http.Response response = await http.post(
       _baseUrl + '/buscar-espacio/',
       headers: <String, String>{
@@ -45,7 +50,6 @@ class HttpApi implements ApiService {
     } else {
       return null; //TODO
     }
-    
   }
 
   @override
@@ -53,9 +57,9 @@ class HttpApi implements ApiService {
       Timetable time, String spaceID, bool isForRent, String userID) async {
     var reserva = {};
     reserva["horario"] = time.toJson();
-    reserva["tipo"] = !isForRent? "reserva": "alquiler";
+    reserva["tipo"] = !isForRent ? "reserva" : "alquiler";
     reserva["usuario"] = userID;
-    
+
     final http.Response response = await http.post(
       _baseUrl + '/crear-reserva/$spaceID',
       headers: <String, String>{
@@ -64,7 +68,6 @@ class HttpApi implements ApiService {
       body: json.encode(reserva),
     );
     if (response.statusCode == 200 || response.statusCode == 201) {
-      
       return ReservationResult.success;
     } else {
       return ReservationResult.error;
@@ -74,7 +77,19 @@ class HttpApi implements ApiService {
   @override
   Future<List<Reservation>> getSpaceReservation(String spaceID) async {
     final response = await http.get(_baseUrl + '/reservas/$spaceID');
+    if (response.statusCode == 200) {
+      var list = (json.decode(response.body) as List)
+          .map((data) => Reservation.fromJson(data))
+          .toList();
+      return list;
+    } else {
+      return null; //TODO
+    }
+  }
 
+  @override
+  Future<List<Reservation>> getSpacePendingReservation(String spaceID) async {
+    final response = await http.get(_baseUrl + '/reservas/$spaceID/PENDIENTE');
     if (response.statusCode == 200) {
       var list = (json.decode(response.body) as List)
           .map((data) => Reservation.fromJson(data))
@@ -100,9 +115,9 @@ class HttpApi implements ApiService {
   }
 
   @override
-  Future<CancelReservationResult> cancelReservation(
-      int reservationID) async {
-     final response = await http.put(_baseUrl + '/cancelar-reserva/$reservationID');
+  Future<CancelReservationResult> cancelReservation(int reservationID) async {
+    final response =
+        await http.put(_baseUrl + '/cancelar-reserva/$reservationID');
 
     if (response.statusCode == 200 || response.statusCode == 201) {
       return CancelReservationResult.success;
@@ -122,6 +137,68 @@ class HttpApi implements ApiService {
       return PaymentReservationResult.success;
     } else {
       return PaymentReservationResult.error;
+    }
+  }
+
+  @override
+  Future<AcceptReservationResult> acceptReservation(int reservationID) async {
+    print(reservationID);
+    final response =
+        await http.put(_baseUrl + '/aceptar-reserva/$reservationID');
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print('OKACEPT');
+      return AcceptReservationResult.success;
+    } else {
+      print('BAD');
+      return AcceptReservationResult.error;
+    }
+  }
+
+  @override
+  Future<UpdateEquipmentResult> updateEquipment(
+      String spaceID, List<Equipment> newEquipment) async {
+    var newEquipmentBody = {};
+    newEquipmentBody["nombre"] = spaceID;
+    newEquipmentBody["equipamientos"] = newEquipment;
+    /*
+    newEquipmentBody["equipamientos"] = newEquipment
+          ?.map((e) => e.toJson())
+          ?.toList();*/
+    newEquipmentBody["filtrosActivos"] = ["NOMBRE"];
+
+    print(json.encode(newEquipmentBody));
+
+    /*
+
+    final http.Response response = await http.post(
+      _baseUrl + '/equipamiento',
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: json.encode(newEquipmentBody),
+    );
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print('OK');
+      return UpdateEquipmentResult.success;
+    } else {
+      print('BAD');
+      return UpdateEquipmentResult.error;
+    }*/
+  }
+
+  @override
+  Future<List<Reservation>> getAllReservations() async {
+    await Future.delayed(Duration(milliseconds: 700));
+    final response = await http.get(_baseUrl + '/reservas-sistema');
+
+    if (response.statusCode == 200) {
+      var list = (json.decode(response.body) as List)
+          .map((data) => Reservation.fromJson(data))
+          .toList();
+      return list;
+    } else {
+      return null; //TODO
     }
   }
 }

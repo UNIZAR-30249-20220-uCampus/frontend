@@ -56,8 +56,8 @@ class SlotDisplay extends StatelessWidget {
                     onChangeEnd: null,
                     values: RangeValues(
                         startingSlot.toDouble(), endingSlot.toDouble()),
-                    min: 6.0 * 2,
-                    max: 23.0 * 2,
+                    min: (6.0 * 2) + 1,
+                    max: (23.0 * 2) + 1,
                     divisions: (23 - 6) * 2,
                   ),
                 ),

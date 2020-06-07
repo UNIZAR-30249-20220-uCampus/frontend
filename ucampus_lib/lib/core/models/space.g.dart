@@ -19,13 +19,15 @@ Space _$SpaceFromJson(Map<String, dynamic> json) {
     name: json['id_utc'] as String,
     capacity: json['superficie'] as String,
     building: json['id_edificio'] as String,
-    isBookable: (json['alquilable'] as int) == 0 ? false : true,
+    isBookable: (json['reservable'] as int) == 0 ? false : true,
+    isLeasable: (json['alquilable'] as int) == 0 ? false : true,
     equipments: (json['equipamientos'] as List)
         ?.map((e) =>
             e == null ? null : Equipment.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     lat: latlon.lat,
     long: latlon.lon,
+    floor: (json['planta'] as int),
   );
 }
 
@@ -35,10 +37,12 @@ Map<String, dynamic> _$SpaceToJson(Space instance) => <String, dynamic>{
       'kind': _$SpaceKindEnumMap[instance.kind],
       'superficie': instance.capacity,
       'id_edificio': instance.building,
-      'alquilable': instance.isBookable,
+      'reservable': instance.isBookable,
+      'alquilable': instance.isLeasable,
       'equipamientos': instance.equipments,
       'lat_center': instance.lat,
       'lng_center': instance.long,
+      'planta': instance.floor,
     };
 
 T _$enumDecode<T>(

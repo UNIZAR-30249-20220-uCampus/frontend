@@ -40,13 +40,21 @@ class SpaceInfoScreen extends StatelessWidget {
                   SpaceInfoCard(
                     space: space,
                   ),
-                  Positioned(
-                      bottom: 30,
-                      right: 10,
-                      left: 0,
-                      child: ReservationRentalDial(
-                        space: space,
-                      )),
+                  space.isBookable
+                      ? Positioned(
+                          bottom: 30,
+                          right: 10,
+                          left: 0,
+                          child: ReservationRentalDial(
+                            space: space,
+                          ))
+                      : Positioned( //TODO
+                          bottom: 30,
+                          right: 10,
+                          left: 0,
+                          child: ReservationRentalDial(
+                            space: space,
+                          ))
                 ],
               ),
               PendingReservationsCard(
