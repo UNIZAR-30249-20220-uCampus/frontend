@@ -26,6 +26,7 @@ Space _$SpaceFromJson(Map<String, dynamic> json) {
         ?.toList(),
     lat: latlon.lat,
     long: latlon.lon,
+    floor: (json['planta'] as int),
   );
 }
 
@@ -39,6 +40,7 @@ Map<String, dynamic> _$SpaceToJson(Space instance) => <String, dynamic>{
       'equipamientos': instance.equipments,
       'lat_center': instance.lat,
       'lng_center': instance.long,
+      'planta': instance.floor,
     };
 
 T _$enumDecode<T>(

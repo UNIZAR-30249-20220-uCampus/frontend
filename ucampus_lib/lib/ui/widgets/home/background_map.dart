@@ -37,9 +37,9 @@ class BackgroundMap extends StatelessWidget {
           backgroundColor: new Color.fromRGBO(0, 0, 0, 0),
           wmsOptions: WMSTileLayerOptions(
               baseUrl:
-                  'http://geo.ucampus_lib.xyz/geoserver/ucampus_lib/wms?service=WMS',
+                  'http://geo.ucampus.xyz/geoserver/ucampus/wms?service=WMS',
               layers: [
-                'ucampus_lib:eina_' +
+                'ucampus:eina_' +
                     (selectedFloor == -1
                         ? 'sotano'
                         : 'planta_' + selectedFloor.toString())
@@ -48,18 +48,22 @@ class BackgroundMap extends StatelessWidget {
               transparent: true),
         ),
         MarkerLayerOptions(
-        markers: [
-          for (var feature in this.featuredSpaces)
-            new Marker(
-              point:  LatLng(feature.lat, feature.long),
-              builder: (ctx) =>
-              new Container(
-                child: new Icon(Icons.location_on),
+          markers: [
+            for (var feature in this
+                .featuredSpaces
+                .where((space) => space.floor == selectedFloor)
+                .toList())
+              new Marker(
+                point: LatLng(feature.lat, feature.long),
+                builder: (ctx) => new Container(
+                  child: new Icon(
+                    Icons.location_on,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ),
               ),
-            ),
-        ],
-      ),
-
+          ],
+        ),
       ],
     );
   }

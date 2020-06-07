@@ -46,7 +46,7 @@ class SpacesCarousel extends StatelessWidget {
                   ListTile(
                     title: Padding(
                         padding: EdgeInsets.only(top: 20, bottom: 5, left: 10),
-                        child: Text(space.uuid,
+                        child: Text(space.uuid.replaceAll("\"", "") ,
                             style: TextStyle(
                               fontSize: 25,
                               fontWeight: FontWeight.w600,
@@ -56,9 +56,8 @@ class SpacesCarousel extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          //Text(EnumsStrings.spaceKind[space.kind]),
                           Container(height: 5,),
-                          Text(space.building, style: TextStyle(fontWeight: FontWeight.w700),),
+                          Text(EnumsStrings.building[space.building], style: TextStyle(fontWeight: FontWeight.w700),),
                         ],
                       ),
                     ),
