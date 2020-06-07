@@ -49,8 +49,8 @@ class _EquipmentFilterState extends State<EquipmentFilter> {
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
                         color: this.widget.isEnabled
-                        ? Theme.of(context).primaryColor
-                        : Colors.grey),
+                            ? Theme.of(context).primaryColor
+                            : Colors.grey),
                   ),
                   Text(
                       'Selecciona los equipamientos que quieras añadir a la búsqueda'),
@@ -99,8 +99,8 @@ class _EquipmentFilterState extends State<EquipmentFilter> {
                   ),
                   DataColumn(label: Container()),
                 ],
-                rows:
-                    List.generate(widget.selectedEquipments.length + 1, (index) {
+                rows: List.generate(widget.selectedEquipments.length + 1,
+                    (index) {
                   if (index == widget.selectedEquipments.length) {
                     return _buildEquipmentAdditionRow(context, highlightColor);
                   } else {
@@ -175,7 +175,9 @@ class _EquipmentFilterState extends State<EquipmentFilter> {
                 items: EquipmentKind.values.map((EquipmentKind value) {
                   return DropdownMenuItem<EquipmentKind>(
                     value: value,
-                    child: Text(EnumsStrings.equipmentKind[value]),
+                    child: Text(
+                      EnumsStrings.equipmentKind[value],
+                    ),
                   );
                 }).toList(),
                 onChanged: (kind) => setState(() => _newEquipmentKind = kind),

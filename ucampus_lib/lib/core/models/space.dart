@@ -8,7 +8,6 @@ import 'package:utm/utm.dart';
 
 part 'space.g.dart';
 
-
 enum SpaceKind {
   WAREHOUSE,
   CLASSROOM,
@@ -39,6 +38,8 @@ class Space {
   final double lat;
   @JsonKey(name: 'lng_center')
   final double long;
+  @JsonKey(name: 'planta')
+  final int floor;
 
   Space({
     @required this.uuid,
@@ -48,6 +49,7 @@ class Space {
     @required this.building,
     @required this.isBookable,
     @required this.equipments,
+    this.floor,
     this.lat,
     this.long,
   });
@@ -60,6 +62,7 @@ class Space {
     String building,
     bool isBookable,
     List<Equipment> equipments,
+    int floor,
     double lat,
     double long,
   }) =>
@@ -72,7 +75,8 @@ class Space {
         isBookable: isBookable ?? this.isBookable,
         equipments: equipments ?? this.equipments,
         lat: lat ?? this.lat,
-        long: long ?? this.long
+        long: long ?? this.long,
+        floor: floor ?? this.floor,
       );
 
   static Space randomSpace({int labNumber}) {
@@ -89,11 +93,12 @@ class Space {
       building: 'Edif. Ada Byron',
       isBookable: true,
       lat: 41.683252,
-      long:  -0.887632,
+      long: -0.887632,
       equipments: List.generate(
         _random.nextInt(4),
         (index) => Equipment.randomEquipment(),
       ),
+      floor: 1,
     );
   }
 

@@ -1,6 +1,5 @@
 import 'package:ucampus_lib/core/models/equipment.dart';
 import 'package:ucampus_lib/core/models/filter_criteria.dart';
-import 'package:ucampus_lib/core/models/reservation.dart';
 import 'package:ucampus_lib/core/models/slot.dart';
 import 'package:ucampus_lib/core/models/space.dart';
 
@@ -17,22 +16,22 @@ class EnumsStrings {
   };
 
   static const Map<EquipmentKind, String> equipmentKind = {
-    EquipmentKind.CAYON_FIJO: 'CAYON_FIJO',
-    EquipmentKind.CANYON_FIJO: 'CANYON_FIJO',
-    EquipmentKind.PANTALLA_PROYECTOR: 'PANTALLA_PROYECTOR',
-    EquipmentKind.EQUIPO_DE_SONIDO: 'EQUIPO_DE_SONIDO',
-    EquipmentKind.TV: 'TV',
-    EquipmentKind.VIDEO: 'VIDEO',
+    EquipmentKind.CAYON_FIJO: 'Cañon fijo',
+    EquipmentKind.CANYON_FIJO: 'Cañón fijo',
+    EquipmentKind.PANTALLA_PROYECTOR: 'Pantalla',
+    EquipmentKind.EQUIPO_DE_SONIDO: 'Equipo sonido',
+    EquipmentKind.TV: 'Televisión',
+    EquipmentKind.VIDEO: 'Vídeo',
     EquipmentKind.DVD: 'DVD',
-    EquipmentKind.FOTOCOPIADORAS: 'FOTOCOPIADORAS',
-    EquipmentKind.IMPRESORAS: 'IMPRESORAS',
-    EquipmentKind.ORDENADORES: 'ORDENADORES',
-    EquipmentKind.FAXES: 'FAXES',
-    EquipmentKind.TELEFONOS: 'TELEFONOS',
-    EquipmentKind.PIZARRA: 'PIZARRA',
-    EquipmentKind.NMRO_EXTINTORES_POLVO: 'NMRO_EXTINTORES_POLVO',
-    EquipmentKind.NMRO_EXTINTORES_CO2: 'NMRO_EXTINTORES_CO2',
-    EquipmentKind.NMRO_PLAZAS: 'NMRO_PLAZAS',
+    EquipmentKind.FOTOCOPIADORAS: 'Fotocopiadora',
+    EquipmentKind.IMPRESORAS: 'Impresora',
+    EquipmentKind.ORDENADORES: 'Ordenador',
+    EquipmentKind.FAXES: 'Fax',
+    EquipmentKind.TELEFONOS: 'Teléfono',
+    EquipmentKind.PIZARRA: 'Pizarra',
+    EquipmentKind.NMRO_EXTINTORES_POLVO: 'Extintor polvo',
+    EquipmentKind.NMRO_EXTINTORES_CO2: 'Extintor CO2',
+    EquipmentKind.NMRO_PLAZAS: 'Sillas',
   };
 
   static const Map<CriteriaKind, String> criteriaKind = {
@@ -51,6 +50,12 @@ class EnumsStrings {
     Weekday.FRIDAY : 'Viernes',
     Weekday.SATURDAY : 'Sábado',
     Weekday.SUNDAY : 'Domingo',
+  };
+
+  static const Map<String, String> building = {
+    "\"CRE.1200.\"" : "Edif. Ada Byron",
+    "\"CRE.1065.\"" : "Edif. Torres Quevedo",
+    "\"CRE.1201.\"" : "Edif. Betancourt",
   };
 
 }

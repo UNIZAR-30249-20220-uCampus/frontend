@@ -4,6 +4,7 @@ import 'package:ucampus_lib/core/models/space.dart';
 import 'package:ucampus_lib/core/services/api_service.dart';
 import 'package:ucampus_lib/ui/shared/enums_strings.dart';
 import 'package:ucampus_lib/ui/shared/string_utils.dart';
+import 'package:ucampus_lib/ui/widgets/reservation/no_reservation.dart';
 import '../../../locator.dart';
 
 class PendingReservationsCard extends StatelessWidget {
@@ -27,6 +28,9 @@ class PendingReservationsCard extends StatelessWidget {
               future: getUpendingReservations(space.uuid),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
+                  if (snapshot.data.length == 0) {
+                    return Expanded(child: NoReservations());
+                  }
                   return Expanded(
                       child: ListView(padding: EdgeInsets.all(0.0), children: <
                           Widget>[
@@ -106,7 +110,11 @@ class PendingReservationsCard extends StatelessWidget {
                                                     fontWeight: FontWeight.w500,
                                                     color: Colors.black)),
                                             Text(
-                                              ' Cada ' + reservation.timeTable.frecuency.toString() + ' semana(s)',
+                                                ' Cada ' +
+                                                    reservation
+                                                        .timeTable.frecuency
+                                                        .toString() +
+                                                    ' semana(s)',
                                                 style: TextStyle(
                                                   fontSize: 15,
                                                 ))
@@ -124,11 +132,12 @@ class PendingReservationsCard extends StatelessWidget {
                       child: Text("${snapshot.error}",
                           style: Theme.of(context).textTheme.headline));
                 } else {
-                  return Padding(
-                      padding: EdgeInsets.only(top: 15),
-                      child: CircularProgressIndicator(
-                        backgroundColor: Theme.of(context).primaryColor,
-                      ));
+                  return Expanded(
+                      child: Center(
+                    child: CircularProgressIndicator(
+                      backgroundColor: Theme.of(context).primaryColor,
+                    ),
+                  ));
                 }
               }),
         ],

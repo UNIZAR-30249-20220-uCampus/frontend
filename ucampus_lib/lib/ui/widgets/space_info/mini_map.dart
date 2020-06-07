@@ -11,7 +11,6 @@ class MiniMap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     LatLng _spaceCenter = LatLng(41.683402, -0.887682);
-    int _floor = 0;
     return FlutterMap(
       options: MapOptions(
         center: _spaceCenter, //TODO: añadir
@@ -30,10 +29,10 @@ class MiniMap extends StatelessWidget {
           backgroundColor: new Color.fromRGBO(0, 0, 0, 0),
           wmsOptions: WMSTileLayerOptions(
               baseUrl:
-                  'http://geo.ucampus_lib.xyz/geoserver/ucampus_lib/wms?service=WMS',
+                  'http://geo.ucampus.xyz/geoserver/ucampus/wms?service=WMS',
               layers: [
-                'ucampus_lib:eina_' +
-                    (_floor == -1 ? 'sotano' : 'planta_' + _floor.toString())
+                'ucampus:eina_' +
+                    (space.floor == -1 ? 'sotano' : 'planta_' + space.floor.toString())
               ],
               format: 'image/png',
               transparent: true),
