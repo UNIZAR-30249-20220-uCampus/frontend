@@ -26,8 +26,7 @@ class HttpApi implements ApiService {
     if (response.statusCode == 200) {
       return Space.fromJson(json.decode(response.body));
     } else {
-      throw new UserException(
-          'No ha sido posible obtener información del espacio');
+      return null;
     }
   }
 
@@ -186,8 +185,7 @@ class HttpApi implements ApiService {
       String spaceID, bool bookable) async {
     String value = bookable ? '1' : '0';
     print('LLEGA');
-    print(
-      _baseUrl + '/cambiar-reservable/' + spaceID + '/' + value);
+    print(_baseUrl + '/cambiar-reservable/' + spaceID + '/' + value);
     final http.Response response = await http.put(
       _baseUrl + '/cambiar-reservable/' + spaceID + '/' + value,
     );

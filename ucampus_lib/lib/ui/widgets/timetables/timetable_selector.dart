@@ -31,7 +31,7 @@ class _TimetableSelectorState extends State<TimetableSelector> {
   @override
   void initState() {
     super.initState();
-    _timetable = Timetable();
+    _timetable = Timetable(startDate: startDate, endDate: endDate, frecuency: 1);
     if (this.widget.initialTimetable != null) {
       _timetable = this.widget.initialTimetable;
       _controller = new TextEditingController(

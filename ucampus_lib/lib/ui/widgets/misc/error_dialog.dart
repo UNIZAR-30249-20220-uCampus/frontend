@@ -22,7 +22,7 @@ void showUserExceptionDialog(
             "ACEPTAR",
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => Navigator.of(context).pushReplacementNamed("/"),
         ),
       ],
     ),
