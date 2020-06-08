@@ -17,4 +17,25 @@ class StringUtils {
       return minutes;
     }
   }
+
+  static String spaceNameParser(String input) {
+    isNumeric(string) => num.tryParse(string) != null;
+    input = input.trim();
+    input = input.replaceAll("_", " ");
+    input = input.replaceAll("\"", " ");
+    input = input.toLowerCase();
+    String output = "";
+    for (int i = 0; i < input.length; i++) {
+      if (i == 1 ||
+          (i + 1 < input.length &&
+              (input[i + 1] == '.' ||
+                  input[i + 1] == "-" ||
+                  isNumeric(input[i + 1])))) {
+        output += input[i].toUpperCase();
+      } else {
+        output += input[i];
+      }
+    }
+    return output;
+  }
 }

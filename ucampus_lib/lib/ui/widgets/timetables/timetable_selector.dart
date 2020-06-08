@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:ucampus_lib/core/models/slot.dart';
 import 'package:ucampus_lib/core/models/timetable.dart';
 import 'package:ucampus_lib/ui/shared/enums_strings.dart';
+import 'package:ucampus_lib/ui/widgets/timetables/date_selector.dart';
 import 'package:ucampus_lib/ui/widgets/timetables/slot_selector.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 class TimetableSelector extends StatefulWidget {
   final bool isEnabled;
@@ -23,31 +24,22 @@ Timetable _timetable;
 Weekday _weekday;
 
 class _TimetableSelectorState extends State<TimetableSelector> {
-  DateTime startDate;
-  DateTime endDate;
-  String _dateStart = "-- -- ----";
-  String _dateFinish = "-- -- ----";
+  DateTime startDate = DateTime.now();
+  DateTime endDate = DateTime.now().add(Duration(days: 30));
   TextEditingController _controller = new TextEditingController(text: '0');
 
   @override
   void initState() {
     super.initState();
-    if (this.widget.initialTimetable == null) {
-      _timetable = Timetable();
-    } else {
+    _timetable = Timetable();
+    if (this.widget.initialTimetable != null) {
       _timetable = this.widget.initialTimetable;
       _controller = new TextEditingController(
           text: _timetable.frecuency != null
               ? _timetable.frecuency.toString()
-              : '0');
-      startDate = _timetable.startDate;
-      _dateStart = startDate != null
-          ? '${startDate.day} - ${startDate.month} - ${startDate.year}'
-          : "-- -- ----";
-      endDate = _timetable.endDate;
-      _dateFinish = endDate != null
-          ? '${endDate.day} - ${endDate.month} - ${endDate.year}'
-          : "-- -- ----";
+              : '1');
+      startDate = _timetable.startDate ?? startDate;
+      endDate = _timetable.endDate ?? endDate;
     }
     _weekday = Weekday.MONDAY;
   }
@@ -102,173 +94,73 @@ class _TimetableSelectorState extends State<TimetableSelector> {
                   isThreeLine: false,
                 ),
                 Padding(
-                    padding: EdgeInsets.only(left: 15),
-                    child: Container(
-                        child: Row(children: <Widget>[
-                      Padding(
-                          padding: EdgeInsets.only(right: 15),
-                          child: RaisedButton(
-                            color: Colors.white,
-                            disabledColor: Colors.grey[300],
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(5.0)),
-                            elevation: 0.0,
-                            onPressed: this.widget.isEnabled
-                                ? () {
-                                    DatePicker.showDatePicker(context,
-                                        theme: DatePickerTheme(
-                                          containerHeight: 210.0,
-                                        ),
-                                        showTitleActions: true,
-                                        minTime: DateTime(2019, 1, 1),
-                                        maxTime: DateTime(2022, 12, 31),
-                                        onConfirm: (date) {
-                                      setState(() {
-                                        _dateStart =
-                                            '${date.day} - ${date.month} - ${date.year}';
-                                        startDate = date;
-                                        _timetable.addDates(startDate, endDate);
-                                      });
-                                      this
-                                          .widget
-                                          .onTimetableChanged(_timetable);
-                                    },
-                                        currentTime: DateTime.now(),
-                                        locale: LocaleType.es);
-                                  }
-                                : null,
-                            child: Container(
-                              alignment: Alignment.center,
-                              height: 30.0,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Row(
-                                    children: <Widget>[
-                                      Container(
-                                        child: Row(
-                                          children: <Widget>[
-                                            Icon(
-                                              Icons.date_range,
-                                              size: 15.0,
-                                              color: Colors.black,
-                                            ),
-                                            Text(
-                                              " $_dateStart",
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 15.0),
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )),
-                      RaisedButton(
-                        color: Colors.white,
-                        disabledColor: Colors.grey[300],
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5.0)),
-                        elevation: 0.0,
-                        onPressed: this.widget.isEnabled
-                            ? () {
-                                DatePicker.showDatePicker(context,
-                                    theme: DatePickerTheme(
-                                      containerHeight: 210.0,
-                                    ),
-                                    showTitleActions: true,
-                                    minTime: DateTime(2019, 1, 1),
-                                    maxTime: DateTime(2022, 12, 31),
-                                    onConfirm: (date) {
-                                  setState(() {
-                                    _dateFinish =
-                                        '${date.day} - ${date.month} - ${date.year}';
-                                    endDate = date;
-                                    _timetable.addDates(startDate, endDate);
-                                  });
-                                  this.widget.onTimetableChanged(_timetable);
-                                },
-                                    currentTime: DateTime.now(),
-                                    locale: LocaleType.es);
-                              }
-                            : null,
-                        child: Container(
-                          alignment: Alignment.center,
-                          height: 30.0,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Row(
-                                children: <Widget>[
-                                  Container(
-                                    child: Row(
-                                      children: <Widget>[
-                                        Icon(
-                                          Icons.date_range,
-                                          size: 15.0,
-                                          color: Colors.black,
-                                        ),
-                                        Text(
-                                          " $_dateFinish",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 15.0),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                    ]))),
-                Padding(
-                    padding: EdgeInsets.only(top: 15, left: 8, bottom: 0),
-                    child: Row(children: <Widget>[
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.replay,
-                                color: this.widget.isEnabled
-                                    ? Theme.of(context).primaryColor
-                                    : Colors.grey,
-                              ),
-                              Text(
-                                ' Frecuencia ',
-                                style: TextStyle(fontSize: 17),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                    ])),
-                Padding(
-                  padding: EdgeInsets.only(top: 0, bottom: 10, left: 40),
+                  padding: EdgeInsets.only(left: 15),
                   child: Container(
-                      width: 200,
-                      child: TextField(
-                        enabled: this.widget.isEnabled,
-                        controller: _controller,
-                        onChanged: (texto) {
-                          setState(() {
-                            _timetable.setFrecuency(int.parse(texto));
-                          });
-                          this.widget.onTimetableChanged(_timetable);
-                        },
-                        decoration: InputDecoration(
-                          labelText: 'Cada X semanas',
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        DateSelector(
+                          currentTime: startDate,
+                          isEnabled: widget.isEnabled,
+                          onDateSelected: (date) {
+                            setState(
+                              () {
+                                startDate = date;
+                                _timetable.addDates(startDate, endDate);
+                              },
+                            );
+                            this.widget.onTimetableChanged(_timetable);
+                          },
                         ),
-                      )),
+                        Container(width: 20),
+                        DateSelector(
+                          currentTime: endDate,
+                          isEnabled: widget.isEnabled,
+                          onDateSelected: (date) {
+                            setState(() {
+                              endDate = date;
+                              _timetable.addDates(startDate, endDate);
+                            });
+                            this.widget.onTimetableChanged(_timetable);
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(height: 10),
+                ListTile(
+                  leading: Icon(
+                    Icons.replay,
+                    color: this.widget.isEnabled
+                        ? Theme.of(context).primaryColor
+                        : Colors.grey,
+                  ),
+                  title: Text(
+                    'Frecuencia',
+                    style: TextStyle(fontSize: 17),
+                  ),
+                  isThreeLine: true,
+                  subtitle: Padding(
+                    padding: const EdgeInsets.only(right: 120.0),
+                    child: TextField(
+                      enabled: this.widget.isEnabled,
+                      controller: _controller,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: <TextInputFormatter>[
+                        WhitelistingTextInputFormatter.digitsOnly
+                      ],
+                      onChanged: (text) {
+                        setState(() {
+                          _timetable.setFrecuency(int.parse(text));
+                        });
+                        this.widget.onTimetableChanged(_timetable);
+                      },
+                      decoration: InputDecoration(
+                        labelText: 'Cada X semanas',
+                      ),
+                    ),
+                  ),
                 ),
               ]);
         }

@@ -84,14 +84,23 @@ class _ReservationFormState extends State<ReservationForm> {
                             padding:
                                 EdgeInsets.only(top: 10, left: 0, bottom: 0),
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
+                                Container(height: 30),
+                                Icon(
+                                  Icons.receipt,
+                                  size: 80,
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                                Container(height: 30),
                                 Text(
                                   'Este espacio no puede ser alquilado',
+                                  textAlign: TextAlign.center,
                                   style: TextStyle(
-                                      fontSize: 19,
-                                      fontWeight: FontWeight.w600,
-                                      color: Theme.of(context).primaryColor),
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.black,
+                                  ),
                                 ),
                               ],
                             ),
@@ -102,8 +111,7 @@ class _ReservationFormState extends State<ReservationForm> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Padding(
-                            padding:
-                                EdgeInsets.only(top: 10, left: 0, bottom: 0),
+                            padding: EdgeInsets.all(20),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
@@ -191,7 +199,7 @@ class _ReservationFormState extends State<ReservationForm> {
                         widget.onReservation(
                             _timetable, widget.space.uuid, false, _deviceid);
                         _btnController.success();
-                        //Navigator.of(context).pop();
+                        Navigator.of(context).pop();
                       }
                     }
                   },

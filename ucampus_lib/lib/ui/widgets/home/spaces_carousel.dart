@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ucampus_lib/core/models/space.dart';
 import 'package:ucampus_lib/ui/shared/enums_strings.dart';
+import 'package:ucampus_lib/ui/shared/string_utils.dart';
 
 class SpacesCarousel extends StatelessWidget {
   final List<Space> spaces;
@@ -45,40 +46,55 @@ class SpacesCarousel extends StatelessWidget {
                 children: <Widget>[
                   ListTile(
                     title: Padding(
-                        padding: EdgeInsets.only(top: 20, bottom: 5, left: 10),
-                        child: Text(space.uuid.replaceAll("\"", "") ,
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.w600,
-                            ))),
+                      padding: EdgeInsets.only(top: 20, bottom: 0),
+                      child: Text(
+                        StringUtils.spaceNameParser(space.name),
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
                     subtitle: Padding(
                       padding: EdgeInsets.only(bottom: 0, left: 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Container(height: 5,),
-                          Text(EnumsStrings.building[space.building], style: TextStyle(fontWeight: FontWeight.w700),),
+                          Container(
+                            height: 5,
+                          ),
+                          Text(
+                            space.uuid.replaceAll("\"", ""),
+                            style: TextStyle(fontWeight: FontWeight.w700),
+                          ),
+                          Container(
+                            height: 5,
+                          ),
+                          Text(
+                            EnumsStrings.building[space.building],
+                            style: TextStyle(fontWeight: FontWeight.w400),
+                          ),
                         ],
                       ),
                     ),
                     isThreeLine: true,
                   ),
-                  isUser?
-                  ButtonBar(
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.only(right: 10),
-                        child: FlatButton(
-                          child: const Text('RESERVAR'),
-                          onPressed: () {
-                            Navigator.pushNamed(context, "reservation",
-                                arguments: space);
-                          },
-                        ),
-                      )
-                    ],
-                  ):
-                  Container(),
+                  isUser
+                      ? ButtonBar(
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.only(right: 10),
+                              child: FlatButton(
+                                child: const Text('RESERVAR'),
+                                onPressed: () {
+                                  Navigator.pushNamed(context, "reservation",
+                                      arguments: space);
+                                },
+                              ),
+                            )
+                          ],
+                        )
+                      : Container(),
                 ],
               ),
             )),

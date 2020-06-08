@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ucampus_lib/core/models/equipment.dart';
 import 'package:ucampus_lib/core/models/space.dart';
 import 'package:ucampus_lib/ui/shared/enums_strings.dart';
+import 'package:ucampus_lib/ui/shared/string_utils.dart';
 import 'package:ucampus_lib/ui/widgets/space_info/mini_map.dart';
 
 class SpaceInfoCard extends StatelessWidget {
@@ -16,7 +17,7 @@ class SpaceInfoCard extends StatelessWidget {
     List<Widget> details = [
       ListTile(
         title: Text(
-          space.name,
+          StringUtils.spaceNameParser(space.name),
           style: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.w500,

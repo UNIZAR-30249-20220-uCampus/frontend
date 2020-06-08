@@ -16,7 +16,7 @@ Space _$SpaceFromJson(Map<String, dynamic> json) {
 
   return Space(
     uuid: json['id_espacio'] as String,
-    name: json['id_utc'] as String,
+    name: json['id_centro'] as String,
     capacity: json['superficie'] as String,
     building: json['id_edificio'] as String,
     isBookable: (json['reservable'] as int) == 0 ? false : true,
@@ -33,7 +33,7 @@ Space _$SpaceFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$SpaceToJson(Space instance) => <String, dynamic>{
       'id_espacio': instance.uuid,
-      'id_utc': instance.name,
+      'id_centro': instance.name,
       'kind': _$SpaceKindEnumMap[instance.kind],
       'superficie': instance.capacity,
       'id_edificio': instance.building,
