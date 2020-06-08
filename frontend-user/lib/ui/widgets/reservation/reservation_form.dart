@@ -122,12 +122,11 @@ class _ReservationFormState extends State<ReservationForm> {
                                       fontWeight: FontWeight.w600,
                                       color: Theme.of(context).primaryColor),
                                 ),
-                                widget.externalUser?
-                                Text(
-                                    'Selecciona las franjas horarias en las que deseas alquilar el espacio y las fechas de inicio y fin')
-                                :
-                                Text(
-                                    'Selecciona las franjas horarias en las que deseas reservar el espacio y las fechas de inicio y fin')
+                                widget.externalUser
+                                    ? Text(
+                                        'Selecciona las franjas horarias en las que deseas alquilar el espacio y las fechas de inicio y fin')
+                                    : Text(
+                                        'Selecciona las franjas horarias en las que deseas reservar el espacio y las fechas de inicio y fin')
                               ],
                             ),
                           ),
@@ -190,11 +189,13 @@ class _ReservationFormState extends State<ReservationForm> {
                       });
                       if (widget.externalUser && widget.space.isLeasable) {
                         var reservation = new Reservation(
-                            reservationID: 1,
-                            space: widget.space.uuid,
-                            timeTable: _timetable,
-                            reservationStatus: ReservationStatus.PENDIENTE,
-                            userID: _deviceid);
+                          reservationID: 1,
+                          space: widget.space.uuid,
+                          timeTable: _timetable,
+                          reservationStatus: ReservationStatus.PENDIENTE,
+                          userID: _deviceid,
+                          spaceData: widget.space,
+                        );
                         _btnController.stop();
                         Navigator.pushReplacementNamed(
                             context, "reservation_external",

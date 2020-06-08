@@ -98,7 +98,7 @@ class _UserReservationsState extends State<UserReservations> {
                                       title: Padding(
                                           padding: EdgeInsets.only(
                                               top: 20, bottom: 0, left: 10),
-                                          child: Text(reservation.space,
+                                          child: Text(reservation.space.replaceAll("\"", ""),
                                               style: TextStyle(
                                                 fontSize: 25,
                                                 fontWeight: FontWeight.w600,

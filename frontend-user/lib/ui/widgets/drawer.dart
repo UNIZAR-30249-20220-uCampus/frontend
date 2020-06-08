@@ -5,76 +5,94 @@ class DrawerApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: Column(
-        children: <Widget>[
-          Container(
-              height: 150.0,
-              child: DrawerHeader(
-                  margin: EdgeInsets.zero,
-                  padding: EdgeInsets.zero,
-                  decoration: BoxDecoration(
+        children: [
+          Expanded(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  height: 150.0,
+                  child: DrawerHeader(
+                    margin: EdgeInsets.zero,
+                    padding: EdgeInsets.zero,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned(
+                          bottom: 20.0,
+                          left: 16.0,
+                          child: Text(
+                            "uCampus",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 30,
+                                fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(height: 30),
+                ListTile(
+                  leading: Icon(
+                    Icons.map,
+                    size: 40,
                     color: Theme.of(context).primaryColor,
                   ),
-                  child: Stack(children: <Widget>[
-                    Positioned(
-                      bottom: 20.0,
-                      left: 16.0,
-                      child: Text(
-                        "uCampus",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 30,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                  ]))),
-          ListTile(
-            title: Padding(
-                padding: EdgeInsets.only(top: 20, bottom: 20),
-                child: Row(
-                  children: <Widget>[
-                    Icon(Icons.home),
-                    Padding(
-                      padding: EdgeInsets.only(left: 8.0),
-                      child: Text('Home'),
-                    )
-                  ],
-                )),
-            onTap: () {
-              Navigator.pushReplacementNamed(context, "/");
-            },
+                  title: Text(
+                    'Inicio',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  onTap: () {
+                    Navigator.pushReplacementNamed(context, "/");
+                  },
+                ),
+                Divider(),
+                ListTile(
+                  leading: Icon(
+                    Icons.today,
+                    size: 40,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  title: Text(
+                    'Mis reservas',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  onTap: () {
+                    Navigator.pushReplacementNamed(
+                        context, "user_reservations");
+                  },
+                ),
+                Divider(),
+                ListTile(
+                  leading: Icon(
+                    Icons.settings,
+                    size: 40,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  title: Text(
+                    'Ajustes',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  onTap: () {
+                    Navigator.pushReplacementNamed(context, "settings");
+                  },
+                )
+              ],
+            ),
           ),
+          Divider(),
           ListTile(
-            title: Padding(
-                padding: EdgeInsets.only(top: 20, bottom: 20),
-                child: Row(
-                  children: <Widget>[
-                    Icon(Icons.calendar_today),
-                    Padding(
-                      padding: EdgeInsets.only(left: 8.0),
-                      child: Text('Mis reservas'),
-                    )
-                  ],
-                )),
-            onTap: () {
-              Navigator.pushReplacementNamed(context, "user_reservations");
-            },
+            leading: Icon(
+              Icons.map,
+              size: 30,
+              color: Theme.of(context).primaryColor,
+            ),
+            title: Text('uCampus v.1.0'),
+            subtitle: Text('ucampus.xyz'),
           ),
-          ListTile(
-              title: Padding(
-                  padding: EdgeInsets.only(top: 20, bottom: 20),
-                  child: Row(
-                    children: <Widget>[
-                      Icon(Icons.settings),
-                      Padding(
-                        padding: EdgeInsets.only(left: 8.0),
-                        child: Text('Ajustes'),
-                      )
-                    ],
-                  )),
-              onTap: () {
-                Navigator.pushReplacementNamed(context, "settings");
-              },
-            )
         ],
       ),
     );
