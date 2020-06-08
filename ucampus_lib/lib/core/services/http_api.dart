@@ -1,3 +1,4 @@
+import 'package:async_redux/async_redux.dart';
 import 'package:ucampus_lib/core/models/equipment.dart';
 import 'package:ucampus_lib/core/models/filter_criteria.dart';
 import 'package:ucampus_lib/core/models/payment.dart';
@@ -25,7 +26,8 @@ class HttpApi implements ApiService {
     if (response.statusCode == 200) {
       return Space.fromJson(json.decode(response.body));
     } else {
-      return null; //TODO
+      throw new UserException(
+          'No ha sido posible obtener información del espacio');
     }
   }
 
@@ -48,7 +50,7 @@ class HttpApi implements ApiService {
           .toList();
       return list;
     } else {
-      return null; //TODO
+      throw new UserException('No ha sido posible realizar la búsqueda');
     }
   }
 
@@ -83,7 +85,8 @@ class HttpApi implements ApiService {
           .toList();
       return list;
     } else {
-      return null; //TODO
+      throw new UserException(
+          'No ha sido posible obtener obtener la lista de reservas del espacio');
     }
   }
 
@@ -96,7 +99,8 @@ class HttpApi implements ApiService {
           .toList();
       return list;
     } else {
-      return null; //TODO
+      throw new UserException(
+          'No ha sido posible obtener obtener la lista de reservas pendientes del espacio');
     }
   }
 
@@ -110,7 +114,8 @@ class HttpApi implements ApiService {
           .toList();
       return list;
     } else {
-      return null; //TODO
+      throw new UserException(
+          'No ha sido posible obtener obtener tus reservas');
     }
   }
 
@@ -147,10 +152,8 @@ class HttpApi implements ApiService {
         await http.put(_baseUrl + '/aceptar-reserva/$reservationID');
 
     if (response.statusCode == 200 || response.statusCode == 201) {
-      print('OKACEPT');
       return AcceptReservationResult.success;
     } else {
-      print('BAD');
       return AcceptReservationResult.error;
     }
   }
@@ -163,7 +166,6 @@ class HttpApi implements ApiService {
     newEquipmentBody["nombre"] = spaceID;
     newEquipmentBody["equipamientos"] = newEquipment;
     newEquipmentBody["filtrosActivos"] = ["NOMBRE"];
-
 
     final http.Response response = await http.post(
       _baseUrl + '/equipamiento',
@@ -190,7 +192,8 @@ class HttpApi implements ApiService {
           .toList();
       return list;
     } else {
-      return null; //TODO
+      throw new UserException(
+          'No ha sido posible obtener obtener las reservas pendientes');
     }
   }
 }
