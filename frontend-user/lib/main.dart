@@ -5,6 +5,7 @@ import 'package:ucampus_lib/core/redux/app_state.dart';
 import 'package:ucampus/ui/router.dart';
 import 'package:ucampus_lib/locator.dart';
 import 'package:ucampus_lib/ui/shared/theme.dart';
+import 'package:ucampus_lib/ui/widgets/misc/error_dialog.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
@@ -36,8 +37,13 @@ class UCampus extends StatelessWidget {
       title: 'uCampus',
       navigatorKey: navigatorKey,
       theme: uCampusTheme,
-      initialRoute: '/',
-      onGenerateRoute: Router.generateRoute,
+      home: UserExceptionDialog<AppState>(
+        child: Navigator(
+          initialRoute: '/',
+          onGenerateRoute: Router.generateRoute,
+        ),
+        onShowUserExceptionDialog: showUserExceptionDialog,
+      ),
     );
   }
 }
@@ -46,6 +52,8 @@ class StateLogger implements StateObserver<AppState> {
   @override
   void observe(ReduxAction<AppState> action, AppState stateIni,
       AppState stateEnd, int dispatchCount) {
-    print(stateEnd.toString());
+    print(
+      '\n--INICIO ESTADO--\n' + stateEnd.toString() + '\n--FIN ESTADO--\n\n',
+    );
   }
 }
