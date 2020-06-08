@@ -4,17 +4,19 @@ import 'package:ucampus_lib/core/models/space.dart';
 
 class ReservationScreen extends StatelessWidget {
   final Space space;
+  final bool isExternal;
 
   ReservationScreen({
     @required this.space,
+    @required this.isExternal
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Reservar espacio'),
+        title: isExternal?Text('Alquilar espacio') :Text('Reservar espacio'),
       ),
-      body: ReservationFormConnector(space: space));
+      body: ReservationFormConnector(space: space ));
   }
 }

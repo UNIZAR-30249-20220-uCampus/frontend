@@ -46,6 +46,20 @@ class EditDial extends StatelessWidget {
                   color: Theme.of(context).primaryColor,
                 ),
               ),
+              label: 'Reservable/Alquilable',
+              backgroundColor: Theme.of(context).accentColor,
+              labelStyle: TextStyle(fontSize: 18.0),
+              onTap: () {
+                Navigator.pushNamed(context, "edit_bookable", arguments: space);
+              },
+            ),
+            SpeedDialChild(
+              child: Center(
+                child: Icon(
+                  Icons.schedule,
+                  color: Theme.of(context).primaryColor,
+                ),
+              ),
               label: 'Disponibilidad',
               backgroundColor: Theme.of(context).accentColor,
               labelStyle: TextStyle(fontSize: 18.0),
