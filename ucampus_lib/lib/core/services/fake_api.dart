@@ -103,6 +103,19 @@ class FakeApi implements ApiService {
     return UpdateEquipmentResult.success;
   }
 
+  @override
+  Future<UpdateBookableResult> updateBookable(String spaceID, bool bookable) async {
+        await Future.delayed(Duration(milliseconds: 700));
+    return UpdateBookableResult.success; // TODO
+  }
+
+  @override
+  Future<UpdateBookableResult> updateLeasable(String spaceID, bool leasable) async {
+        await Future.delayed(Duration(milliseconds: 700));
+    return UpdateBookableResult.success; // TODO
+  }
+
+
    @override
   Future<List<Reservation>> getAllReservations() async {
         await Future.delayed(Duration(milliseconds: 700));

@@ -11,6 +11,7 @@ enum CancelReservationResult { success, error }
 enum AcceptReservationResult { success, error }
 enum PaymentReservationResult { success, error }
 enum UpdateEquipmentResult { success, error }
+enum UpdateBookableResult { success, error }
 
 abstract class ApiService {
   Future<Space> getSpaceInformation(int floor, LatLng coordinates);
@@ -41,6 +42,11 @@ abstract class ApiService {
 
   Future<UpdateEquipmentResult> updateEquipment(String spaceID, List<Equipment> newEquipment);
 
+  Future<UpdateBookableResult> updateBookable(String spaceID, bool bookable);
+
+  Future<UpdateBookableResult> updateLeasable(String spaceID, bool leasable);
+
   Future<List<Reservation>> getAllReservations();
+  
 }
 

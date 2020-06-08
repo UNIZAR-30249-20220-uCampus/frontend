@@ -6,6 +6,7 @@ import 'package:ucampus_lib/ui/screens/home_screen.dart';
 import 'package:ucampus_manager/ui/screens/all_reservations_screen.dart';
 import 'package:ucampus_manager/ui/screens/edit_availability_confirm_screen.dart';
 import 'package:ucampus_manager/ui/screens/edit_availability_screen.dart';
+import 'package:ucampus_manager/ui/screens/edit_bookable_screen.dart';
 import 'package:ucampus_manager/ui/screens/edit_equipment_screen.dart';
 import 'package:ucampus_manager/ui/screens/reservation_info_screen.dart';
 import 'package:ucampus_manager/ui/widgets/drawer.dart';
@@ -31,6 +32,9 @@ class Router {
       case 'edit_availability':
         var space = settings.arguments as Space;
         return MaterialPageRoute(builder: (_) => EditAvailabilityScreen(space: space));
+      case 'edit_bookable':
+        var space = settings.arguments as Space;
+        return MaterialPageRoute(builder: (_) => EditBookableScreen(space: space));
       case 'availability_confirm':
         return MaterialPageRoute(builder: (_) => EditAvailabilityConfirmScreen());
       case 'reservation_info':

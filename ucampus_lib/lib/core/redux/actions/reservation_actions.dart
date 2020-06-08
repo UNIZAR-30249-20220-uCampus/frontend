@@ -117,3 +117,34 @@ class PayReservationAction extends ReduxAction<AppState> {
   @override
   void after() => dispatch(SetLoadingAction(isLoading: false));
 }
+
+class EditBookableLeasableAction extends ReduxAction<AppState> {
+   final String space;
+   final bool bookable;
+   final bool leasable;
+
+  EditBookableLeasableAction({@required this.space, @required this.bookable,  @required this.leasable});
+
+  @override
+  Future<AppState> reduce() async {
+    
+    dispatch(SetLoadingAction(isLoading: true));
+    ApiService apiService = locator<ApiService>();
+    UpdateBookableResult bookableResult =
+        await apiService.updateBookable(this.space, this.bookable);
+    
+    UpdateBookableResult leasableResult =
+        await apiService.updateLeasable(this.space, this.leasable);
+
+    if (bookableResult == UpdateBookableResult.error || leasableResult == UpdateBookableResult.error) {
+       throw UserException("El espacio no ha podido actualizarse");
+    } else if (bookableResult == UpdateBookableResult.success && leasableResult == UpdateBookableResult.success) {
+      return state;
+    } else {
+      return null;
+    }
+  }
+
+  @override
+  void after() => dispatch(SetLoadingAction(isLoading: false));
+}

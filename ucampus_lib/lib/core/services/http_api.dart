@@ -182,6 +182,39 @@ class HttpApi implements ApiService {
   }
 
   @override
+  Future<UpdateBookableResult> updateBookable(
+      String spaceID, bool bookable) async {
+    String value = bookable ? '1' : '0';
+    print('LLEGA');
+    print(
+      _baseUrl + '/cambiar-reservable/' + spaceID + '/' + value);
+    final http.Response response = await http.put(
+      _baseUrl + '/cambiar-reservable/' + spaceID + '/' + value,
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return UpdateBookableResult.success;
+    } else {
+      return UpdateBookableResult.error;
+    }
+  }
+
+  @override
+  Future<UpdateBookableResult> updateLeasable(
+      String spaceID, bool leasable) async {
+    String value = leasable ? '1' : '0';
+    final http.Response response = await http.put(
+      _baseUrl + '/cambiar-alquilable/' + spaceID + '/' + value,
+    );
+
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      return UpdateBookableResult.success;
+    } else {
+      return UpdateBookableResult.error;
+    }
+  }
+
+  @override
   Future<List<Reservation>> getAllReservations() async {
     await Future.delayed(Duration(milliseconds: 700));
     final response = await http.get(_baseUrl + '/reservas-sistema');

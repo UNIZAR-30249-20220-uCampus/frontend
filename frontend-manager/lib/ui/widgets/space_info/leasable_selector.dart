@@ -42,7 +42,7 @@ class _LeasableSelectorState extends State<LeasableSelector> {
                                 fontWeight: FontWeight.w600,
                                 color: Theme.of(context).primaryColor)),
                         Text(
-                            'Selecciona si el espacio es o no alquilabe'),
+                            'Selecciona si el espacio es o no alquilable'),
                       ],
                     ),
                   ),

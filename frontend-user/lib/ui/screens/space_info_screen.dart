@@ -40,7 +40,7 @@ class SpaceInfoScreen extends StatelessWidget {
                   SpaceInfoCard(
                     space: space,
                   ),
-                  space.isBookable
+                  space.isBookable || space.isLeasable 
                       ? Positioned(
                           bottom: 30,
                           right: 10,
@@ -48,13 +48,7 @@ class SpaceInfoScreen extends StatelessWidget {
                           child: ReservationRentalDial(
                             space: space,
                           ))
-                      : Positioned( //TODO
-                          bottom: 30,
-                          right: 10,
-                          left: 0,
-                          child: ReservationRentalDial(
-                            space: space,
-                          ))
+                      : Container()
                 ],
               ),
               PendingReservationsCard(
