@@ -63,7 +63,7 @@ class SpacesCarousel extends StatelessWidget {
                     ),
                     isThreeLine: true,
                   ),
-                  isUser?
+                  isUser && (space.isBookable || space.isLeasable)? 
                   ButtonBar(
                     children: <Widget>[
                       Padding(
