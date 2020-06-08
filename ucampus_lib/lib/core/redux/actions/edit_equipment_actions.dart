@@ -10,8 +10,7 @@ class EditEquipmentAction extends ReduxAction<AppState> {
   final List<Equipment> newEquipment;
   final String spaceID;
 
-  EditEquipmentAction(
-      {@required this.newEquipment, @required this.spaceID});
+  EditEquipmentAction({@required this.newEquipment, @required this.spaceID});
 
   @override
   Future<AppState> reduce() async {
@@ -21,7 +20,6 @@ class EditEquipmentAction extends ReduxAction<AppState> {
       this.spaceID,
       this.newEquipment,
     );
-    dispatch(SetLoadingAction(isLoading: false));
 
     if (reservationResult == UpdateEquipmentResult.error) {
       return state; //TODO: mostrar algún tipo de pop up informando
@@ -31,4 +29,7 @@ class EditEquipmentAction extends ReduxAction<AppState> {
       return null;
     }
   }
+
+  @override
+  void after() => dispatch(SetLoadingAction(isLoading: false));
 }

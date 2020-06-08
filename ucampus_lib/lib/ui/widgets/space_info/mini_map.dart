@@ -10,7 +10,7 @@ class MiniMap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    LatLng _spaceCenter = LatLng(41.683402, -0.887682);
+    LatLng _spaceCenter = LatLng(space.lat, space.long);
     return FlutterMap(
       options: MapOptions(
         center: _spaceCenter, //TODO: añadir
@@ -32,7 +32,9 @@ class MiniMap extends StatelessWidget {
                   'http://geo.ucampus.xyz/geoserver/ucampus/wms?service=WMS',
               layers: [
                 'ucampus:eina_' +
-                    (space.floor == -1 ? 'sotano' : 'planta_' + space.floor.toString())
+                    (space.floor == -1
+                        ? 'sotano'
+                        : 'planta_' + space.floor.toString())
               ],
               format: 'image/png',
               transparent: true),

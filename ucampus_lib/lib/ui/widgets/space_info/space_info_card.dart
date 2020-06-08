@@ -22,7 +22,6 @@ class SpaceInfoCard extends StatelessWidget {
               fontWeight: FontWeight.w500,
               color: Theme.of(context).primaryColor),
         ),
-        //subtitle: Text(EnumsStrings.spaceKind[space.kind]),
       ),
       buildDetailsItem(
         context,
@@ -69,8 +68,14 @@ class SpaceInfoCard extends StatelessWidget {
   }
 
   Padding buildEquipmentTable() {
-    List<Equipment> cleanEquipments =
-        space.equipments.where((equipment) => equipment.amount > 0).toList()..sort((a, b) => a.amount > b.amount ? -1 : 1);
+    List<Equipment> cleanEquipments = space.equipments
+        .where(
+          (equipment) => equipment.amount > 0,
+        )
+        .toList()
+          ..sort(
+            (a, b) => a.amount > b.amount ? -1 : 1,
+          );
     return Padding(
       padding: const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 10),
       child: LayoutBuilder(

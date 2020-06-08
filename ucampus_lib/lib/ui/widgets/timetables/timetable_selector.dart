@@ -36,13 +36,19 @@ class _TimetableSelectorState extends State<TimetableSelector> {
       _timetable = Timetable();
     } else {
       _timetable = this.widget.initialTimetable;
-      _controller = new TextEditingController(text: _timetable.frecuency != null ?_timetable.frecuency.toString(): '0');
+      _controller = new TextEditingController(
+          text: _timetable.frecuency != null
+              ? _timetable.frecuency.toString()
+              : '0');
       startDate = _timetable.startDate;
-      _dateStart = startDate != null ? '${startDate.day} - ${startDate.month} - ${startDate.year}': "-- -- ----";
+      _dateStart = startDate != null
+          ? '${startDate.day} - ${startDate.month} - ${startDate.year}'
+          : "-- -- ----";
       endDate = _timetable.endDate;
-      _dateFinish = endDate!= null ? '${endDate.day} - ${endDate.month} - ${endDate.year}': "-- -- ----";
+      _dateFinish = endDate != null
+          ? '${endDate.day} - ${endDate.month} - ${endDate.year}'
+          : "-- -- ----";
     }
-
     _weekday = Weekday.MONDAY;
   }
 
@@ -54,68 +60,47 @@ class _TimetableSelectorState extends State<TimetableSelector> {
           return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Row(
-                  children: [
-                    InkWell(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.add,
-                              color: this.widget.isEnabled
-                                  ? Theme.of(context).primaryColor
-                                  : Colors.grey,
-                            ),
-                            Text(
-                              ' Añadir franja horaria el ',
-                              style: TextStyle(fontSize: 17),
-                            )
-                          ],
-                        ),
-                      ),
-                      onTap: () {
-                        if (this.widget.isEnabled) {
-                          setState(() => _timetable.addSlot(_weekday));
-                          this.widget.onTimetableChanged(_timetable);
-                        }
-                      },
-                    ),
-                    DropdownButton<Weekday>(
-                      items: Weekday.values.map((Weekday value) {
-                        return DropdownMenuItem<Weekday>(
-                          value: value,
-                          child: Text(EnumsStrings.weekday[value]),
-                        );
-                      }).toList(),
-                      onChanged: (kind) => setState(() => _weekday = kind),
-                      value: _weekday,
-                    ),
-                  ],
+                ListTile(
+                  leading: Icon(
+                    Icons.add,
+                    color: this.widget.isEnabled
+                        ? Theme.of(context).primaryColor
+                        : Colors.grey,
+                  ),
+                  title: Text(
+                    'Añadir horario el ',
+                    style: TextStyle(fontSize: 17),
+                  ),
+                  trailing: DropdownButton<Weekday>(
+                    items: Weekday.values.map((Weekday value) {
+                      return DropdownMenuItem<Weekday>(
+                        value: value,
+                        child: Text(EnumsStrings.weekday[value]),
+                      );
+                    }).toList(),
+                    onChanged: (kind) => setState(() => _weekday = kind),
+                    value: _weekday,
+                  ),
+                  onTap: () {
+                    if (this.widget.isEnabled) {
+                      setState(() => _timetable.addSlot(_weekday));
+                      this.widget.onTimetableChanged(_timetable);
+                    }
+                  },
                 ),
-                Padding(
-                    padding: EdgeInsets.only(top: 15, left: 8, bottom: 10),
-                    child: Row(children: <Widget>[
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.date_range,
-                                color: this.widget.isEnabled
-                                    ? Theme.of(context).primaryColor
-                                    : Colors.grey,
-                              ),
-                              Text(
-                                ' Fechas de inicio y de fin ',
-                                style: TextStyle(fontSize: 17),
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                    ])),
+                ListTile(
+                  leading: Icon(
+                    Icons.date_range,
+                    color: this.widget.isEnabled
+                        ? Theme.of(context).primaryColor
+                        : Colors.grey,
+                  ),
+                  title: Text(
+                    'Fechas de inicio y de fin ',
+                    style: TextStyle(fontSize: 17),
+                  ),
+                  isThreeLine: false,
+                ),
                 Padding(
                     padding: EdgeInsets.only(left: 15),
                     child: Container(
@@ -270,20 +255,20 @@ class _TimetableSelectorState extends State<TimetableSelector> {
                 Padding(
                   padding: EdgeInsets.only(top: 0, bottom: 10, left: 40),
                   child: Container(
-                    width: 200,
+                      width: 200,
                       child: TextField(
-                        enabled: this.widget.isEnabled,   
-                    controller: _controller,    
-                    onChanged: (texto) {
-                      setState(() {
-                        _timetable.setFrecuency(int.parse(texto));
-                      });
-                      this.widget.onTimetableChanged(_timetable);
-                    },
-                    decoration: InputDecoration(
-                      labelText: 'Cada X semanas',
-                    ),
-                  )),
+                        enabled: this.widget.isEnabled,
+                        controller: _controller,
+                        onChanged: (texto) {
+                          setState(() {
+                            _timetable.setFrecuency(int.parse(texto));
+                          });
+                          this.widget.onTimetableChanged(_timetable);
+                        },
+                        decoration: InputDecoration(
+                          labelText: 'Cada X semanas',
+                        ),
+                      )),
                 ),
               ]);
         }

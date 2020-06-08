@@ -34,7 +34,7 @@ class HttpApi implements ApiService {
     if (!criteria.activeCriteria.contains(CriteriaKind.EQUIPMENT)) {
       criteria = criteria.copy(equipments: []);
     }
-    print(criteria.toString());
+    print('CRITERIOS: ' + criteria.toString());
     final http.Response response = await http.post(
       _baseUrl + '/buscar-espacio/',
       headers: <String, String>{

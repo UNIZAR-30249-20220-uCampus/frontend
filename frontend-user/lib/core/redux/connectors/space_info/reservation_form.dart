@@ -8,7 +8,7 @@ import 'package:ucampus/ui/widgets/reservation/reservation_form.dart';
 
 class ReservationFormConnector extends StatelessWidget {
   final Space space;
-  
+
   ReservationFormConnector({
     @required this.space,
   });
@@ -16,8 +16,11 @@ class ReservationFormConnector extends StatelessWidget {
   Widget build(BuildContext context) {
     return StoreConnector<AppState, ViewModel>(
       model: ViewModel(),
-      builder: (context, model) =>
-          ReservationForm(space: space, onReservation: model.onReservation, externalUser: model.externalUser,),
+      builder: (context, model) => ReservationForm(
+        space: space,
+        onReservation: model.onReservation,
+        externalUser: model.externalUser,
+      ),
     );
   }
 }
@@ -35,7 +38,14 @@ class ViewModel extends BaseModel<AppState> {
 
   @override
   BaseModel fromStore() => ViewModel.build(
-      externalUser: state.externalUser,
-       onReservation: (time, spaceID, isForRent, userID) => dispatch(ReservationAction(
-          time: time, spaceID: spaceID, isForRent: isForRent, userID: userID)));
+        externalUser: state.externalUser,
+        onReservation: (time, spaceID, isForRent, userID) => dispatch(
+          ReservationAction(
+            time: time,
+            spaceID: spaceID,
+            isForRent: isForRent,
+            userID: userID,
+          ),
+        ),
+      );
 }

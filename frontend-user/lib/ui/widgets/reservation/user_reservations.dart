@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ucampus_lib/core/models/reservation.dart';
 import 'package:ucampus_lib/ui/shared/enums_strings.dart';
 import 'package:ucampus_lib/ui/shared/string_utils.dart';
+import 'package:ucampus_lib/ui/widgets/reservation/no_reservation.dart';
 
 class UserReservations extends StatefulWidget {
   final List<ReservationStatus> reservationFilterCriteria;
@@ -64,6 +65,19 @@ class _UserReservationsState extends State<UserReservations> {
               future: _userReservations,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
+                  if (snapshot.data.length == 0 ||
+                      (snapshot.data
+                              .where((i) => _selectedFilters
+                                  .contains(i.reservationStatus))
+                              .length ==
+                          0 && _selectedFilters.isNotEmpty)) {
+                    return Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 50.0),
+                        child: NoReservations(),
+                      ),
+                    );
+                  }
                   return Container(
                       child: Column(children: <Widget>[
                     for (var reservation in (_selectedFilters.isEmpty
@@ -74,9 +88,8 @@ class _UserReservationsState extends State<UserReservations> {
                           child: InkWell(
                               splashColor: Colors.blue.withAlpha(30),
                               onTap: () {
-                                Navigator.pushNamed(
-                                      context, "reservation_info",
-                                      arguments: reservation);
+                                Navigator.pushNamed(context, "reservation_info",
+                                    arguments: reservation);
                               },
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
@@ -154,7 +167,11 @@ class _UserReservationsState extends State<UserReservations> {
                                                               FontWeight.w500,
                                                           color: Colors.black)),
                                                   Text(
-                                                      ' Cada ' + reservation.timeTable.frecuency.toString() + ' semana(s)',
+                                                      ' Cada ' +
+                                                          reservation.timeTable
+                                                              .frecuency
+                                                              .toString() +
+                                                          ' semana(s)',
                                                       style: TextStyle(
                                                         fontSize: 15,
                                                       ))
