@@ -21,14 +21,14 @@ class SpaceTapAction extends ReduxAction<AppState> {
       this.tappedPosition,
     );
     if (tappedSpace == null) {
-      dispatch(SetLoadingAction(isLoading: false));
       return state.copy(featuredSpaces: []);
-    }
-    else{
-      dispatch(SetLoadingAction(isLoading: false));
+    } else {
       return state.copy(featuredSpaces: [tappedSpace]);
     }
   }
+
+  @override
+  void after() => dispatch(SetLoadingAction(isLoading: false));
 }
 
 class ApplyFilterAction extends ReduxAction<AppState> {
@@ -37,16 +37,19 @@ class ApplyFilterAction extends ReduxAction<AppState> {
     dispatch(SetLoadingAction(isLoading: true));
     ApiService apiService = locator<ApiService>();
     List<Space> results = await apiService.filterSpaces(state.filterCriteria);
-    if (results.length == 0) {
-      //TODO: mostrar algún tipo de pop up informando
-      return null;
+    if (results.length == 0 &&
+        state.filterCriteria.activeCriteria.length != 0) {
+      throw new UserException(
+          'No hay espacios disponibles con las características solicitadas. Prueba a relajar las condiciones.');
     }
-    dispatch(SetLoadingAction(isLoading: false));
     return state.copy(
       featuredSpaces: results,
       appliedCriteria: state.filterCriteria.activeCriteria,
     );
   }
+
+  @override
+  void after() => dispatch(SetLoadingAction(isLoading: false));
 }
 
 class SelectFloorAction extends ReduxAction<AppState> {

@@ -14,19 +14,17 @@ class ReservationAction extends ReduxAction<AppState> {
   final String userID;
 
   ReservationAction(
-      {@required this.time, @required this.spaceID, @required this.isForRent, this.userID});
+      {@required this.time,
+      @required this.spaceID,
+      @required this.isForRent,
+      this.userID});
 
   @override
   Future<AppState> reduce() async {
     dispatch(SetLoadingAction(isLoading: true));
     ApiService apiService = locator<ApiService>();
     ReservationResult reservationResult = await apiService.makeReservation(
-      this.time,
-      this.spaceID,
-      this.isForRent,
-      this.userID
-    );
-    dispatch(SetLoadingAction(isLoading: false));
+        this.time, this.spaceID, this.isForRent, this.userID);
 
     if (reservationResult == ReservationResult.error) {
       throw UserException("La reserva no ha podido realizarse.");
@@ -36,22 +34,24 @@ class ReservationAction extends ReduxAction<AppState> {
       return null;
     }
   }
+
+  @override
+  void after() => dispatch(SetLoadingAction(isLoading: false));
 }
 
 class CancelReservationAction extends ReduxAction<AppState> {
   final int reservationID;
 
-  CancelReservationAction(
-      {@required this.reservationID});
+  CancelReservationAction({@required this.reservationID});
 
   @override
   Future<AppState> reduce() async {
     dispatch(SetLoadingAction(isLoading: true));
     ApiService apiService = locator<ApiService>();
-    CancelReservationResult reservationResult = await apiService.cancelReservation(
+    CancelReservationResult reservationResult =
+        await apiService.cancelReservation(
       this.reservationID,
     );
-    dispatch(SetLoadingAction(isLoading: false));
 
     if (reservationResult == CancelReservationResult.error) {
        throw UserException("La reserva no ha podido cancelarse.");
@@ -61,23 +61,24 @@ class CancelReservationAction extends ReduxAction<AppState> {
       return null;
     }
   }
+
+  @override
+  void after() => dispatch(SetLoadingAction(isLoading: false));
 }
 
 class AcceptReservationAction extends ReduxAction<AppState> {
   final int reservationID;
 
-  AcceptReservationAction(
-      {@required this.reservationID});
+  AcceptReservationAction({@required this.reservationID});
 
   @override
   Future<AppState> reduce() async {
     dispatch(SetLoadingAction(isLoading: true));
     ApiService apiService = locator<ApiService>();
-    AcceptReservationResult reservationResult = await apiService.acceptReservation(
+    AcceptReservationResult reservationResult =
+        await apiService.acceptReservation(
       this.reservationID,
     );
-    dispatch(SetLoadingAction(isLoading: false));
-
     if (reservationResult == AcceptReservationResult.error) {
       throw UserException("La reserva no ha podido aceptarse.");
     } else if (reservationResult == AcceptReservationResult.success) {
@@ -86,24 +87,23 @@ class AcceptReservationAction extends ReduxAction<AppState> {
       return null;
     }
   }
+
+  @override
+  void after() => dispatch(SetLoadingAction(isLoading: false));
 }
 
 class PayReservationAction extends ReduxAction<AppState> {
   final int reservationID;
   final Payment payment;
 
-  PayReservationAction(
-      {@required this.reservationID, @required this.payment});
+  PayReservationAction({@required this.reservationID, @required this.payment});
 
   @override
   Future<AppState> reduce() async {
     dispatch(SetLoadingAction(isLoading: true));
     ApiService apiService = locator<ApiService>();
-    PaymentReservationResult reservationResult = await apiService.paymentReservation(
-      this.reservationID,this.payment
-
-    );
-    dispatch(SetLoadingAction(isLoading: false));
+    PaymentReservationResult reservationResult =
+        await apiService.paymentReservation(this.reservationID, this.payment);
 
     if (reservationResult == PaymentReservationResult.error) {
        throw UserException("El pago no ha podido realizarse");
@@ -113,4 +113,7 @@ class PayReservationAction extends ReduxAction<AppState> {
       return null;
     }
   }
+
+  @override
+  void after() => dispatch(SetLoadingAction(isLoading: false));
 }

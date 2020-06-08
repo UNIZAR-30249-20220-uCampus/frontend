@@ -34,16 +34,16 @@ class UCampus extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
     return MaterialApp(
-      title: 'uCampus_manager',
+      title: 'uCampus Manager',
       navigatorKey: navigatorKey,
       theme: uCampusTheme,
-       home: UserExceptionDialog<AppState>(
-         child: Navigator(
-           initialRoute: '/',
+      home: UserExceptionDialog<AppState>(
+        child: Navigator(
+          initialRoute: '/',
           onGenerateRoute: Router.generateRoute,
-         ),
-         onShowUserExceptionDialog: showUserExceptionDialog,
-       ),
+        ),
+        onShowUserExceptionDialog: showUserExceptionDialog,
+      ),
     );
   }
 }

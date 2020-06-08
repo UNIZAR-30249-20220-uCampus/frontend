@@ -6,9 +6,6 @@ import 'package:ucampus_lib/core/models/timetable.dart';
 import 'package:ucampus_lib/ui/shared/enums_strings.dart';
 import 'package:ucampus_lib/ui/widgets/timetables/timetable_selector.dart';
 import 'package:device_id/device_id.dart';
-import 'package:ucampus_lib/core/models/reservation.dart';
-
-import 'package:ucampus_lib/core/models/timetable.dart';
 
 class ReservationForm extends StatefulWidget {
   final Space space;
@@ -50,164 +47,156 @@ class _ReservationFormState extends State<ReservationForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        Positioned(
-            top: 10,
-            right: 10,
-            left: 10,
-            child: Card(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  ListTile(
-                      title: Padding(
-                          padding:
-                              EdgeInsets.only(top: 20, bottom: 10, left: 10),
-                          child: Text('Reserva de ' + widget.space.uuid,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 30,
-                                color: Theme.of(context).primaryColor,
-                              ))),
-                      subtitle: Padding(
-                          padding: EdgeInsets.only(bottom: 20, left: 10),
-                          child: Container(
-                            child: widget.externalUser &&
-                                    !widget.space.isLeasable
-                                ? Column(
+    bool isBookable = widget.externalUser && !widget.space.isLeasable;
+
+    return Column(
+      children: [
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: ListView(
+              children: <Widget>[
+                ListTile(
+                  leading: Icon(
+                    Icons.info_outline,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  title: Text(
+                    widget.space.uuid.replaceAll("\"", ""),
+                  ),
+                ),
+                Divider(),
+                ListTile(
+                  leading: Icon(
+                    Icons.account_balance,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  title: Text(
+                    EnumsStrings.building[widget.space.building],
+                  ),
+                ),
+                Divider(),
+                isBookable
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Padding(
+                            padding:
+                                EdgeInsets.only(top: 10, left: 0, bottom: 0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  'Este espacio no puede ser alquilado',
+                                  style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.w600,
+                                      color: Theme.of(context).primaryColor),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      )
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Padding(
+                            padding:
+                                EdgeInsets.only(top: 10, left: 0, bottom: 0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  'Horario y fechas',
+                                  style: TextStyle(
+                                      fontSize: 19,
+                                      fontWeight: FontWeight.w600,
+                                      color: Theme.of(context).primaryColor),
+                                ),
+                                Text(
+                                    'Selecciona las franjas horarias en las que deseas reservar el espacio y las fechas de inicio y fin'),
+                              ],
+                            ),
+                          ),
+                          TimetableSelector(
+                            onTimetableChanged: (timetable) =>
+                                onTimetableChange(timetable),
+                            isEnabled: true,
+                            initialTimetable: null,
+                          ),
+                          showError
+                              ? Padding(
+                                  padding: EdgeInsets.only(
+                                      top: 30, left: 0, bottom: 0),
+                                  child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: <Widget>[
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            top: 10, left: 0, bottom: 0),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Text(
-                                              'Este espacio no puede ser alquilado',
-                                              style: TextStyle(
-                                                  fontSize: 19,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Theme.of(context)
-                                                      .primaryColor),
-                                            ),
-                                          ],
+                                      Text(
+                                        '(Complete todos los campos)',
+                                        style: TextStyle(
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.redAccent,
                                         ),
-                                      ),
-                                    ],
-                                  )
-                                : Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            top: 10, left: 0, bottom: 0),
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Text(
-                                              'Horario y fechas',
-                                              style: TextStyle(
-                                                  fontSize: 19,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Theme.of(context)
-                                                      .primaryColor),
-                                            ),
-                                            Text(
-                                                'Selecciona las franjas horarias en las que deseas reservar el espacio y las fechas de inicio y fin'),
-                                          ],
-                                        ),
-                                      ),
-                                      TimetableSelector(
-                                        onTimetableChanged: (timetable) =>
-                                            onTimetableChange(timetable),
-                                        isEnabled: true,
-                                        initialTimetable: null,
-                                      ),
-                                      showError
-                                          ? Padding(
-                                              padding: EdgeInsets.only(
-                                                  top: 30, left: 0, bottom: 0),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: <Widget>[
-                                                  Text(
-                                                      '(Complete todos los campos)',
-                                                      style: TextStyle(
-                                                        fontSize: 17,
-                                                        fontWeight:
-                                                            FontWeight.w700,
-                                                        color: Colors.redAccent,
-                                                      ))
-                                                ],
-                                              ),
-                                            )
-                                          : Container(),
+                                      )
                                     ],
                                   ),
-                          ))),
-                ],
-              ),
-            )),
-        widget.externalUser && !widget.space.isLeasable
+                                )
+                              : Container(),
+                        ],
+                      )
+              ],
+            ),
+          ),
+        ),
+        isBookable ? Container() : Divider(),
+        isBookable
             ? Container()
-            : Positioned(
-                bottom: 30,
-                right: 10,
-                left: 10,
-                child: Align(
-                    alignment: Alignment.center,
-                    child: Container(
-                      width: 250,
-                      child: RoundedLoadingButton(
-                          color: Theme.of(context).primaryColor,
-                          controller: _btnController,
-                          child: Text(
-                            widget.externalUser && widget.space.isLeasable
-                                ? 'Siguiente'
-                                : 'Solicitar reserva',
-                            style: TextStyle(
-                                fontSize: 15,
-                                color: Theme.of(context).accentColor),
-                          ),
-                          onPressed: () async {
-                            if (_timetable == null || _deviceid == '') {
-                              _btnController.stop();
-                              setState(() {
-                                showError = true;
-                              });
-                            } else {
-                              setState(() {
-                                showError = false;
-                              });
-                              if (widget.externalUser &&
-                                  widget.space.isLeasable) {
-                                var reservation = new Reservation(
-                                    reservationID: 1,
-                                    space: widget.space.uuid,
-                                    timeTable: _timetable,
-                                    reservationStatus:
-                                        ReservationStatus.PENDIENTE,
-                                    userID: _deviceid);
-                                _btnController.stop();
-                                Navigator.pushReplacementNamed(
-                                    context, "reservation_external",
-                                    arguments: reservation);
-                              } else {
-                                widget.onReservation(_timetable,
-                                    widget.space.uuid, false, _deviceid);
-                                _btnController.success();
-                                //Navigator.of(context).pop();
-                              }
-                            }
-                          }),
-                    ))),
+            : Padding(
+                padding: const EdgeInsets.only(bottom: 10.0, top: 10.0),
+                child: RoundedLoadingButton(
+                  color: Theme.of(context).primaryColor,
+                  controller: _btnController,
+                  child: Text(
+                    widget.externalUser && widget.space.isLeasable
+                        ? 'Siguiente'
+                        : 'Solicitar reserva',
+                    style: TextStyle(
+                        fontSize: 15, color: Theme.of(context).accentColor),
+                  ),
+                  onPressed: () async {
+                    if (_timetable == null || _deviceid == '') {
+                      _btnController.stop();
+                      setState(() {
+                        showError = true;
+                      });
+                    } else {
+                      setState(() {
+                        showError = false;
+                      });
+                      if (widget.externalUser && widget.space.isLeasable) {
+                        var reservation = new Reservation(
+                            reservationID: 1,
+                            space: widget.space.uuid,
+                            timeTable: _timetable,
+                            reservationStatus: ReservationStatus.PENDIENTE,
+                            userID: _deviceid);
+                        _btnController.stop();
+                        Navigator.pushReplacementNamed(
+                            context, "reservation_external",
+                            arguments: reservation);
+                      } else {
+                        widget.onReservation(
+                            _timetable, widget.space.uuid, false, _deviceid);
+                        _btnController.success();
+                        //Navigator.of(context).pop();
+                      }
+                    }
+                  },
+                ),
+              ),
       ],
     );
   }
