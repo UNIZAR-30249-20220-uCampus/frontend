@@ -5,6 +5,7 @@ import 'package:ucampus_lib/core/redux/app_state.dart';
 import 'package:ucampus_manager/ui/router.dart';
 import 'package:ucampus_lib/locator.dart';
 import 'package:ucampus_lib/ui/shared/theme.dart';
+import 'package:ucampus_lib/ui/widgets/misc/error_dialog.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
@@ -33,11 +34,16 @@ class UCampus extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
     return MaterialApp(
-      title: 'uCampus_manager',
+      title: 'uCampus Manager',
       navigatorKey: navigatorKey,
       theme: uCampusTheme,
-      initialRoute: '/',
-      onGenerateRoute: Router.generateRoute,
+      home: UserExceptionDialog<AppState>(
+        child: Navigator(
+          initialRoute: '/',
+          onGenerateRoute: Router.generateRoute,
+        ),
+        onShowUserExceptionDialog: showUserExceptionDialog,
+      ),
     );
   }
 }
