@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:ucampus_lib/core/models/space.dart';
+import 'package:ucampus_lib/core/models/space_screen_args.dart';
 import 'package:ucampus_lib/ui/shared/enums_strings.dart';
 
 class SpacesCarousel extends StatelessWidget {
+  final bool isExternal;
   final List<Space> spaces;
   final bool isUser;
 
-  SpacesCarousel({@required this.spaces, @required this.isUser});
+  SpacesCarousel({@required this.isExternal, @required this.spaces, @required this.isUser});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,7 @@ class SpacesCarousel extends StatelessWidget {
         child: InkWell(
             splashColor: Colors.blue.withAlpha(30),
             onTap: () {
-              Navigator.pushNamed(context, "space_info", arguments: space);
+              Navigator.pushNamed(context, "space_info", arguments: new SpaceScreenArguments(space, isExternal));
             },
             child: Container(
               child: Column(
@@ -69,10 +71,10 @@ class SpacesCarousel extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.only(right: 10),
                         child: FlatButton(
-                          child: const Text('RESERVAR'),
+                          child: isExternal? const Text('ALQUILAR'): const Text('RESERVAR'),
                           onPressed: () {
                             Navigator.pushNamed(context, "reservation",
-                                arguments: space);
+                                arguments: new SpaceScreenArguments(space, isExternal));
                           },
                         ),
                       )

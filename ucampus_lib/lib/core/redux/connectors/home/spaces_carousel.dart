@@ -14,6 +14,7 @@ class SpacesCarouselConnector extends StatelessWidget {
     return StoreConnector<AppState, ViewModel>(
       model: ViewModel(),
       builder: (context, model) => SpacesCarousel(
+        isExternal: model.isExternal,
         spaces: model.spaces,
         isUser: isUser
       ),
@@ -25,12 +26,15 @@ class ViewModel extends BaseModel<AppState> {
   ViewModel();
 
   List<Space> spaces;
+  bool isExternal;
 
   ViewModel.build({
     @required this.spaces,
-  }) : super(equals: [spaces]);
+    @required this.isExternal,
+  }) : super(equals: [spaces, isExternal]);
 
   @override
   BaseModel fromStore() => ViewModel.build(
-      spaces: state.featuredSpaces);
+      spaces: state.featuredSpaces,
+      isExternal: state.externalUser);
 }

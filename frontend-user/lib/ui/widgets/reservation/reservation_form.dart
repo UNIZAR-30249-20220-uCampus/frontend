@@ -114,8 +114,12 @@ class _ReservationFormState extends State<ReservationForm> {
                                       fontWeight: FontWeight.w600,
                                       color: Theme.of(context).primaryColor),
                                 ),
+                                widget.externalUser?
                                 Text(
-                                    'Selecciona las franjas horarias en las que deseas reservar el espacio y las fechas de inicio y fin'),
+                                    'Selecciona las franjas horarias en las que deseas alquilar el espacio y las fechas de inicio y fin')
+                                :
+                                Text(
+                                    'Selecciona las franjas horarias en las que deseas reservar el espacio y las fechas de inicio y fin')
                               ],
                             ),
                           ),

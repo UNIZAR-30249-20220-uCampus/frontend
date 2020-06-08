@@ -6,9 +6,11 @@ import 'package:ucampus_lib/ui/widgets/space_info/space_info_card.dart';
 
 class SpaceInfoScreen extends StatelessWidget {
   final Space space;
+  final bool isExternal;
 
   SpaceInfoScreen({
     @required this.space,
+    @required this.isExternal,
   });
 
   @override
@@ -47,6 +49,7 @@ class SpaceInfoScreen extends StatelessWidget {
                           left: 0,
                           child: ReservationRentalDial(
                             space: space,
+                            isExternal: isExternal
                           ))
                       : Container()
                 ],
