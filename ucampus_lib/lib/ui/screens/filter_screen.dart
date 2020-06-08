@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:ucampus_lib/core/redux/connectors/filter/apply_button.dart';
 import 'package:ucampus_lib/core/redux/connectors/filter/capacity_filter.dart';
 import 'package:ucampus_lib/core/redux/connectors/filter/equipment_filter.dart';
-import 'package:ucampus_lib/core/redux/connectors/filter/space_kind_filter.dart';
 import 'package:ucampus_lib/core/redux/connectors/filter/timetable_filter.dart';
 
 class FilterScreen extends StatelessWidget {
@@ -21,7 +20,6 @@ class FilterScreen extends StatelessWidget {
               child: ListView(
                 children: <Widget>[
                   CapacityFilterConnector(),
-                  SpaceKindFilterConnector(),
                   EquipmentFilterConnector(),
                   TimetableFilterConnector()
                 ],

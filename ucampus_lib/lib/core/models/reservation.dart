@@ -22,6 +22,8 @@ class Reservation {
   final Timetable timeTable;
   @JsonKey(name: 'estado')
   final ReservationStatus reservationStatus;
+  @JsonKey(ignore: true)
+  final Space spaceData;
   
 
   Reservation({
@@ -29,7 +31,8 @@ class Reservation {
     @required this.space,
     @required this.timeTable,
     @required this.reservationStatus,
-    @required this.userID
+    @required this.userID,
+    this.spaceData,
   });
 
   Reservation copy({

@@ -53,7 +53,7 @@ class _SearchBarState extends State<SearchBar> {
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: GestureDetector(
-              child: Icon(Icons.format_list_numbered_rtl, size: 27),
+              child: Icon(Icons.sort, size: 27),
               onTap: () => Navigator.of(context).pushNamed('filter'),
             ),
           ),

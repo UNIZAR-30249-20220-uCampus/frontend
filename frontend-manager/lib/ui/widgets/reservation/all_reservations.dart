@@ -30,14 +30,12 @@ class _AllReservationsState extends State<AllReservations> {
   }
 
   Future<List<Reservation>> getReservations() async {
-    print('LLEGA');
     ApiService apiService = locator<ApiService>();
     Future<List<Reservation>> reservations = apiService.getAllReservations();
     return reservations;
   }
 
   void refreshList() {
-      print('LLEGA');
     setState(() {
       _userReservations = getReservations();
     });
@@ -90,9 +88,9 @@ class _AllReservationsState extends State<AllReservations> {
                           child: InkWell(
                               splashColor: Colors.blue.withAlpha(30),
                               onTap: () {
-                                Navigator.pushNamed(
-                                      context, "reservation_info",
-                                      arguments: reservation).whenComplete(refreshList);
+                                Navigator.pushNamed(context, "reservation_info",
+                                        arguments: reservation)
+                                    .whenComplete(refreshList);
                               },
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
@@ -101,7 +99,7 @@ class _AllReservationsState extends State<AllReservations> {
                                       title: Padding(
                                           padding: EdgeInsets.only(
                                               top: 20, bottom: 0, left: 10),
-                                          child: Text(reservation.space,
+                                          child: Text(reservation.space.replaceAll("\"", ""),
                                               style: TextStyle(
                                                 fontSize: 25,
                                                 fontWeight: FontWeight.w600,
@@ -170,7 +168,11 @@ class _AllReservationsState extends State<AllReservations> {
                                                               FontWeight.w500,
                                                           color: Colors.black)),
                                                   Text(
-                                                      ' Cada ' + reservation.timeTable.frecuency.toString() + ' semana(s)',
+                                                      ' Cada ' +
+                                                          reservation.timeTable
+                                                              .frecuency
+                                                              .toString() +
+                                                          ' semana(s)',
                                                       style: TextStyle(
                                                         fontSize: 15,
                                                       ))
