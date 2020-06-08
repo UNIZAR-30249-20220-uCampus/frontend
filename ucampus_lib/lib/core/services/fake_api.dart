@@ -33,7 +33,7 @@ class FakeApi implements ApiService {
     String userID
   ) async {
     await Future.delayed(Duration(milliseconds: 700));
-    return ReservationResult.success; // TODO
+    return ReservationResult.error;
   }
 
   @override
@@ -67,7 +67,7 @@ class FakeApi implements ApiService {
   Future<CancelReservationResult> cancelReservation(
       int reservationID) async {
     await Future.delayed(Duration(milliseconds: 700));
-    return CancelReservationResult.success; // TODO
+    return CancelReservationResult.success;
   }
 
   @override
@@ -100,7 +100,7 @@ class FakeApi implements ApiService {
     newEquipmentBody["filtrosActivos"] = ["NOMBRE"];
 
     print(json.encode(newEquipmentBody));
-    return UpdateEquipmentResult.success; // TODO
+    return UpdateEquipmentResult.success;
   }
 
    @override

@@ -31,6 +31,7 @@ dependencies:
   utm: ^0.1.2
   ucampus_lib:
     path: ../ucampus_lib
+  pull_to_refresh: ^1.5.7
 
 flutter_icons:
   ios: true

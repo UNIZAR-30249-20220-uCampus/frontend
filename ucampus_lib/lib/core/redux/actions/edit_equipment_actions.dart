@@ -24,9 +24,9 @@ class EditEquipmentAction extends ReduxAction<AppState> {
     dispatch(SetLoadingAction(isLoading: false));
 
     if (reservationResult == UpdateEquipmentResult.error) {
-      return state; //TODO: mostrar algún tipo de pop up informando
+      throw UserException("El equipamiento no ha podido actualizarse.");
     } else if (reservationResult == UpdateEquipmentResult.success) {
-      return state; //TODO: mostrar algún tipo de pop up informando
+      return state;
     } else {
       return null;
     }

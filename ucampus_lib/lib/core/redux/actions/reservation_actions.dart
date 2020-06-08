@@ -1,7 +1,6 @@
 import 'package:meta/meta.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:ucampus_lib/core/models/payment.dart';
-import 'package:ucampus_lib/core/models/reservation.dart';
 import 'package:ucampus_lib/core/models/timetable.dart';
 import 'package:ucampus_lib/core/redux/actions/loading_actions.dart';
 import 'package:ucampus_lib/core/redux/app_state.dart';
@@ -30,9 +29,9 @@ class ReservationAction extends ReduxAction<AppState> {
     dispatch(SetLoadingAction(isLoading: false));
 
     if (reservationResult == ReservationResult.error) {
-      return state; //TODO: mostrar algún tipo de pop up informando
+      throw UserException("La reserva no ha podido realizarse.");
     } else if (reservationResult == ReservationResult.success) {
-      return state; //TODO: mostrar algún tipo de pop up informando
+      return state;
     } else {
       return null;
     }
@@ -55,9 +54,9 @@ class CancelReservationAction extends ReduxAction<AppState> {
     dispatch(SetLoadingAction(isLoading: false));
 
     if (reservationResult == CancelReservationResult.error) {
-      return state; //TODO: mostrar algún tipo de pop up informando
-    } else if (reservationResult == ReservationResult.success) {
-      return state; //TODO: mostrar algún tipo de pop up informando
+       throw UserException("La reserva no ha podido cancelarse.");
+    } else if (reservationResult == CancelReservationResult.success) {
+      return state;
     } else {
       return null;
     }
@@ -80,9 +79,9 @@ class AcceptReservationAction extends ReduxAction<AppState> {
     dispatch(SetLoadingAction(isLoading: false));
 
     if (reservationResult == AcceptReservationResult.error) {
-      return state; //TODO: mostrar algún tipo de pop up informando
+      throw UserException("La reserva no ha podido aceptarse.");
     } else if (reservationResult == AcceptReservationResult.success) {
-      return state; //TODO: mostrar algún tipo de pop up informando
+      return state;
     } else {
       return null;
     }
@@ -107,9 +106,9 @@ class PayReservationAction extends ReduxAction<AppState> {
     dispatch(SetLoadingAction(isLoading: false));
 
     if (reservationResult == PaymentReservationResult.error) {
-      return state; //TODO: mostrar algún tipo de pop up informando
+       throw UserException("El pago no ha podido realizarse");
     } else if (reservationResult == PaymentReservationResult.success) {
-      return state; //TODO: mostrar algún tipo de pop up informando
+      return state;
     } else {
       return null;
     }
