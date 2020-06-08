@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ucampus_lib/core/models/reservation.dart';
+import 'package:ucampus_lib/core/models/space_screen_args.dart';
 import 'package:ucampus_lib/ui/screens/filter_screen.dart';
 import 'package:ucampus_lib/ui/screens/home_screen.dart';
 import 'package:ucampus_manager/ui/screens/all_reservations_screen.dart';
@@ -24,8 +25,8 @@ class Router {
       case 'all_reservations':
         return MaterialPageRoute(builder: (_) => AllReservationsScreen());
       case 'space_info':
-        var space = settings.arguments as Space;
-        return MaterialPageRoute(builder: (_) => SpaceInfoScreen(space: space));
+        var space_args = settings.arguments as SpaceScreenArguments;
+        return MaterialPageRoute(builder: (_) => SpaceInfoScreen(space: space_args.space));
       case 'edit_equipment':
         var space = settings.arguments as Space;
         return MaterialPageRoute(builder: (_) => EditEquipmentScreen(space: space));
