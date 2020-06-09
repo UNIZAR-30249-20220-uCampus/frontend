@@ -165,132 +165,106 @@ class _ReservationInfoCardtate extends State<ReservationInfoCard> {
             ],
           ),
         ),
+        Container(height: 10),
         Divider(),
         Container(height: 10),
         (_deviceid == widget.reservation.userID &&
                 (widget.reservation.reservationStatus ==
                     ReservationStatus.PENDIENTE) &&
                 !widget.manager)
-            ? Positioned(
-                bottom: 50,
-                right: 0,
-                left: 10,
-                child: Align(
-                    alignment: Alignment.center,
-                    child: Container(
-                      width: 250,
-                      child: RoundedLoadingButton(
-                          color: Theme.of(context).primaryColor,
-                          controller: _btnController,
-                          child: Text(
-                            'Cancelar reserva',
-                            style: TextStyle(
-                                fontSize: 15,
-                                color: Theme.of(context).accentColor),
-                          ),
-                          onPressed: () async {
-                            widget.onCancel(widget.reservation.reservationID);
-                            _btnController.success();
-                            Navigator.of(context).pushReplacementNamed('/');
-                          }),
-                    )))
+            ? Container(
+                width: 250,
+                child: RoundedLoadingButton(
+                    color: Theme.of(context).primaryColor,
+                    controller: _btnController,
+                    child: Text(
+                      'Cancelar reserva',
+                      style: TextStyle(
+                          fontSize: 15, color: Theme.of(context).accentColor),
+                    ),
+                    onPressed: () async {
+                      widget.onCancel(widget.reservation.reservationID);
+                      _btnController.success();
+                      Navigator.of(context).pushReplacementNamed('/');
+                    }),
+              )
             : Container(),
         _deviceid == widget.reservation.userID &&
                 (widget.reservation.reservationStatus ==
                     ReservationStatus.PENDIENTEPAGO) &&
                 !widget.manager
-            ? Positioned(
-                bottom: 50,
-                right: 10,
-                left: 10,
-                child: Align(
-                    alignment: Alignment.center,
-                    child: Container(
-                      width: 250,
-                      child: RoundedLoadingButton(
-                          color: Theme.of(context).primaryColor,
-                          controller: _btnController,
-                          child: Text(
-                            'Pagar reserva',
-                            style: TextStyle(
-                                fontSize: 15,
-                                color: Theme.of(context).accentColor),
-                          ),
-                          onPressed: () async {
-                            widget.onPay(
-                                widget.reservation.reservationID, Payment());
-                            _btnController.success();
-                            Navigator.of(context).pushReplacementNamed('/');
-                          }),
-                    )))
+            ? Container(
+                width: 250,
+                child: RoundedLoadingButton(
+                    color: Theme.of(context).primaryColor,
+                    controller: _btnController,
+                    child: Text(
+                      'Pagar reserva',
+                      style: TextStyle(
+                          fontSize: 15, color: Theme.of(context).accentColor),
+                    ),
+                    onPressed: () async {
+                      widget.onPay(widget.reservation.reservationID, Payment());
+                      _btnController.success();
+                      Navigator.of(context).pushReplacementNamed('/');
+                    }),
+              )
             : Container(),
         (widget.manager &&
                 (widget.reservation.reservationStatus ==
                     ReservationStatus.PENDIENTE))
-            ? Positioned(
-                bottom: 50,
-                right: 140,
-                left: 0,
-                child: Align(
-                    alignment: Alignment.center,
-                    child: Container(
-                      width: 120,
-                      child: RoundedLoadingButton(
-                          color: Theme.of(context).primaryColor,
-                          controller: _btnController,
-                          child: Text(
-                            'Rechazar',
-                            style: TextStyle(
-                                fontSize: 15,
-                                color: Theme.of(context).accentColor),
-                          ),
-                          onPressed: cancelEnabled
-                              ? () async {
-                                  setState(() {
-                                    acceptEnabled = false;
-                                  });
-                                  widget.onCancel(
-                                      widget.reservation.reservationID);
-                                  _btnController.success();
-                                  Navigator.of(context)
-                                      .pushReplacementNamed('/');
-                                }
-                              : null),
-                    )))
-            : Container(),
-        widget.manager &&
-                (widget.reservation.reservationStatus ==
-                    ReservationStatus.PENDIENTE)
-            ? Positioned(
-                bottom: 50,
-                right: 0,
-                left: 140,
-                child: Align(
-                    alignment: Alignment.center,
-                    child: Container(
-                      width: 120,
-                      child: RoundedLoadingButton(
-                          color: Theme.of(context).primaryColor,
-                          controller: _btnControllerAccept,
-                          child: Text(
-                            'Aceptar',
-                            style: TextStyle(
-                                fontSize: 15,
-                                color: Theme.of(context).accentColor),
-                          ),
-                          onPressed: acceptEnabled
-                              ? () async {
-                                  setState(() {
-                                    cancelEnabled = false;
-                                  });
-                                  widget.onAccept(
-                                      widget.reservation.reservationID);
-                                  _btnControllerAccept.success();
-                                  Navigator.of(context)
-                                      .pushReplacementNamed('/');
-                                }
-                              : null),
-                    )))
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 120,
+                    child: RoundedLoadingButton(
+                        color: Theme.of(context).primaryColor,
+                        controller: _btnController,
+                        child: Text(
+                          'Rechazar',
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Theme.of(context).accentColor),
+                        ),
+                        onPressed: cancelEnabled
+                            ? () async {
+                                setState(() {
+                                  acceptEnabled = false;
+                                });
+                                widget
+                                    .onCancel(widget.reservation.reservationID);
+                                _btnController.success();
+                                Navigator.of(context).pushReplacementNamed('/');
+                              }
+                            : null),
+                  ),
+                  Container(width: 10),
+                  Container(
+                    width: 120,
+                    child: RoundedLoadingButton(
+                        color: Theme.of(context).primaryColor,
+                        controller: _btnControllerAccept,
+                        child: Text(
+                          'Aceptar',
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Theme.of(context).accentColor),
+                        ),
+                        onPressed: acceptEnabled
+                            ? () async {
+                                setState(() {
+                                  cancelEnabled = false;
+                                });
+                                widget
+                                    .onAccept(widget.reservation.reservationID);
+                                _btnControllerAccept.success();
+                                Navigator.of(context).pushReplacementNamed('/');
+                              }
+                            : null),
+                  )
+                ],
+              )
             : Container(),
         Container(height: 10),
       ],
