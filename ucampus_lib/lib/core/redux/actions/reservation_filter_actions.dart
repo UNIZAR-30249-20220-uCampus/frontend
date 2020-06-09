@@ -11,6 +11,6 @@ class AddReservationFilterCriteriaAction extends ReduxAction<AppState> {
 
   @override
   AppState reduce() {
-    return state.copy(reservationOrderCriteria: reservationFilterCriteria);
+    return state.copy(reservationFilterCriteria: reservationFilterCriteria);
   }
 }

@@ -40,7 +40,7 @@ class AppState {
     List<CriteriaKind> appliedCriteria,
     int currentFloor,
     bool isLoading,
-    List<ReservationStatus> reservationOrderCriteria,
+    List<ReservationStatus> reservationFilterCriteria,
     bool externalUser
   }) =>
       AppState(
@@ -49,7 +49,7 @@ class AppState {
         appliedCriteria: appliedCriteria ?? this.appliedCriteria,
         currentFloor: currentFloor ?? this.currentFloor,
         isLoading: isLoading ?? this.isLoading,
-        reservationFilterCriteria: reservationOrderCriteria ?? this.reservationFilterCriteria,
+        reservationFilterCriteria: reservationFilterCriteria ?? this.reservationFilterCriteria,
         externalUser: externalUser ?? this.externalUser
       );
 

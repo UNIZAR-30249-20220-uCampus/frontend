@@ -17,7 +17,7 @@ class ReservationAction extends ReduxAction<AppState> {
       {@required this.time,
       @required this.spaceID,
       @required this.isForRent,
-      this.userID});
+      @required this.userID});
 
   @override
   Future<AppState> reduce() async {
@@ -106,7 +106,7 @@ class PayReservationAction extends ReduxAction<AppState> {
         await apiService.paymentReservation(this.reservationID, this.payment);
 
     if (reservationResult == PaymentReservationResult.error) {
-       throw UserException("El pago no ha podido realizarse");
+       throw UserException("El pago no ha podido realizarse.");
     } else if (reservationResult == PaymentReservationResult.success) {
       return state;
     } else {
@@ -137,7 +137,7 @@ class EditBookableLeasableAction extends ReduxAction<AppState> {
         await apiService.updateLeasable(this.space, this.leasable);
 
     if (bookableResult == UpdateBookableResult.error || leasableResult == UpdateBookableResult.error) {
-       throw UserException("El espacio no ha podido actualizarse");
+       throw UserException("El espacio no ha podido actualizarse.");
     } else if (bookableResult == UpdateBookableResult.success && leasableResult == UpdateBookableResult.success) {
       return state;
     } else {

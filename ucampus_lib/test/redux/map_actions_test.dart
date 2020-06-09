@@ -3,6 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:latlong/latlong.dart';
 import 'package:ucampus_lib/core/models/space.dart';
+import 'package:ucampus_lib/core/redux/actions/loading_actions.dart';
 import 'package:ucampus_lib/core/redux/actions/map_actions.dart';
 import 'package:ucampus_lib/core/redux/app_state.dart';
 import 'package:ucampus_lib/core/services/api_service.dart';
@@ -44,7 +45,8 @@ void main() {
       expect(storeTester.state.featuredSpaces, originalSpaces);
 
       storeTester.dispatch(SpaceTapAction(tappedPosition: LatLng(42.0, 1.0)));
-      await storeTester.wait(SpaceTapAction);
+       await storeTester
+          .waitAllGetLast([SpaceTapAction], ignore: [SetLoadingAction]);
 
       expect(storeTester.lastInfo.state.featuredSpaces, [singleSpace]);
       verify(mockApi.getSpaceInformation(0, LatLng(42.0, 1.0)));
@@ -58,7 +60,8 @@ void main() {
       expect(storeTester.state.featuredSpaces, originalSpaces);
 
       storeTester.dispatch(SpaceTapAction(tappedPosition: LatLng(42.0, 1.0)));
-      await storeTester.wait(SpaceTapAction);
+      await storeTester
+          .waitAllGetLast([SpaceTapAction], ignore: [SetLoadingAction]);
 
       expect(storeTester.lastInfo.state.featuredSpaces, originalSpaces);
       verify(mockApi.getSpaceInformation(0, LatLng(42.0, 1.0)));

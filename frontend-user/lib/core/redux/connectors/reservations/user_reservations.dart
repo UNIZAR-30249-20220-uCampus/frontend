@@ -26,7 +26,6 @@ class ViewModel extends BaseModel<AppState> {
 
   List<ReservationStatus> reservationFilterCriteria;
   Future<List<Reservation>> userReservations;
-  String _deviceid = '';
 
   ViewModel.build({
     @required this.reservationFilterCriteria,
@@ -38,7 +37,7 @@ class ViewModel extends BaseModel<AppState> {
     return deviceid;
   }
 
-  Future<List<Reservation>> getReservations(String userID) async {
+  Future<List<Reservation>> getReservations() async {
     ApiService apiService = locator<ApiService>();
     Future<List<Reservation>> reservations;
     String userID = await initDeviceId();
@@ -50,7 +49,7 @@ class ViewModel extends BaseModel<AppState> {
   @override
   BaseModel fromStore() => ViewModel.build(
         reservationFilterCriteria: state.reservationFilterCriteria,
-        userReservations: getReservations(_deviceid),
+        userReservations: getReservations(),
       );
 
   @override
