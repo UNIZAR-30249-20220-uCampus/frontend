@@ -10,7 +10,7 @@ class SearchBarConnector extends StatelessWidget {
   final Function() openDrawer;
 
   const SearchBarConnector({this.openDrawer});
-  
+
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, ViewModel>(
@@ -19,6 +19,7 @@ class SearchBarConnector extends StatelessWidget {
         onSearch: model.onSearch,
         isLoading: model.isLoading,
         openDrawer: openDrawer,
+        setFilterActive: model.setFilterActive,
       ),
     );
   }
@@ -28,21 +29,29 @@ class ViewModel extends BaseModel<AppState> {
   ViewModel();
 
   Function(String) onSearch;
+  Function(bool) setFilterActive;
   bool isLoading;
 
   ViewModel.build({
     @required this.onSearch,
     @required this.isLoading,
+    @required this.setFilterActive,
   }) : super(equals: [isLoading]);
 
   @override
   BaseModel fromStore() => ViewModel.build(
-        onSearch: (text) {
-          dispatch(
-            SetFilterValueAction(criteriaKind: CriteriaKind.NAME, value: text),
-          );
-          dispatch(ApplyFilterAction());
-        },
-        isLoading: state.isLoading,
-      );
+      onSearch: (text) {
+        dispatch(
+          SetFilterValueAction(criteriaKind: CriteriaKind.NAME, value: text),
+        );
+        dispatch(ApplyFilterAction());
+      },
+      isLoading: state.isLoading,
+      setFilterActive: (state) {
+        if (state) {
+          dispatch(AddFilterCriteriaAction(criteriaKind: CriteriaKind.NAME));
+        } else {
+          dispatch(RemoveFilterCriteriaAction(criteriaKind: CriteriaKind.NAME));
+        }
+      });
 }

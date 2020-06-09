@@ -4,8 +4,13 @@ class SearchBar extends StatefulWidget {
   final Function(String) onSearch;
   final bool isLoading;
   final Function() openDrawer;
-  SearchBar({@required this.onSearch, @required this.isLoading, @required this.openDrawer,});
-
+  final Function(bool) setFilterActive;
+  SearchBar({
+    @required this.onSearch,
+    @required this.isLoading,
+    @required this.openDrawer,
+    @required this.setFilterActive,
+  });
 
   @override
   _SearchBarState createState() => _SearchBarState();
@@ -47,7 +52,10 @@ class _SearchBarState extends State<SearchBar> {
               textInputAction: TextInputAction.go,
               decoration: InputDecoration(
                   border: InputBorder.none, hintText: "Buscar..."),
-              onSubmitted: (text) => widget.onSearch(text),
+              onSubmitted: (text){
+                widget.setFilterActive(text.length > 0);
+                widget.onSearch(text);
+              },
             ),
           ),
           Padding(
